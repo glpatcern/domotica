@@ -1,0 +1,43 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+####################################################################
+
+# Serrande
+
+# S1: chiudi tutte alle max(22.00, tramonto + 2h)
+
+# S2.1: apri poco camere da letto se data = weekday & ora = 8.00
+
+# S2.2: apri poco camere da letto se data = weekend & ora = 9.00
+
+# S3: apri salone a meta' se qualcuno in casa & ora = 8.20
+
+# S4: chiudi tutte se nessuno in casa
+
+# S5: apri salone poco se nessuno in casa & ora = 8.30
+
+# S6: chiudi tutte se nessuno in casa & ora = 19.00
+
+
+# Tenda veranda
+
+# V1: abbassa se temperatura > 25 & ora > alba & ora < tramonto - 1h & vento < soglia
+
+# V2: alza se (ora > tramonto - 1h & ora < alba) | vento > soglia
+
+
+# Presa comandata lume
+
+# P1: accendi se ora >= tramonto + 1h & ora <= 23.00
+
+# P2: spegni se nessuno in casa & (ora > 23.00 | ora < tramonto + 1h)
+
+# P3: accendi se qualcuno in casa & ora > tramonto & ora < alba
+
+
+# Irrigazione
+
+# I1: accendi per 10' se ora = tramonto + 1h & temperatura > 20 & niente pioggia oggi
+
+# I2: accendi per 10' se ora = alba - 1h & temperatura > 15
