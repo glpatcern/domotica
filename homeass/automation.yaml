@@ -41,3 +41,13 @@
 # I1: accendi per 10' se ora = tramonto + 1h & temperatura > 20 & niente pioggia oggi
 
 # I2: accendi per 10' se ora = alba - 1h & temperatura > 15
+
+
+# Recording
+
+# R1 record dati NetAtmo ogni 1h
+
+# R2 record temperatura/umidita' photon veranda
+
+# R3 record free space QNAP
+

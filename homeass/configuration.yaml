@@ -17,7 +17,7 @@ homeassistant:
   time_zone: Europe/Zurich
 
 # include all automation rules
-include: automation.yaml
+#include automation.yaml
 
 # debug mode
 logger:
@@ -121,7 +121,7 @@ netatmo:
   api_key: !secret netatmo_api_key
   secret_key: !secret netatmo_secret_key
   username: glopresti@gmail.com
-  password: !seccret netatmo_password
+  password: !secret netatmo_password
   modules:
     indoor:
       - temperature
@@ -132,7 +132,8 @@ netatmo:
     outdoor:
       - temperature
       - humidity
-      #- wind
+    veranda:
+      - wind
 
 # DLink camera
 camera:
@@ -160,6 +161,8 @@ switch:
     host: 192.168.1.40
     name: EdimaxPlug
     password: !secret edimax_password
+
+# Particle photon Veranda
 
 # Somfy shutters + store
 
