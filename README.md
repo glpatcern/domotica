@@ -1,2 +1,2 @@
 # domotica
-Scripts for home automation, based on home-assistant.
+Scripts and code for home automation
