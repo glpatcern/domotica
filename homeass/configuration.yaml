@@ -24,7 +24,7 @@ logger:
   default: debug
 
 # Show links to resources in log and frontend
-#$introduction:
+#introduction:
 
 # Enables the frontend
 frontend:
@@ -45,18 +45,17 @@ updater:
 #conversation:
 
 # Enables events recording on MySQL
-recorder:
-  db_url: sqlite://
-          #sqlite:///share/CACHEDEV1_DATA/.qpkg/qnap-homeassistant/conf/hass.db
+#recorder:
+#  db_url: sqlite:///share/CACHEDEV1_DATA/.qpkg/qnap-homeassistant/conf/hass.db
           #mysql+pymysql://homeass:homeass@192.168.1.31/homeass
-  exclude:
-    domains:
-      - automation
-      - weblink
-      - updater
-    entities:
-      - sun.sun   # Don't record sun data
-      - sensor.last_boot
+#  exclude:
+#    domains:
+#      - automation
+#      - weblink
+#      - updater
+#    entities:
+#      - sun.sun   # Don't record sun data
+#      - sensor.last_boot
 
 # Enables support for tracking state changes over time
 history:
@@ -79,16 +78,22 @@ notify:
   api_key: !secret pushbullet_api_key
 
 # IFTTT
-#ifttt:
-#  key: 
+ifttt:
+  key: !secret ifttt_key
 
 # Track the Sun and the Moon
 sun:
 sensor:
   - platform: moon
 
+
 # Home devices
 #########################
+
+# Network devices
+device_tracker:
+  - platform: nmap_tracker
+    hosts: 192.168.1.1/24
 
 # QNAP
   - platform: qnap
@@ -105,16 +110,12 @@ sensor:
   - platform: kodi
     host: 192.168.1.31
 
-# Mobile phones presence
-device_tracker:
-  - platform: ping
-    interval_seconds: 10
-    consider_home: 180
-    track_new_devices: yes
-    hosts:
-      hostone: 192.168.1.31
-      #F8:CF:C5:AA:CC:A7  Giu
-      #00:EE:BD:91:F7:CE  Isa
+# Particle photon Veranda
+  - platform: dweet
+    name: Temperatura Veranda
+    device: glp_photon_verandath
+    value_template: '{{ value_json.temp }}'
+    unit_of_measurement: "°C"
 
 # NetAtmo weather station
 netatmo:
@@ -122,50 +123,37 @@ netatmo:
   secret_key: !secret netatmo_secret_key
   username: glopresti@gmail.com
   password: !secret netatmo_password
-  modules:
-    indoor:
-      - temperature
-      - humidity
-      - noise
-      - pressure
-      - co2
-    outdoor:
-      - temperature
-      - humidity
-    veranda:
-      - wind
 
 # DLink camera
 camera:
   - platform: generic
-    name: LoPrestiCam
+    name: Salone-Ingresso
     still_image_url: http://192.168.1.4/image.jpg
     username: admin
     password: !secret camera_password
 
-# Onkyo amplifier
+# Onkyo amplifier - broken for now
 media_player:
   - platform: onkyo
     host: 192.168.1.30
-    name: Amplificatore Onkyo
-    sources:
-      bd-dvd: 'BD-DVD'
-      pc: 'NAS'
-      tuner: 'Tuner'
-      video1: 'CableTV'
-      video7: 'Aux'
+    name: Amplificatore
+#    sources:
+#      bd-dvd: 'BD/DVD'
+#      pc: 'NAS'
+#      tuner: 'Tuner'
+#      video1: 'Cable TV'
+#      video7: 'Aux'
 
 # Edimax power socket
 switch:
   - platform: edimax
     host: 192.168.1.40
-    name: EdimaxPlug
+    name: Luce Salone
     password: !secret edimax_password
 
-# Particle photon Veranda
+# Somfy shutters + store + roof
 
-# Somfy shutters + store
-
-# Orbit sprinkler
+# Orbit watering
 
 # Wolf heating system
+
