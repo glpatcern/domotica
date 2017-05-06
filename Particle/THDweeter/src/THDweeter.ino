@@ -20,6 +20,7 @@
 
 int led = D7;           // internal LED
 int pushButton = D5;    // Push button is connected to D5
+int i = 0;              // time counter
 
 // Connect pin 1 (on the left) of the sensor to +5V
 // Connect pin 2 of the sensor to whatever your DHTPIN is
@@ -36,7 +37,6 @@ http_header_t headers[] = {
   { "Accept" , "*/*"},
   { NULL, NULL } // NOTE: Always terminate headers will NULL
 };
-
 http_request_t request;
 http_response_t response;
 
@@ -70,18 +70,15 @@ void readout() {
  	// cast floats to string
  	String st(t, 2);
  	String sh(h, 2);
- 	// publish data
- 	Particle.publish("TEMP", st);
- 	Particle.publish("HUMIDITY", sh);
 
  	//post to dweet
  	request.hostname = "dweet.io";
   request.port = 80;
   request.path = "/dweet/for/glp_photon_vth?temp=" + st + "&humidity=" + sh + "&time=" + Time.timeStr();
- 	Particle.publish("DEBUG",request.body);
+ 	Particle.publish("Sensor data", request.path);
   http.get(request, response, headers);
   //Particle.publish("DEBUG",response.status);
-  Particle.publish("DEBUG",response.body);
+  Particle.publish("DEBUG", response.body);
 
   // Done, switch off LED
   digitalWrite(led, LOW);
@@ -90,8 +87,19 @@ void readout() {
  }
 
 void loop() {
-  // Wait a minute between measurements.
-  delay(10000);
-  // read and publish sensor data
-  readout();
+  int pushButtonState = digitalRead(pushButton);
+  if(pushButtonState == LOW) {
+    // button was pressed, readout
+    Particle.publish("BUTTON", "Button pressed, reading data");
+    readout();
+    i = 0;
+  }
+  else {
+    i++;
+    // after 5 minutes force a readout
+    if(i == 100) {
+      readout();
+    }
+  }
+  delay(100);
 }
