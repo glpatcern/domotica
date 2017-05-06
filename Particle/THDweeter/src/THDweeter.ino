@@ -15,19 +15,17 @@
 // This #include statement was automatically added by the Particle IDE.
 #include "Adafruit_DHT/Adafruit_DHT.h"
 
-#define DHTPIN 2        // what pin we're connected to
-#define DHTTYPE DHT22		// DHT 22 (AM2302)
-
-int led = D7;           // internal LED
-int pushButton = D5;    // Push button is connected to D5
-int i = 0;              // time counter
-
 // Connect pin 1 (on the left) of the sensor to +5V
 // Connect pin 2 of the sensor to whatever your DHTPIN is
 // Connect pin 4 (on the right) of the sensor to GROUND
 // Connect a 10K resistor from pin 2 (data) to pin 1 (power) of the sensor
 
-DHT dht(DHTPIN, DHTTYPE);
+int dhtPin = 2;           // DHT sensor
+int ledPin = D7;          // Internal LED
+int pushButtonPin = D5;   // Push button
+int readoutTimeIntervalMin = 3;   // perform a readout every given minutes
+
+DHT dht(dhtPin, DHT22);
 HttpClient http;
 
 // Headers currently need to be set at init, useful for API keys etc.
@@ -39,67 +37,79 @@ http_header_t headers[] = {
 };
 http_request_t request;
 http_response_t response;
+int i = readoutTimeIntervalMin*5*60;    // time counter: force a readout at startup
 
 void setup() {
- 	Particle.publish("DEBUG","DHT22 veranda");
+  Time.zone(+1);
  	dht.begin();
-  pinMode(led, OUTPUT);               // D7 pin is output
-  pinMode(pushButton, INPUT_PULLUP);  // input with an internal pull-up resistor
+  pinMode(ledPin, OUTPUT);               // D7 pin is output
+  pinMode(pushButtonPin, INPUT_PULLUP);  // input with an internal pull-up resistor
 }
 
-void readout() {
+void readout(bool button) {
   // First wake up WiFi
-  //Wifi.on();
+  WiFi.on();
+  WiFi.connect();
   // Switch on LED to signal we're reading out the sensor data
-  digitalWrite(led, HIGH);
+  digitalWrite(ledPin, HIGH);
   // Reading temperature or humidity takes about 250 milliseconds!
   // Sensor readings may also be up to 2 seconds 'old' (its a
   // very slow sensor)
  	float h = dht.getHumidity();
   // Read temperature as Celsius
  	float t = dht.getTempCelcius();
-
   // Check if any reads failed and exit early (to try again).
  	if (isnan(h) || isnan(t)) {
-    Particle.publish("DEBUG","Failed to read from DHT sensor!");
- 	  return;
+    //Particle.publish("DEBUG", "Failed to read from DHT sensor!");
+    return;
  	}
  	//float hi = dht.getHeatIndex();
  	//float dp = dht.getDewPoint();
-
  	// cast floats to string
- 	String st(t, 2);
- 	String sh(h, 2);
-
- 	//post to dweet
+ 	String st(t, 1);
+ 	String sh(h, 1);
+  // make sure WiFi is ready
+  while(!WiFi.ready()) {
+    delay(100);
+  }
+  if(button) {
+    Particle.publish("STATE", "Button pressed, data readout");
+  }
+  else {
+    Particle.publish("STATE", "Periodic data readout");
+  }
+  // post to dweet
  	request.hostname = "dweet.io";
   request.port = 80;
-  request.path = "/dweet/for/glp_photon_vth?temp=" + st + "&humidity=" + sh + "&time=" + Time.timeStr();
- 	Particle.publish("Sensor data", request.path);
+  request.path = "/dweet/for/glp_photon_vth?temp=" + st + "&humidity=" + sh + "&time=" + Time.local();
+ 	Particle.publish("DWEET", request.path);
   http.get(request, response, headers);
   //Particle.publish("DEBUG",response.status);
-  Particle.publish("DEBUG", response.body);
-
+  Particle.publish("DWEET", response.body);
   // Done, switch off LED
-  digitalWrite(led, LOW);
-  // and turn off wifi
-  //Wifi.off()
- }
+  digitalWrite(ledPin, LOW);
+}
 
 void loop() {
-  int pushButtonState = digitalRead(pushButton);
+  int pushButtonState = digitalRead(pushButtonPin);
   if(pushButtonState == LOW) {
     // button was pressed, readout
-    Particle.publish("BUTTON", "Button pressed, reading data");
-    readout();
+    readout(true);
     i = 0;
   }
   else {
     i++;
-    // after 5 minutes force a readout
-    if(i == 100) {
-      readout();
+    // force a readout after the given time interval
+    if(i >= readoutTimeIntervalMin*5*60) {
+      readout(false);
+      i = 0;
+    }
+    if(i == 20*5) {
+      // turn off wifi to spare power, but allow a few seconds
+      // for upgrades/other photon activities
+      WiFi.off();
     }
   }
-  delay(100);
+  // loop at 5 Hz to catch button press events
+  delay(200);
 }
