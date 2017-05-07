@@ -37,7 +37,7 @@ http_header_t headers[] = {
 };
 http_request_t request;
 http_response_t response;
-int i = readoutTimeIntervalMin*5*60;    // time counter: force a readout at startup
+int t = readoutTimeIntervalMin*5*60;    // time counter: force a readout at startup
 
 void setup() {
   Time.zone(+1);
@@ -78,7 +78,7 @@ void readout(bool button) {
   else {
     Particle.publish("STATE", "Periodic data readout");
   }
-  // post to dweet
+  // post to dweet: follow at http://dweet.io/follow/glp_photon_vth
  	request.hostname = "dweet.io";
   request.port = 80;
   request.path = "/dweet/for/glp_photon_vth?temp=" + st + "&humidity=" + sh + "&time=" + Time.local();
@@ -95,16 +95,16 @@ void loop() {
   if(pushButtonState == LOW) {
     // button was pressed, readout
     readout(true);
-    i = 0;
+    // don't reset the timer, to keep the regular sampling
   }
   else {
-    i++;
+    t++;
     // force a readout after the given time interval
-    if(i >= readoutTimeIntervalMin*5*60) {
+    if(t >= readoutTimeIntervalMin*5*60) {
       readout(false);
-      i = 0;
+      t = 0;
     }
-    if(i == 20*5) {
+    if(t == 10*5) {
       // turn off wifi to spare power, but allow a few seconds
       // for upgrades/other photon activities
       WiFi.off();
