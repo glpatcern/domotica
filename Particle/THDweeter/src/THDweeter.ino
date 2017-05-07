@@ -5,8 +5,8 @@
  *
  * Changelog:
  * v1.0 - 1-05-2017: initial revision from https://www.hackster.io/shaiss
- * v2.0 - 6-05-2017: added wifi sleep + readout button + refactorization
- *
+ * v2.0 - 6-05-2017: added wifi sleep + readout button, refactorization
+ * v2.1 - 7-05-2017: dropped LED, minor changes
  *************************************************************************/
 
 // This #include statement was automatically added by the Particle IDE.
@@ -15,15 +15,10 @@
 // This #include statement was automatically added by the Particle IDE.
 #include "Adafruit_DHT/Adafruit_DHT.h"
 
-// Connect pin 1 (on the left) of the sensor to +5V
-// Connect pin 2 of the sensor to whatever your DHTPIN is
-// Connect pin 4 (on the right) of the sensor to GROUND
-// Connect a 10K resistor from pin 2 (data) to pin 1 (power) of the sensor
-
-int dhtPin = 2;           // DHT sensor
-int ledPin = D7;          // Internal LED
-int pushButtonPin = D5;   // Push button
-int readoutTimeIntervalMin = 3;   // perform a readout every given minutes
+int dhtPin = 2;                        // DHT sensor pin
+int pushButtonPin = D5;                // Push button pin
+int readoutTimeIntervalMin = 3;        // perform a readout every given minutes
+String thingName = "glp_photon_vth";   // thing name for Dweeter
 
 DHT dht(dhtPin, DHT22);
 HttpClient http;
@@ -37,12 +32,11 @@ http_header_t headers[] = {
 };
 http_request_t request;
 http_response_t response;
-int t = readoutTimeIntervalMin*5*60;    // time counter: force a readout at startup
+int t = readoutTimeIntervalMin*60*5;    // time counter: force a readout at startup
 
 void setup() {
   Time.zone(+1);
  	dht.begin();
-  pinMode(ledPin, OUTPUT);               // D7 pin is output
   pinMode(pushButtonPin, INPUT_PULLUP);  // input with an internal pull-up resistor
 }
 
@@ -50,17 +44,17 @@ void readout(bool button) {
   // First wake up WiFi
   WiFi.on();
   WiFi.connect();
-  // Switch on LED to signal we're reading out the sensor data
-  digitalWrite(ledPin, HIGH);
   // Reading temperature or humidity takes about 250 milliseconds!
   // Sensor readings may also be up to 2 seconds 'old' (its a
   // very slow sensor)
  	float h = dht.getHumidity();
-  // Read temperature as Celsius
+  // Read temperature as Celsius - the lib has a typo...
  	float t = dht.getTempCelcius();
-  // Check if any reads failed and exit early (to try again).
+  // Check if any reads failed and exit early
  	if (isnan(h) || isnan(t)) {
     //Particle.publish("DEBUG", "Failed to read from DHT sensor!");
+    // try again in 10 secs
+    t = readoutTimeIntervalMin*60*5 - 10*5;
     return;
  	}
  	//float hi = dht.getHeatIndex();
@@ -78,16 +72,15 @@ void readout(bool button) {
   else {
     Particle.publish("STATE", "Periodic data readout");
   }
-  // post to dweet: follow at http://dweet.io/follow/glp_photon_vth
+  // post to dweet: follow at http://dweet.io/follow/THINGNAME
  	request.hostname = "dweet.io";
   request.port = 80;
-  request.path = "/dweet/for/glp_photon_vth?temp=" + st + "&humidity=" + sh + "&time=" + Time.local();
+  request.path = "/dweet/for/" + thingName +
+      "?temp=" + st + "&humidity=" + sh + "&time=" + Time.local();
  	Particle.publish("DWEET", request.path);
   http.get(request, response, headers);
   //Particle.publish("DEBUG",response.status);
   Particle.publish("DWEET", response.body);
-  // Done, switch off LED
-  digitalWrite(ledPin, LOW);
 }
 
 void loop() {
@@ -100,7 +93,7 @@ void loop() {
   else {
     t++;
     // force a readout after the given time interval
-    if(t >= readoutTimeIntervalMin*5*60) {
+    if(t >= readoutTimeIntervalMin*60*5) {
       readout(false);
       t = 0;
     }
