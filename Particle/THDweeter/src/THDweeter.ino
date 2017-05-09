@@ -1,7 +1,7 @@
 /*************************************************************************
  * Project THDweeter
  * Description: temperature & umidity dweeter
- * Author: Giuseppe Lo Presti
+ * Author: Giuseppe Lo Presti, glopresti@gmail.com
  *
  * Changelog:
  * v1.0 - 1-05-2017: initial revision from https://www.hackster.io/shaiss
@@ -18,7 +18,7 @@
 
 int dhtPin = 2;                        // DHT sensor pin
 int pushButtonPin = D5;                // push button pin
-int readoutTimeIntervalMin = 3;        // perform a readout every given minutes
+int readoutTimeIntervalMins = 5;       // perform a readout every given minutes
 String thingName = "glp_photon_vth";   // thing name for Dweeter
 
 DHT dht(dhtPin, DHT22);
@@ -45,7 +45,7 @@ void setup() {
 int getAndStoreValues() {
   // reading temperature or humidity takes about 250 milliseconds!
   // Sensor readings may also be up to 2 seconds 'old' (its a
-  // very slow sensor). Also the lib has a typo...
+  // very slow sensor). Also, the lib has a typo...
   temp = dht.getTempCelcius();
   hum = dht.getHumidity();
   //float hi = dht.getHeatIndex();
@@ -79,7 +79,7 @@ int getAndStoreValues() {
 
 
 void readout(bool button) {
-  // First wake up WiFi
+  // first wake up WiFi
   WiFi.on();
   WiFi.connect();
   // get and store current values
@@ -95,28 +95,26 @@ void readout(bool button) {
   while(!WiFi.ready()) {
     delay(300);
   }
-  // log what we're doing
+  String payload;
   if(button) {
     Particle.publish("STATE", "Button pressed, data readout");
-  }
-  else {
-    Particle.publish("STATE", "Periodic data readout");
-  }
-  // post to dweet: follow at http://dweet.io/follow/thingName
- 	request.hostname = "dweet.io";
-  request.port = 80;
-  request.path = "/dweet/for/" + thingName +
-      "?temp=" + st + "&humidity=" + sh + "&time=" + Time.now();
-  if(button) {
     // also publish daily max and min values
     String stmin(tmin, 1);
     String stmax(tmax, 1);
     String shmin(hmin, 1);
     String shmax(hmax, 1);
-    request.path += "&tmin=" + stmin + "&tmax=" + stmax +
+    payload = "temp=" + st + "&humidity=" + sh + "&time=" + Time.now() +
+        "&tmin=" + stmin + "&tmax=" + stmax +
         "&hmin=" + shmin + "&hmax=" + shmax;
+  } else {
+    Particle.publish("STATE", "Periodic data readout");
+    payload = "temp=" + st + "&humidity=" + sh + "&time=" + Time.now();
   }
- 	Particle.publish("DWEET", request.path);
+  // post to dweet: follow at http://dweet.io/follow/thingName
+  request.hostname = "dweet.io";
+  request.port = 80;
+  request.path = "/dweet/for/" + thingName + "?" + payload;
+  Particle.publish("DWEET", payload);
   http.get(request, response, headers);
   //Particle.publish("DEBUG",response.status);
   Particle.publish("DWEET", response.body);
@@ -128,12 +126,13 @@ void loop() {
   if(pushButtonState == LOW) {
     // button was pressed, readout
     readout(true);
-    // and keep WiFi on for other photon activities/upgrades
+    // and keep WiFi on for other Photon activities/upgrades
   }
   else {
     // force a readout after the given time interval
-    if(Time.now() - lastReadoutTime >= readoutTimeIntervalMin*60) {
-      // for regular readouts, record the time of this readout
+    if(Time.now() - lastReadoutTime >= readoutTimeIntervalMins*60) {
+      // for regular readouts, record the time of this readout: this way,
+      // we make the readings as evenly spread in time as possible
       lastReadoutTime = Time.now();
       readout(false);
       delay(1000);
