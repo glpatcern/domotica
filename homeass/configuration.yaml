@@ -90,10 +90,14 @@ sensor:
 # Home devices
 #########################
 
-# Network devices
+# Network devices: this works with arp, which had
+# to be copied from a Fedora 25 box as QNAP does not provide it.
 device_tracker:
   - platform: nmap_tracker
-    hosts: 192.168.1.1/24
+    hosts:
+    - 192.168.1.21   # Giu
+    - 192.168.1.23   # Isa
+
 
 # QNAP
   - platform: qnap
@@ -107,13 +111,13 @@ device_tracker:
       - memory_percent_used
 
 # Kodi player from QNAP/HybridDesk Station
-  - platform: kodi
-    host: 192.168.1.31
+#  - platform: kodi
+#    host: 192.168.1.31
 
 # Particle photon Veranda
   - platform: dweet
     name: Temperatura Veranda
-    device: glp_photon_verandath
+    device: glp_photon_vth
     value_template: '{{ value_json.temp }}'
     unit_of_measurement: "°C"
 
@@ -150,6 +154,13 @@ switch:
     host: 192.168.1.40
     name: Luce Salone
     password: !secret edimax_password
+
+# KIRA IR remote control
+kira:
+  remotes:
+    - name: kira_remote
+    - host: 192.168.1.100
+    - port: 65432
 
 # Somfy shutters + store + roof
 
