@@ -12,10 +12,9 @@ import lnetatmo
 authorization = lnetatmo.ClientAuth()
 devList = lnetatmo.WeatherStationData(authorization)
 
-print ("Current temperature (inside/outside): %s / %s °C" %
-        ( devList.lastData()['indoor']['Temperature'],
-          devList.lastData()['outdoor']['Temperature'])
+print ("Current temperature (inside/outside): %s / %s °C, Wind: %s km/h" %
+        ( devList.lastData()['Indoor']['Temperature'],
+          devList.lastData()['Outdoor']['Temperature'],
+          devList.lastData()['Veranda']['GustStrength'])
       )
-
-print(devList.lastData())
 
