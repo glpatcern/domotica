@@ -30,32 +30,31 @@ logger:
 frontend:
 
 http:
-  # Uncomment this to add a password (recommended!)
   api_password: !secret http_password
-  #ssl_certificate: /share/homes/admin/qnap/configBackup/nas.crt
-  #ssl_key: /share/homes/admin/qnap/configBackup/nas.key
+  ssl_certificate: /config/myhost.crt
+  ssl_key: /config/myhost.key
 
 # Checks for available updates
 updater:
 
 # Discover some devices automatically
-#discovery:
+discovery:
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 #conversation:
 
 # Enables events recording on MySQL
-#recorder:
-#  db_url: sqlite:///share/CACHEDEV1_DATA/.qpkg/qnap-homeassistant/conf/hass.db
+recorder:
+#  db_url: sqlite:///config/hass.db
           #mysql+pymysql://homeass:homeass@192.168.1.31/homeass
-#  exclude:
-#    domains:
-#      - automation
-#      - weblink
-#      - updater
-#    entities:
-#      - sun.sun   # Don't record sun data
-#      - sensor.last_boot
+  exclude:
+    domains:
+      - automation
+      - weblink
+      - updater
+    entities:
+      - sun.sun   # Don't record sun data
+      - sensor.last_boot
 
 # Enables support for tracking state changes over time
 history:
@@ -90,15 +89,6 @@ sensor:
 # Home devices
 #########################
 
-# Network devices: this works with arp, which had
-# to be copied from a Fedora 25 box as QNAP does not provide it.
-device_tracker:
-  - platform: nmap_tracker
-    home_interval: 10
-    hosts:
-    - 192.168.1.21   # Giu
-    - 192.168.1.23   # Isa
-
 # QNAP
   - platform: qnap
     host: 192.168.1.48
@@ -112,7 +102,7 @@ device_tracker:
 
 # Kodi player from QNAP/HybridDesk Station
 #  - platform: kodi
-#    host: 192.168.1.31
+#    host: 192.168.1.48
 
 # Particle photon Veranda
   - platform: dweet
@@ -120,6 +110,14 @@ device_tracker:
     device: glp_photon_vth
     value_template: '{{ value_json.temp }}'
     unit_of_measurement: "°C"
+
+# Network devices
+device_tracker:
+  - platform: nmap_tracker
+    home_interval: 10   # minutes
+    hosts:
+    - 192.168.1.21   # Giu
+    - 192.168.1.23   # Isa
 
 # NetAtmo weather station
 netatmo:
@@ -141,12 +139,15 @@ media_player:
   - platform: onkyo
     host: 192.168.1.30
     name: Amplificatore
-#    sources:
-#      bd-dvd: 'BD/DVD'
-#      pc: 'NAS'
-#      tuner: 'Tuner'
-#      video1: 'Cable TV'
-#      video7: 'Aux'
+    sources:
+      dvd: 'BD/DVD'
+      video2: 'Cable TV'
+      video6: 'NAS'
+      aux1: 'Aux'
+      #tuner: 'Tuner'
+      #dlna: 'DLNA'
+      #internet-radio: 'Radio'
+      network: 'Network'
 
 # Edimax power socket
 switch:
@@ -158,11 +159,11 @@ switch:
 # KIRA IR remote control
 kira:
   remotes:
-    - host: 192.168.1.31
-    - port: 65432
+    - name: kira_remote
+      host: 192.168.1.31
 
 # Somfy shutters + store + roof
 
-# Orbit watering
+# Rachio watering
 
 # Wolf heating system
