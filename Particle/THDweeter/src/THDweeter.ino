@@ -4,10 +4,11 @@
  * Author: Giuseppe Lo Presti, glopresti@gmail.com
  *
  * Changelog:
- * v1.0 - 1-05-2017: initial revision from https://www.hackster.io/shaiss
- * v2.0 - 6-05-2017: added wifi sleep + readout button, refactorization
- * v2.1 - 7-05-2017: dropped LED, minor changes
- * v2.2 - 8-05-2017: added daily max and min reports, use Time
+ * v1.0 - 01-05-2017: initial revision from https://www.hackster.io/shaiss
+ * v2.0 - 06-05-2017: added wifi sleep + readout button, refactorization
+ * v2.1 - 07-05-2017: dropped LED, minor changes
+ * v2.2 - 08-05-2017: added daily max and min reports, use Time
+ * v2.3 - 06-06-2017: minor refactoring, added heat index, reduced logs
  *************************************************************************/
 
 // This #include statement was automatically added by the Particle IDE.
@@ -30,13 +31,13 @@ http_header_t headers[] = {
   { "Accept" , "*/*"},
   { NULL, NULL }  // NOTE: Always terminate headers will NULL
 };
-http_request_t request;
-http_response_t response;
 long lastReadoutTime = 0;       // timestamp of the last readout
-float temp, tmax, tmin, hum, hmax, hmin;    // current and daily max and min values
+float temp, hum, hi,            // current and daily max and min values
+      tmax, tmin, hmax, hmin;
 int day = 0;
 
 void setup() {
+  Time.zone(+2);     // set your time zone if you wish a local time display
  	dht.begin();
   pinMode(pushButtonPin, INPUT_PULLUP);  // input with an internal pull-up resistor
 }
@@ -48,12 +49,20 @@ int getAndStoreValues() {
   // very slow sensor). Also, the lib has a typo...
   temp = dht.getTempCelcius();
   hum = dht.getHumidity();
-  //float hi = dht.getHeatIndex();
-  //float dp = dht.getDewPoint();
+  //dp = dht.getDewPoint();
   // Check if any reads failed and exit early
   if (isnan(hum) || isnan(temp)) {
     //Particle.publish("DEBUG", "Failed to read from DHT sensor!");
     return -1;
+  }
+  // get the felt temperature only if relevant: humidity readings
+  // tend to be skewed towards excessively low values, and in that
+  // case the calculate heat index may become inaccurate
+  if(temp > 25 && hum > 25) {
+    hi = dht.getHeatIndex();
+  }
+  else {
+    hi = 0.0;
   }
   // reset every day the max and min values
   if(Time.day() != day) {
@@ -79,7 +88,9 @@ int getAndStoreValues() {
 
 
 void readout(bool button) {
-  // first wake up WiFi
+  http_request_t request;
+  http_response_t response;
+  // wake up WiFi
   WiFi.on();
   WiFi.connect();
   // get and store current values
@@ -90,34 +101,36 @@ void readout(bool button) {
   }
   // cast floats to strings
   String st(temp, 1);
-  String sh(hum, 1);
-  // make sure WiFi is ready
-  while(!WiFi.ready()) {
-    delay(300);
-  }
-  String payload;
-  if(button) {
-    Particle.publish("STATE", "Button pressed, data readout");
-    // also publish daily max and min values
-    String stmin(tmin, 1);
-    String stmax(tmax, 1);
-    String shmin(hmin, 1);
-    String shmax(hmax, 1);
-    payload = "temp=" + st + "&humidity=" + sh + "&time=" + Time.now() +
-        "&tmin=" + stmin + "&tmax=" + stmax +
-        "&hmin=" + shmin + "&hmax=" + shmax;
-  } else {
-    Particle.publish("STATE", "Periodic data readout");
-    payload = "temp=" + st + "&humidity=" + sh + "&time=" + Time.now();
-  }
+  String sh(hum, 0);
+  String shi(hi, 1);
+  String stmin(tmin, 1);
+  String stmax(tmax, 1);
+  String shmin(hmin, 0);
+  String shmax(hmax, 0);
+  // generate the payload for dweet.io
+  unsigned long now = Time.now();
+  String payload = "temp=" + st + "&humidity=" + sh +
+      (hi > 0 ? "&heatindex=" + shi : "") +
+      // also publish daily max and min values when button pressed
+      (button ? "&tmin=" + stmin + "&tmax=" + stmax +
+                "&hmin=" + shmin + "&hmax=" + shmax : "") +
+      "&timestamp=" + now + "&time=" + Time.format(now, "%Y-%m-%dT%H:%M:%S");
   // post to dweet: follow at http://dweet.io/follow/thingName
   request.hostname = "dweet.io";
   request.port = 80;
   request.path = "/dweet/for/" + thingName + "?" + payload;
-  Particle.publish("DWEET", payload);
+  // make sure WiFi is ready
+  while(!WiFi.ready()) {
+    delay(300);
+  }
+  if(button) {
+    Particle.publish("Button triggered readout", payload);
+  }
+  else {
+    Particle.publish("Periodic readout", payload);
+  }
   http.get(request, response, headers);
-  //Particle.publish("DEBUG",response.status);
-  Particle.publish("DWEET", response.body);
+  Particle.publish("Dweet", response.body);
 }
 
 
@@ -135,7 +148,6 @@ void loop() {
       // we make the readings as evenly spread in time as possible
       lastReadoutTime = Time.now();
       readout(false);
-      delay(1000);
       // turn off WiFi to spare power
       WiFi.off();
     }
