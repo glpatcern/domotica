@@ -4,27 +4,22 @@
 ##############################################################
 
 homeassistant:
-  # Name of the location where Home Assistant is running
+  # name of the location where Home Assistant is running
   name: !secret ha_name
-  # Location required to calculate the time the sun rises and sets
+  # location required to calculate the time the sun rises and sets
   latitude: !secret ha_latitude
   longitude: !secret ha_longitude
-  # Impacts weather/sunrise data (altitude above sea level in meters)
+  # altitude above sea level in meters, impacts weather/sunrise data
   elevation: !secret ha_elevation
-  # metric for Metric, imperial for Imperial
   unit_system: metric
-  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: Europe/Zurich
 
 # include all automation rules
 #include automation.yaml
 
-# debug mode
-logger:
-  default: debug
-
-# Show links to resources in log and frontend
-#introduction:
+# enable debug mode if needed
+#logger:
+#  default: debug
 
 # Enables the frontend
 frontend:
@@ -45,8 +40,6 @@ discovery:
 
 # Enables events recording on MySQL
 recorder:
-#  db_url: sqlite:///config/hass.db
-          #mysql+pymysql://homeass:homeass@192.168.1.31/homeass
   exclude:
     domains:
       - automation
@@ -134,7 +127,7 @@ camera:
     username: admin
     password: !secret camera_password
 
-# Onkyo amplifier - broken for now
+# Onkyo amplifier
 media_player:
   - platform: onkyo
     host: 192.168.1.30
@@ -163,7 +156,5 @@ kira:
       host: 192.168.1.31
 
 # Somfy shutters + store + roof
-
-# Rachio watering
 
 # Wolf heating system
