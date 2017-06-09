@@ -1,8 +1,12 @@
-#!/usr/bin/python3
+#!/usr/bin/python36
 
-import lnetatmo
+import json, lnetatmo
 
-authorization = lnetatmo.ClientAuth()
+creds = json.loads(open('.netatmo.credentials').read())
+authorization = lnetatmo.ClientAuth(clientId=creds['CLIENT_ID'],
+	                                clientSecret=creds['CLIENT_SECRET'],
+	                                username=creds['USERNAME'],
+	                                password=creds['PASSWORD'])
 station_data = lnetatmo.WeatherStationData(authorization)
 
 print ("Current temperature (inside/outside): %s / %s C, Wind: %s km/h" %
@@ -15,4 +19,8 @@ data = station_data.lastData(exclude=3600)
 print(data.keys())
 for module_name in data.keys():
     for variable in data[module_name]:
+    	print('module %s: var %s' % (module_name, variable))
+
+for module_name in data.keys():
+    for variable in station_data.monitoredConditions(module_name):
     	print('module %s: var %s' % (module_name, variable))
