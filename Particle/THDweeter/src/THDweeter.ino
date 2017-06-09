@@ -1,4 +1,4 @@
-/*************************************************************************
+/******************************************************************************
  * Project THDweeter
  * Description: temperature & umidity dweeter
  * Author: Giuseppe Lo Presti, glopresti@gmail.com
@@ -9,7 +9,8 @@
  * v2.1 - 07-05-2017: dropped LED, minor changes
  * v2.2 - 08-05-2017: added daily max and min reports, use Time
  * v2.3 - 06-06-2017: minor refactoring, added heat index, reduced logs
- *************************************************************************/
+ * v2.4 - 09-06-2017: rough calibration for humidity, better WiFi handling
+ ******************************************************************************/
 
 // This #include statement was automatically added by the Particle IDE.
 #include "HttpClient/HttpClient.h"
@@ -38,7 +39,7 @@ int day = 0;
 
 void setup() {
   Time.zone(+2);     // set your time zone if you wish a local time display
- 	dht.begin();
+  dht.begin();
   pinMode(pushButtonPin, INPUT_PULLUP);  // input with an internal pull-up resistor
 }
 
@@ -55,11 +56,24 @@ int getAndStoreValues() {
     //Particle.publish("DEBUG", "Failed to read from DHT sensor!");
     return -1;
   }
-  // get the felt temperature only if relevant: humidity readings
-  // tend to be skewed towards excessively low values, and in that
-  // case the calculate heat index may become inaccurate
-  if(temp > 25 && hum > 25) {
-    hi = dht.getHeatIndex();
+  // apply a correction factor to the humidity reading, following
+  // experimental observations: the factor is 2 up to 30C and 2.2 at 40C
+  hum = hum * (2 + (temp > 30 ? (temp-30)/50 : 0));
+  // get the felt temperature only when it makes sense
+  if(temp >= 25 && hum >= 35) {
+    // this equation comes from the DHT library at:
+    // https://github.com/zackzachariah/hacknest/blob/master/sensor/Adafruit_DHT.cpp
+    float tempF = dht.getTempFarenheit();
+    hi = ((-42.379 +
+             2.04901523 * tempF +
+            10.14333127 * hum +
+            -0.22475541 * tempF * hum +
+            -0.00683783 * pow(tempF, 2) +
+            -0.05481717 * pow(hum, 2) +
+             0.00122874 * pow(tempF, 2) * hum +
+             0.00085282 * tempF * pow(hum, 2) +
+            -0.00000199 * pow(tempF, 2) * pow(hum, 2)
+          ) - 32) * 5/9;    // convert back to Celsius
   }
   else {
     hi = 0.0;
@@ -87,7 +101,7 @@ int getAndStoreValues() {
 }
 
 
-void readout(bool button) {
+int readout(bool button) {
   http_request_t request;
   http_response_t response;
   // wake up WiFi
@@ -97,7 +111,7 @@ void readout(bool button) {
   if(getAndStoreValues()) {
     // failed to read out, try again right away
     lastReadoutTime = 0;
-    return;
+    return -1;
   }
   // cast floats to strings
   String st(temp, 1);
@@ -120,8 +134,13 @@ void readout(bool button) {
   request.port = 80;
   request.path = "/dweet/for/" + thingName + "?" + payload;
   // make sure WiFi is ready
+  int i = 0;
   while(!WiFi.ready()) {
     delay(300);
+    if(++i == 100) {
+      // the WiFi did not connect for 30 seconds, give up
+      return -1;
+    }
   }
   if(button) {
     Particle.publish("Button triggered readout", payload);
@@ -131,6 +150,7 @@ void readout(bool button) {
   }
   http.get(request, response, headers);
   Particle.publish("Dweet", response.body);
+  return 0;
 }
 
 
@@ -148,7 +168,9 @@ void loop() {
       // we make the readings as evenly spread in time as possible
       lastReadoutTime = Time.now();
       readout(false);
-      // turn off WiFi to spare power
+      // yield to the Particle cloud
+      Particle.process();
+      // and turn off WiFi to spare power
       WiFi.off();
     }
   }
