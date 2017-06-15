@@ -25,8 +25,13 @@ for d in devs.keys():
     except AttributeError:
         pass
 
+print('--------------------------')
 for ag in tahoma.getActionGroups():
-	for a in ag.actions:
-	    print('For device %s, command = %s' % (devs[a.deviceURL].label, a.commands))
-        if devs[a.deviceURL].label == 'Cucina':
-            protocol.applyActions('up', a)
+    for a in ag.actions:
+       print('For device %s, command = %s' % (devs[a.deviceURL].label, a.commands))
+       if devs[a.deviceURL].label == 'Cucina':
+           for c in a.commands:
+               print(c)
+               if c.name == 'up':
+                   print('Append action %s' % a)
+                   tahoma.applyActions('set', [a])
