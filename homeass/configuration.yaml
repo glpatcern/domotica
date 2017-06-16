@@ -13,6 +13,13 @@ homeassistant:
   elevation: !secret ha_elevation
   unit_system: metric
   time_zone: Europe/Zurich
+#  customize:
+#    sensor.netatmo.Indoor.wifi:
+#      hidden: True
+#    sensor.netatmo.Outdoor.radio:
+#      hidden: True
+#    sensor.netatmo.Veranda.radio:
+#      hidden: True
 
 # include all automation rules
 #include automation.yaml
@@ -28,12 +35,16 @@ http:
   api_password: !secret http_password
   ssl_certificate: /config/myhost.crt
   ssl_key: /config/myhost.key
+  ip_ban_enabled: True
+  login_attempts_threshold: 5
+#  trusted_networks:
+#    - 192.168.0.0/24
 
 # Checks for available updates
 updater:
 
 # Discover some devices automatically
-discovery:
+#discovery:
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 #conversation:
@@ -46,7 +57,8 @@ recorder:
       - weblink
       - updater
     entities:
-      - sun.sun   # Don't record sun data
+      - sun.sun   # Don't record Sun/Moon data\
+      - sensor.moon
       - sensor.last_boot
 
 # Enables support for tracking state changes over time
@@ -59,6 +71,21 @@ logbook:
 tts:
   platform: google
 
+# Useful links
+weblink:
+  entities:
+    - name: Router
+      url: http://192.168.1.1
+    - name: Amplificatore Onkyo
+      url: http://192.168.1.30
+    - name: QNAP
+      url: http://naslopresti:8080
+    - name: QNAP remote
+      url: https://lopresti.myqnapcloud.com
+    - name: NetAtmo
+      url: https://my.netatmo.com/app/station
+    - name: Somfy Tahoma
+      url: https://www.tahomalink.com
 
 # Custom cloud services
 #########################
@@ -99,31 +126,62 @@ sensor:
 
 # Particle photon Veranda
   - platform: dweet
-    name: Temperatura Veranda
+    name: Temperature Veranda
     device: glp_photon_vth
     value_template: '{{ value_json.temp }}'
     unit_of_measurement: "°C"
 
-# Network devices
-device_tracker:
-  - platform: nmap_tracker
-    home_interval: 10   # minutes
-    hosts:
-    - 192.168.1.21   # Giu
-    - 192.168.1.23   # Isa
+  - platform: dweet
+    name: Humidity Veranda
+    device: glp_photon_vth
+    value_template: '{{ value_json.hum }}'
+    unit_of_measurement: "%"
 
 # NetAtmo weather station
+#  - platform: netatmo
+#    modules:
+#      Indoor:
+#        - temperature
+#        - co2
+#        - pressure
+#        - noise
+#        - humidity
+#      Outdoor:
+#        - temperature
+#        - humidity
+#        - battery_vp
+#      Veranda:
+#        - windangle
+#        - gustangle
+#        - guststrength
+#        - battery_vp
+
 netatmo:
   api_key: !secret netatmo_api_key
   secret_key: !secret netatmo_secret_key
   username: glopresti@gmail.com
   password: !secret netatmo_password
 
+# Track mobile phones
+device_tracker:
+  - platform: nmap_tracker
+    home_interval: 10   # minutes
+    hosts:
+    - 192.168.1.51   # Giu
+    - 192.168.1.52   # Isa
+
 # DLink camera
 camera:
   - platform: generic
     name: Salone-Ingresso
     still_image_url: http://192.168.1.4/image.jpg
+    username: admin
+    password: !secret camera_password
+
+# MotoG camera
+  - platform: generic
+    name: Veranda
+    still_image_url: http://192.168.1.21:8080/shot.jpg
     username: admin
     password: !secret camera_password
 
@@ -155,6 +213,37 @@ kira:
     - name: kira_remote
       host: 192.168.1.31
 
-# Somfy shutters + store + roof
+# Somfy Tahoma for shutters/roof/store
+cover:
+  - platform: command_line
+    covers:
+      cucina:
+        command_open: /config/pytahoma Cucina up
+        command_close: /config/pytahoma Cucina down
+        command_stop: /config/pytahoma Cucina stop
+      salone:
+        command_open: /config/pytahoma Salone up
+        command_close: /config/pytahoma Salone down
+        command_stop: /config/pytahoma Salone stop
+      stanza_da_letto:
+        command_open: /config/pytahoma 'Stanza da letto' up
+        command_close: /config/pytahoma 'Stanza da letto' down
+        command_stop: /config/pytahoma 'Stanza da letto' stop
+      camera_irene:
+        command_open: /config/pytahoma 'Camera Irene' up
+        command_close: /config/pytahoma 'Camera Irene' down
+        command_stop: /config/pytahoma 'Camera Irene' stop
+      camera:
+        command_open: /config/pytahoma Camera up
+        command_close: /config/pytahoma Camera down
+        command_stop: /config/pytahoma Camera stop
+      cupola:
+        command_open: /config/pytahoma Cupola up
+        command_close: /config/pytahoma Cupola down
+        command_stop: /config/pytahoma Cupola stop
+      veranda:
+        command_open: /config/pytahoma Veranda up
+        command_close: /config/pytahoma Veranda down
+        command_stop: /config/pytahoma Veranda stop
 
 # Wolf heating system
