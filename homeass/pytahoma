@@ -1,11 +1,11 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python
 
 import sys
 import json
 from tahoma.protocol import Protocol
 from tahoma.action import Action
 
-creds = open('.tahoma.credentials').read()
+creds = open('/config/.tahoma.credentials').read()
 creds = json.loads(creds)
 
 def execTahomaCommand(devname, cmd):
@@ -22,10 +22,11 @@ def execTahomaCommand(devname, cmd):
     return -1
 
 if len(sys.argv) != 3:
-  print('Usage: pytahoma device_label command')
-  sys.exit(-1)
+    print('Usage: pytahoma device_label command')
+    sys.exit(-1)
 
 devname = sys.argv[1]
 cmd = sys.argv[2]
 if execTahomaCommand(devname, cmd):
     print('Device %s not found' % devname)
+    sys.exit(-2)
