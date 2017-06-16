@@ -1,6 +1,6 @@
 /******************************************************************************
  * Project THDweeter
- * Description: temperature & umidity dweeter
+ * Description: temperature & humidity dweeter
  * Author: Giuseppe Lo Presti, glopresti@gmail.com
  *
  * Changelog:
