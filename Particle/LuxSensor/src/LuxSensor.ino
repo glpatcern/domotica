@@ -10,12 +10,15 @@
 
 int photoPin = A5;           // photoresistor pin
 int powerPin = A0;
+int readoutTimeIntervalMins = 1;   // perform a readout every given minutes
+
+long lastReadoutTime = 0;    // timestamp of the last readout
 float lux, lmin, lmax;
 int day = 0;
+bool connecting = false;
 
 
 void setup() {
-  Time.zone(+2);     // set your time zone if you wish a local time display
   pinMode(photoPin, INPUT);     // prepare the photoresistor
   pinMode(powerPin, OUTPUT);
   digitalWrite(powerPin, HIGH);
@@ -40,7 +43,7 @@ int getAndStoreValues() {
 }
 
 
-int doReadout(bool button) {
+int readout(bool button) {
   // get and store current values
   if(getAndStoreValues()) {
     // failed to read out, try again right away
@@ -50,13 +53,13 @@ int doReadout(bool button) {
   String sl(lux, 3);
   String slmin(lmin, 3);
   String slmax(lmax, 3);
-  // generate the payload for dweet.io
-  unsigned long now = Time.now();
-  String payload = "lux=" + sl +
+  // generate the payload
+  String payload = "{lux: " + sl +
       // also publish daily max and min values when button pressed
-      (button ? "&lmin=" + slmin + "&lmax=" + slmax : "") +
-      "&timestamp=" + now + "&time=" + Time.format(now, "%Y-%m-%dT%H:%M:%S");
-  if(!Particle.publish("Lux", payload, PRIVATE, WITH_ACK)) {
+      (button ? ", lmin: " + slmin + ", lmax: " + slmax : "") +
+      "}";
+  // publish data
+  if(!Particle.publish("luxdata", payload, PRIVATE, WITH_ACK)) {
     return -1;
   }
   return 0;
@@ -64,6 +67,35 @@ int doReadout(bool button) {
 
 
 void loop() {
-  doReadout(true);
-  delay(2000);
+  int pushButtonState = HIGH;
+  if(pushButtonState == LOW) {
+    // button was pressed, readout
+    readout(true);
+    // and keep WiFi on for other Photon activities/upgrades
+  }
+  else {
+    // force a readout after the given time interval
+    if(Time.now() - lastReadoutTime >= readoutTimeIntervalMins*60) {
+      // for regular readouts, record the time of this readout: this way,
+      // we make the readings as evenly spread in time as possible
+      connecting = true;
+      Particle.connect();
+      lastReadoutTime = Time.now();
+      return;
+    }
+    if(connecting) {
+      connecting = false;
+      digitalWrite(D7, LOW);
+      if(!readout(false)) {
+        digitalWrite(D7, HIGH);
+      }
+    }
+    if(Time.now() - lastReadoutTime >= 2) {
+      // turn off WiFi to spare power after 20 secs of inactivity
+      WiFi.off();
+      digitalWrite(D7, LOW);
+    }
+  }
+  // loop at 5 Hz to catch button press events
+  delay(200);
 }
