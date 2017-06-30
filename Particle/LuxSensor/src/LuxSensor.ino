@@ -5,18 +5,23 @@
  *
  * Changelog:
  * v1.0 - 22-06-2017: initial fork from THDweeter to experiment with analogRead
- * v2.0 - 28-06-2017: use the Particle cloud API instead of dweet.io
+ * v2.0 - 29-06-2017: use the Particle cloud API instead of dweet.io and include
+ *                    a state machine to properly handle reconnections
  ******************************************************************************/
 
 int photoPin = A5;           // photoresistor pin
 int powerPin = A0;
 int readoutTimeIntervalMins = 1;   // perform a readout every given minutes
 
+const int PHOTON_OFFLINE = 0;
+const int PHOTON_CONNECTING = 1;
+const int PHOTON_ONLINE = 2;
+
 long lastReadoutTime = 0;    // timestamp of the last readout
 float lux, lmin, lmax;
 int day = 0;
-bool connecting = false;
-
+int photonState = PHOTON_ONLINE;
+bool buttonPressed = false;
 
 void setup() {
   pinMode(photoPin, INPUT);     // prepare the photoresistor
@@ -69,32 +74,37 @@ int readout(bool button) {
 void loop() {
   int pushButtonState = HIGH;
   if(pushButtonState == LOW) {
-    // button was pressed, readout
-    readout(true);
-    // and keep WiFi on for other Photon activities/upgrades
+    // button was pressed, connect for an immediate readout
+    buttonPressed = true;
+    photonState = PHOTON_CONNECTING;
+    Particle.connect();
+    return;
   }
   else {
     // force a readout after the given time interval
     if(Time.now() - lastReadoutTime >= readoutTimeIntervalMins*60) {
       // for regular readouts, record the time of this readout: this way,
       // we make the readings as evenly spread in time as possible
-      connecting = true;
+      photonState = PHOTON_CONNECTING;
+      buttonPressed = false;
       Particle.connect();
       lastReadoutTime = Time.now();
       return;
     }
-    if(connecting) {
-      connecting = false;
+  }
+  if(photonState == PHOTON_CONNECTING) {
       digitalWrite(D7, LOW);
-      if(!readout(false)) {
+      if(!readout(buttonPressed)) {
         digitalWrite(D7, HIGH);
       }
-    }
-    if(Time.now() - lastReadoutTime >= 2) {
-      // turn off WiFi to spare power after 20 secs of inactivity
-      WiFi.off();
-      digitalWrite(D7, LOW);
-    }
+      photonState = PHOTON_ONLINE;
+      return;
+  }
+  if(photonState == PHOTON_ONLINE && !buttonPressed) {
+    delay(1000);
+    WiFi.off();
+    digitalWrite(D7, LOW);
+    photonState = PHOTON_OFFLINE;
   }
   // loop at 5 Hz to catch button press events
   delay(200);
