@@ -21,7 +21,7 @@ int readoutTimeIntervalMins = 2;    // perform a readout every given minutes
  * byte server[] = { XXX,XXX,XXX,XXX };
  * MQTT client(server, 1883, callback);
  **/
-MQTT client("broker.hivemq.com", 1883, callback);
+MQTT client("iot.eclipse.org", 1883, NULL);
 
 long lastReadoutTime = 0;    // timestamp of the last readout
 float lux, lmin, lmax;
@@ -33,37 +33,16 @@ void setup() {
   pinMode(powerPin, OUTPUT);
   pinMode(D7, OUTPUT);       // the integrated LED signals readout errors
   digitalWrite(powerPin, HIGH);
-
-  // connect to the MQTT server
-  client.connect("glp_photon");
-
-  // publish/subscribe
-  if(client.isConnected()) {
-    client.publish("message","hello world");
-    client.subscribe("readout");
-  }
-}
-
-
-void callback(char* topic, byte* payload, unsigned int length) {
-  //char p[length + 1];
-  //memcpy(p, payload, length);
-  //p[length] = NULL;
-  // signal we got the callback  
-  digitalWrite(D7, HIGH);
-  delay(500);
-  digitalWrite(D7, LOW);
-  delay(100);
-  digitalWrite(D7, HIGH);
-  delay(500);
-  digitalWrite(D7, LOW);
-  // and force a readout as if the button were pressed
-  readout(true);
+  // first connection to the MQTT broker
+  client.connect("glpphoton");
 }
 
 
 int getAndStoreValues() {
-  lux = analogRead(photoPin) / 4096.0 * 100;    // scale to [0..100]
+  lux = (analogRead(photoPin) - 1230) * 100.0 / (4095 - 1230);    // scale to [0..100]
+  if(lux < 0) {
+      lux = 0;
+  }
   // reset every day the max and min values
   if(Time.day() != day) {
     day = Time.day();
@@ -91,9 +70,9 @@ int readout(bool button) {
     return -1;
   }
   // cast floats to strings
-  String sl(lux, 0);
-  String slmin(lmin, 0);
-  String slmax(lmax, 0);
+  String sl(lux, 1);
+  String slmin(lmin, 1);
+  String slmax(lmax, 1);
   // generate the payload
   String payload = "{lux: " + sl +
       // also publish daily max and min values when button pressed
@@ -101,19 +80,19 @@ int readout(bool button) {
       "}";
   // make sure we're online
   waitUntil(WiFi.ready);
+  // connect to the MQTT broker
+  client.connect("glpphoton");
   // publish data to the MQTT broker
-  if(!client.publish("luxdata", payload)) {
+  if(!client.publish("glp/thlsensor/data", payload)) {
     return -1;
   }
+  // clear the LED in case of previous errors
   digitalWrite(D7, LOW);
   return 0;
 }
 
 
 void loop() {
-  // main MQTT client loop
-  if (client.isConnected())
-    client.loop();
   // handle button and periodic readouts
   int pushButtonState = HIGH;
   if(pushButtonState == LOW) {
@@ -135,6 +114,8 @@ void loop() {
         digitalWrite(D7, HIGH);
       }
       else {
+        // run a loop of the MQTT code
+        client.loop();
         // all right, turn off WiFi to spare power
         WiFi.off();
       }
