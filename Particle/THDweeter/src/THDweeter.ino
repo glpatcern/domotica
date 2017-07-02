@@ -59,6 +59,11 @@ int getAndStoreValues() {
   // apply a correction factor to the humidity reading, following
   // experimental observations: the factor is 2 up to 30C and 2.2 at 40C
   hum = hum * (2 + (temp > 30 ? (temp-30)/50 : 0));
+  // still, in direct sunlight the reading is too low:
+  // override with artificial minimum
+  if(hum < 15) {
+    hum = 15;
+  }
   // get the felt temperature only when it makes sense
   if(temp >= 25 && hum >= 35) {
     // this equation comes from the DHT library at:
