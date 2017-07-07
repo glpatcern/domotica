@@ -13,20 +13,30 @@ homeassistant:
   elevation: !secret ha_elevation
   unit_system: metric
   time_zone: Europe/Zurich
-#  customize:
-#    sensor.netatmo.Indoor.wifi:
+#  customize:    # not working -> try with groups
+#    sensor_netatmo_indoor_wifi:
 #      hidden: True
-#    sensor.netatmo.Outdoor.radio:
+#    sensor_netatmo_outdoor_radio:
 #      hidden: True
-#    sensor.netatmo.Veranda.radio:
+#    sensor_netatmo_veranda_radio:
 #      hidden: True
+
+# include all layout/grouping
+group: !include groups.yaml
 
 # include all automation rules
-#include automation.yaml
+automation: !include automations.yaml
 
-# enable debug mode if needed
-#logger:
-#  default: debug
+logger:
+  default: warn
+  logs:
+    homeassistant.components.device_tracker: critical
+    homeassistant.components.camera: info
+    homeassistant.components.automation: debug
+    homeassistant.components.sensor: debug
+    homeassistant.components.sensor.command_line: warning
+    homeassistant.components.scene: debug
+    homeassistant.components.switch: info
 
 # Enables the frontend
 frontend:
@@ -37,19 +47,17 @@ http:
   ssl_key: /config/myhost.key
   ip_ban_enabled: True
   login_attempts_threshold: 5
-#  trusted_networks:
-#    - 192.168.0.0/24
+  trusted_networks:
+    - 192.168.0.0/24
 
 # Checks for available updates
 updater:
-
-# Discover some devices automatically
-#discovery:
+  include_used_components: true
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 #conversation:
 
-# Enables events recording on MySQL
+# Enables events recording
 recorder:
   exclude:
     domains:
@@ -57,7 +65,7 @@ recorder:
       - weblink
       - updater
     entities:
-      - sun.sun   # Don't record Sun/Moon data\
+      - sun.sun   # Don't record Sun/Moon data
       - sensor.moon
       - sensor.last_boot
 
@@ -66,6 +74,13 @@ history:
 
 # View all events in a logbook
 logbook:
+
+# embedded MQTT broker
+mqtt:
+  embedded:
+    listeners:
+      websock:
+        bind: 0.0.0.0:8883
 
 # Text to speech
 tts:
@@ -93,21 +108,25 @@ weblink:
 # Pushbullet
 notify:
   platform: pushbullet
-  name: notify
+  name: hass
   api_key: !secret pushbullet_api_key
 
 # IFTTT
 ifttt:
   key: !secret ifttt_key
 
+# Sensors and devices
+#########################
+
 # Track the Sun and the Moon
 sun:
 sensor:
   - platform: moon
 
-
-# Home devices
-#########################
+# HA bad logins
+  - platform: command_line
+    name: badlogins
+    command: grep -c 'Login attempt' /config/home-assistant.log
 
 # QNAP
   - platform: qnap
@@ -138,23 +157,23 @@ sensor:
     unit_of_measurement: "%"
 
 # NetAtmo weather station
-#  - platform: netatmo
-#    modules:
-#      Indoor:
-#        - temperature
-#        - co2
-#        - pressure
-#        - noise
-#        - humidity
-#      Outdoor:
-#        - temperature
-#        - humidity
-#        - battery_vp
-#      Veranda:
-#        - windangle
-#        - gustangle
-#        - guststrength
-#        - battery_vp
+  - platform: netatmo
+    modules:
+      Indoor:
+        - temperature
+        - humidity
+        - pressure
+        - co2
+        - noise
+      Outdoor:
+        - temperature
+        - humidity
+        - battery_vp
+      Veranda:
+        - windangle
+        - gustangle
+        - guststrength
+        - battery_vp
 
 netatmo:
   api_key: !secret netatmo_api_key
@@ -194,11 +213,11 @@ media_player:
       dvd: 'BD/DVD'
       video2: 'Cable TV'
       video6: 'NAS'
+      network: 'Network'
       aux1: 'Aux'
       #tuner: 'Tuner'
       #dlna: 'DLNA'
       #internet-radio: 'Radio'
-      network: 'Network'
 
 # Edimax power socket
 switch:
