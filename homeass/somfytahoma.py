@@ -45,14 +45,14 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
         # in case of repeated actions. It expires after 2 hours.
         hub = tahoma.protocol.Protocol(username, password, cookie)
         hub.getSetup()
-    except ValueError, e:
-        _LOGGER.error("Could not connect to Somfy Tahoma: %s", e)
+    except ValueError, verr:
+        _LOGGER.error("Could not connect to Somfy Tahoma: %s", verr)
         return False
 
     # Add all known devices
     devs = hub.getDevices()
-    for d in devs:
-        add_devices(TahomaCover(hass, hub, d))
+    for dev in devs:
+        add_devices(TahomaCover(hass, hub, dev))
 
 
 
@@ -70,13 +70,13 @@ class TahomaCover(CoverDevice):
         from tahoma.action import Action
 
         _LOGGER.info("Running command %s on device %s",
-                     command, _device.label)
-        a = Action(self._device.url)
-        a.addCommand(command)
+                     command, self._device.label)
+        action = Action(self._device.url)
+        action.addCommand(command)
         try:
-            self._tahoma.applyActions('hass', [a])
-        except ValueError, e:
-            _LOGGER.error("Could not execute command: %s", e)
+            self._tahoma.applyActions('hass', [action])
+        except ValueError, verr:
+            _LOGGER.error("Could not execute command: %s", verr)
 
     @property
     def should_poll(self):
