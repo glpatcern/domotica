@@ -29,7 +29,7 @@ DHT dht(dhtPin, DHT22);
  * byte server[] = { XXX,XXX,XXX,XXX };
  * MQTT client(server, 1883, callback);
  **/
-MQTT client("iot.eclipse.org", 1883, NULL);
+MQTT client("iot.eclipse.org", 1883, NULL);   // for testing purposes
 
 long lastReadoutTime = 0;    // timestamp of the last readout
 float temp, hum, lux, hi,            // current and daily max and min values
@@ -176,7 +176,9 @@ void loop() {
       // something went wrong, signal the error by switching the LED on
       digitalWrite(D7, HIGH);
     }
-    // keep WiFi on for other Photon activities/upgrades
+    // run a loop of the MQTT client lib
+    client.loop();
+    // and keep WiFi on for other Photon activities/upgrades
   }
   else {
     // force a readout after the given time interval
@@ -189,7 +191,7 @@ void loop() {
         digitalWrite(D7, HIGH);
       }
       else {
-        // run a loop of the MQTT code
+        // run a loop of the MQTT client lib
         client.loop();
         // all right, turn off WiFi to spare power
         WiFi.off();
