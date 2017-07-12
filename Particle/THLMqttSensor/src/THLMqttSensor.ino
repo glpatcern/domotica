@@ -178,6 +178,8 @@ void loop() {
     }
     // run a loop of the MQTT client lib
     client.loop();
+    // connect to the Particle cloud
+    Particle.connect();
     // and keep WiFi on for other Photon activities/upgrades
   }
   else {
