@@ -75,32 +75,30 @@ history:
 # View all events in a logbook
 logbook:
 
-# embedded MQTT broker
-mqtt:
-  embedded:
-    listeners:
-      websock:
-        bind: 0.0.0.0:8883
-
 # Text to speech
 tts:
   platform: google
 
+# MQTT broker (mosquitto) running on the QNAP
+mqtt:
+  broker: 192.168.1.48
+
 # Useful links
 weblink:
   entities:
-    - name: Router
-      url: http://192.168.1.1
-    - name: Amplificatore Onkyo
-      url: http://192.168.1.30
     - name: QNAP
-      url: http://naslopresti:8080
-    - name: QNAP remote
       url: https://lopresti.myqnapcloud.com
+    - name: Onkyo (local)
+      url: http://192.168.1.30
     - name: NetAtmo
       url: https://my.netatmo.com/app/station
     - name: Somfy Tahoma
       url: https://www.tahomalink.com
+
+panel_iframe:
+  router:
+    title: Router
+    url: https://sunrise.box
 
 # Custom cloud services
 #########################
@@ -125,8 +123,9 @@ sensor:
 
 # HA bad logins
   - platform: command_line
-    name: badlogins
+    name: HA bad logins
     command: grep -c 'Login attempt' /config/home-assistant.log
+    scan_interval: 600
 
 # QNAP
   - platform: qnap
@@ -138,6 +137,7 @@ sensor:
       - system_temp
       - cpu_usage
       - memory_percent_used
+      - volume_size_free
 
 # Kodi player from QNAP/HybridDesk Station
 #  - platform: kodi
@@ -149,12 +149,6 @@ sensor:
     device: glp_photon_vth
     value_template: '{{ value_json.temp }}'
     unit_of_measurement: "°C"
-
-  - platform: dweet
-    name: Humidity Veranda
-    device: glp_photon_vth
-    value_template: '{{ value_json.hum }}'
-    unit_of_measurement: "%"
 
 # NetAtmo weather station
   - platform: netatmo
@@ -265,4 +259,10 @@ cover:
         command_close: /config/pytahoma Veranda down
         command_stop: /config/pytahoma Veranda stop
 
+#cover:
+#  - platform: somfytahoma
+#    username: !secret somfy_user
+#    password: !secret somfy_password
+
 # Wolf heating system
+# ...
