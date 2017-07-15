@@ -6,13 +6,14 @@
  * Changelog:
  * v1.0 - 30-06-2017: initial revision evolved from LuxSensor
  * v2.0 - 02-07-2017: merged in THDweeter
+ * v2.1 - 15.07.2017: minor fixes and integration with private MQTT
  ******************************************************************************/
 
 // This #include statement was automatically added by the Particle IDE.
 #include <MQTT.h>
 
 // This #include statement was automatically added by the Particle IDE.
-#include "Adafruit_DHT/Adafruit_DHT.h"
+#include <Adafruit_DHT.h>
 
 SYSTEM_MODE(SEMI_AUTOMATIC);    // do not use the Particle cloud
 
@@ -20,16 +21,12 @@ int dhtPin = 2;              // DHT sensor pin
 int pushButtonPin = D5;      // push button pin
 int photoPin = A5;           // photoresistor pin
 int powerPin = A0;           // the other leg of the photoresistor
-int readoutTimeIntervalMins = 2;    // perform a readout every given minutes
+int readoutTimeIntervalMins = 5;    // perform a readout every given minutes
+byte mqttServer[] = { 192, 168, 1, 48 };  // your MQTT server
+// otherwise use e.g. iot.eclipse.org for testing purposes
 
 DHT dht(dhtPin, DHT22);
-
-/**
- * if want to use IP address,
- * byte server[] = { XXX,XXX,XXX,XXX };
- * MQTT client(server, 1883, callback);
- **/
-MQTT client("iot.eclipse.org", 1883, NULL);   // for testing purposes
+MQTT client(mqttServer, 1883, NULL);
 
 long lastReadoutTime = 0;    // timestamp of the last readout
 float temp, hum, lux, hi,            // current and daily max and min values
@@ -44,8 +41,6 @@ void setup() {
   pinMode(powerPin, OUTPUT);
   pinMode(D7, OUTPUT);       // the integrated LED signals readout errors
   digitalWrite(powerPin, HIGH);
-  // first connection to the MQTT broker
-  client.connect("glpphoton");
 }
 
 
@@ -89,10 +84,11 @@ int getAndStoreValues() {
     hi = 0.0;
   }
   // and now for the luminosity reading
-  lux = (analogRead(photoPin) - 1230) * 100.0 / (4095 - 1230);    // scale to [0..100]
-  if(lux < 0) {
-      lux = 0;
-  }
+  lux = analogRead(photoPin) * 100.0 / 4095;     // scale to [0..100]
+  //lux = (analogRead(photoPin) - 1230) * 100.0 / (4095 - 1230);    // scale to [0..100]
+  //if(lux < 0) {
+  //  lux = 0;
+  //}
   // reset every day the max and min values
   if(Time.day() != day) {
     day = Time.day();
@@ -161,7 +157,7 @@ int readout(bool button) {
   if(!client.publish("thlveranda", payload)) {
     return -1;
   }
-  // clear the LED in case of previous errors
+  // all right, clear the LED in case of previous errors
   digitalWrite(D7, LOW);
   return 0;
 }
@@ -176,8 +172,6 @@ void loop() {
       // something went wrong, signal the error by switching the LED on
       digitalWrite(D7, HIGH);
     }
-    // run a loop of the MQTT client lib
-    client.loop();
     // connect to the Particle cloud
     Particle.connect();
     // and keep WiFi on for other Photon activities/upgrades
@@ -192,14 +186,12 @@ void loop() {
         // something went wrong, signal the error by switching the LED on
         digitalWrite(D7, HIGH);
       }
-      else {
-        // run a loop of the MQTT client lib
-        client.loop();
-        // all right, turn off WiFi to spare power
-        WiFi.off();
-      }
+      // and turn off WiFi to spare power
+      WiFi.off();
     }
   }
+  // run a loop of the MQTT client lib
+  client.loop();
   // loop at 5 Hz to catch button press events
   delay(200);
 }
