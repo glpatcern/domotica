@@ -37,12 +37,14 @@ logger:
     homeassistant.components.sensor.command_line: warning
     homeassistant.components.scene: debug
     homeassistant.components.switch: info
+    homeassistant.components.cover: info
 
 # Enables the frontend
 frontend:
 
 http:
   api_password: !secret http_password
+  base_url: !secret http_base_url
   ssl_certificate: /config/myhost.crt
   ssl_key: /config/myhost.key
   ip_ban_enabled: True
@@ -78,6 +80,7 @@ logbook:
 # Text to speech
 tts:
   platform: google
+  language: 'it'
 
 # MQTT broker (mosquitto) running on the QNAP
 mqtt:
@@ -144,11 +147,23 @@ sensor:
 #    host: 192.168.1.48
 
 # Particle photon Veranda
-  - platform: dweet
+  - platform: mqtt
     name: Temperature Veranda
-    device: glp_photon_vth
-    value_template: '{{ value_json.temp }}'
+    state_topic: thlveranda
+    value_template: '{{ value.temp }}'
     unit_of_measurement: "°C"
+
+  - platform: mqtt
+    name: Humidity Veranda
+    state_topic: thlveranda
+    value_template: '{{ value.humidity }}'
+    unit_of_measurement: "%"
+
+  - platform: mqtt
+    name: Luminosity Veranda
+    state_topic: thlveranda
+    value_template: '{{ value.lux }}'
+    unit_of_measurement: "%"
 
 # NetAtmo weather station
   - platform: netatmo
@@ -159,6 +174,7 @@ sensor:
         - pressure
         - co2
         - noise
+        - rain
       Outdoor:
         - temperature
         - humidity
@@ -174,6 +190,7 @@ netatmo:
   secret_key: !secret netatmo_secret_key
   username: glopresti@gmail.com
   password: !secret netatmo_password
+  discovery: False
 
 # Track mobile phones
 device_tracker:
@@ -214,11 +231,11 @@ media_player:
       #internet-radio: 'Radio'
 
 # Edimax power socket
-switch:
-  - platform: edimax
-    host: 192.168.1.40
-    name: Luce Salone
-    password: !secret edimax_password
+#switch:
+#  - platform: edimax
+#    host: 192.168.1.40
+#    name: Luce Salone
+#    password: !secret edimax_password
 
 # KIRA IR remote control
 kira:
@@ -228,41 +245,6 @@ kira:
 
 # Somfy Tahoma for shutters/roof/store
 cover:
-  - platform: command_line
-    covers:
-      cucina:
-        command_open: /config/pytahoma Cucina up
-        command_close: /config/pytahoma Cucina down
-        command_stop: /config/pytahoma Cucina stop
-      salone:
-        command_open: /config/pytahoma Salone up
-        command_close: /config/pytahoma Salone down
-        command_stop: /config/pytahoma Salone stop
-      stanza_da_letto:
-        command_open: /config/pytahoma 'Stanza da letto' up
-        command_close: /config/pytahoma 'Stanza da letto' down
-        command_stop: /config/pytahoma 'Stanza da letto' stop
-      camera_irene:
-        command_open: /config/pytahoma 'Camera Irene' up
-        command_close: /config/pytahoma 'Camera Irene' down
-        command_stop: /config/pytahoma 'Camera Irene' stop
-      camera:
-        command_open: /config/pytahoma Camera up
-        command_close: /config/pytahoma Camera down
-        command_stop: /config/pytahoma Camera stop
-      cupola:
-        command_open: /config/pytahoma Cupola up
-        command_close: /config/pytahoma Cupola down
-        command_stop: /config/pytahoma Cupola stop
-      veranda:
-        command_open: /config/pytahoma Veranda up
-        command_close: /config/pytahoma Veranda down
-        command_stop: /config/pytahoma Veranda stop
-
-#cover:
-#  - platform: somfytahoma
-#    username: !secret somfy_user
-#    password: !secret somfy_password
-
-# Wolf heating system
-# ...
+  - platform: somfytahoma
+    username: !secret somfy_user
+    password: !secret somfy_password
