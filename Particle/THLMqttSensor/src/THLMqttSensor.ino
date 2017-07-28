@@ -7,6 +7,7 @@
  * v1.0 - 30-06-2017: initial revision evolved from LuxSensor
  * v2.0 - 02-07-2017: merged in THDweeter
  * v2.1 - 15.07.2017: minor fixes and integration with private MQTT
+ * v2.2 - 28.07.2017: fixed the JSON format and parameterized topic
  ******************************************************************************/
 
 // This #include statement was automatically added by the Particle IDE.
@@ -17,13 +18,16 @@
 
 SYSTEM_MODE(SEMI_AUTOMATIC);    // do not use the Particle cloud
 
+// *** Configuration of the sensor ***
 int dhtPin = 2;              // DHT sensor pin
 int pushButtonPin = D5;      // push button pin
 int photoPin = A5;           // photoresistor pin
 int powerPin = A0;           // the other leg of the photoresistor
-int readoutTimeIntervalMins = 5;    // perform a readout every given minutes
+int readoutTimeIntervalMins = 5;       // perform a readout every given minutes
+String topic = "thlveranda";              // topic for the MQTT server
 byte mqttServer[] = { 192, 168, 1, 48 };  // your MQTT server
-// otherwise use e.g. iot.eclipse.org for testing purposes
+// otherwise use e.g.
+// String mqttServer = "iot.eclipse.org"; // for testing purposes
 
 DHT dht(dhtPin, DHT22);
 MQTT client(mqttServer, 1883, NULL);
@@ -53,7 +57,6 @@ int getAndStoreValues() {
   //dp = dht.getDewPoint();
   // Check if any reads failed and exit early
   if (isnan(hum) || isnan(temp)) {
-    //Particle.publish("DEBUG", "Failed to read from DHT sensor!");
     return -1;
   }
   // apply a correction factor to the humidity reading, following
@@ -84,11 +87,10 @@ int getAndStoreValues() {
     hi = 0.0;
   }
   // and now for the luminosity reading
-  lux = analogRead(photoPin) * 100.0 / 4095;     // scale to [0..100]
-  //lux = (analogRead(photoPin) - 1230) * 100.0 / (4095 - 1230);    // scale to [0..100]
-  //if(lux < 0) {
-  //  lux = 0;
-  //}
+  lux = (analogRead(photoPin) - 1500) * 100.0 / (4095 - 1500);    // scale to [0..100]
+  if(lux < 0) {
+    lux = 0;
+  }
   // reset every day the max and min values
   if(Time.day() != day) {
     day = Time.day();
@@ -140,21 +142,21 @@ int readout(bool button) {
   String shmax(hmax, 0);
   String slmin(lmin, 1);
   String slmax(lmax, 1);
-  // generate the payload
-  String payload = "{temp: " + st + ", humidity: " + sh +
-      (hi > 0 ? ", heatindex: " + shi : "") +
-      ", lux: " + sl +
+  // generate the payload in JSON format
+  String payload = "{\"temp\": " + st + ", \"humidity\": " + sh +
+      (hi > 0 ? ", \"heatindex\": " + shi : "") +
+      ", \"lux\": " + sl +
       // also publish daily max and min values when button pressed
-      (button ? ", tmin: " + stmin + ", tmax: " + stmax +
-                ", hmin: " + shmin + ", hmax: " + shmax +
-                ", lmin: " + slmin + ", lmax: " + slmax : "") +
+      (button ? ", \"tmin\": " + stmin + ", \"tmax\": " + stmax +
+                ", \"hmin\": " + shmin + ", \"hmax\": " + shmax +
+                ", \"lmin\": " + slmin + ", \"lmax\": " + slmax : "") +
       "}";
   // make sure we're online
   waitUntil(WiFi.ready);
   // connect to the MQTT broker
-  client.connect("glpphoton");
+  client.connect("photon");
   // publish data to the MQTT broker
-  if(!client.publish("thlveranda", payload)) {
+  if(!client.publish(topic, payload)) {
     return -1;
   }
   // all right, clear the LED in case of previous errors
@@ -195,3 +197,4 @@ void loop() {
   // loop at 5 Hz to catch button press events
   delay(200);
 }
+
