@@ -13,13 +13,15 @@ homeassistant:
   elevation: !secret ha_elevation
   unit_system: metric
   time_zone: Europe/Zurich
-#  customize:    # not working -> try with groups
-#    sensor_netatmo_indoor_wifi:
-#      hidden: True
-#    sensor_netatmo_outdoor_radio:
-#      hidden: True
-#    sensor_netatmo_veranda_radio:
-#      hidden: True
+  customize:
+    sensor.humidity_veranda:
+      icon: mdi:water-percent
+    sensor.netatmo_indoor_wifi:
+      hidden: True
+    sensor.netatmo_outdoor_radio:
+      hidden: True
+    sensor.netatmo_veranda_radio:
+      hidden: True
 
 # include all layout/grouping
 group: !include groups.yaml
@@ -38,6 +40,8 @@ logger:
     homeassistant.components.scene: debug
     homeassistant.components.switch: info
     homeassistant.components.cover: info
+
+config:
 
 # Enables the frontend
 frontend:
@@ -150,21 +154,20 @@ sensor:
   - platform: mqtt
     name: Temperature Veranda
     state_topic: thlveranda
-    value_template: '{{ value.temp }}'
-    unit_of_measurement: "°C"
+    value_template: '{{ value_json.temp }}'
+    unit_of_measurement: '°C'
 
   - platform: mqtt
     name: Humidity Veranda
     state_topic: thlveranda
-    value_template: '{{ value.humidity }}'
-    unit_of_measurement: "%"
+    value_template: '{{ value_json.humidity }}'
+    unit_of_measurement: '%'
 
   - platform: mqtt
     name: Luminosity Veranda
     state_topic: thlveranda
-    value_template: '{{ value.lux }}'
-    unit_of_measurement: "%"
-
+    value_template: '{{ value_json.lux }}'
+    unit_of_measurement: '%'
 # NetAtmo weather station
   - platform: netatmo
     modules:
@@ -190,7 +193,7 @@ netatmo:
   secret_key: !secret netatmo_secret_key
   username: glopresti@gmail.com
   password: !secret netatmo_password
-  discovery: False
+#  discovery: False
 
 # Track mobile phones
 device_tracker:
