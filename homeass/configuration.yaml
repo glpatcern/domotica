@@ -3,8 +3,10 @@
 #
 ##############################################################
 
+# General HA configuration
+############################
+
 homeassistant:
-  # name of the location where Home Assistant is running
   name: !secret ha_name
   # location required to calculate the time the sun rises and sets
   latitude: !secret ha_latitude
@@ -14,20 +16,42 @@ homeassistant:
   unit_system: metric
   time_zone: Europe/Zurich
   customize:
+    sensor.ha_bad_logins:
+      icon: mdi:account-key
     sensor.humidity_veranda:
       icon: mdi:water-percent
-    sensor.netatmo_indoor_wifi:
-      hidden: True
-    sensor.netatmo_outdoor_radio:
-      hidden: True
-    sensor.netatmo_veranda_radio:
-      hidden: True
+    sensor.luminosity_veranda:
+      icon: mdi:lightbulb-on-outline
+    cover.cupola:
+      icon: mdi:arrange-send-backward
+#    sensor.netatmo_indoor_wifi:
+#      hidden: True
+#    sensor.netatmo_outdoor_radio:
+#      hidden: True
+#    sensor.netatmo_veranda_radio:
+#      hidden: True
+    sensor.pws_temp_high_record_c:
+      friendly_name: 'High Temperature record'
+    sensor.pws_temp_low_record_c:
+      friendly_name: 'Low Temperature record'
+    sensor.pws_weather_1d_metric:
+      friendly_name: 'Today'
+    sensor.pws_weather_1n_metric:
+      friendly_name: 'Tonight'
 
 # include all layout/grouping
 group: !include groups.yaml
 
 # include all automation rules
 automation: !include automations.yaml
+
+scene:
+  - name: Cinema
+    entities:
+      cover.salone:
+        state: down
+      media_player.amplificatore:
+        state: on
 
 logger:
   default: warn
@@ -36,16 +60,18 @@ logger:
     homeassistant.components.camera: info
     homeassistant.components.automation: debug
     homeassistant.components.sensor: debug
-    homeassistant.components.sensor.command_line: warning
+    homeassistant.components.sensor.command_line: warn
     homeassistant.components.scene: debug
     homeassistant.components.switch: info
     homeassistant.components.cover: info
 
-config:
-
 # Enables the frontend
 frontend:
 
+# Enables the configuration tab
+config:
+
+# Login and SSL
 http:
   api_password: !secret http_password
   base_url: !secret http_base_url
@@ -58,7 +84,7 @@ http:
 
 # Checks for available updates
 updater:
-  include_used_components: true
+  include_used_components: True
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 #conversation:
@@ -86,9 +112,12 @@ tts:
   platform: google
   language: 'it'
 
-# MQTT broker (mosquitto) running on the QNAP
-mqtt:
-  broker: 192.168.1.48
+# Zones
+zone 1:
+  name: CERN
+  latitude: 46.232175
+  longitude: 6.050528
+  radius: 600
 
 # Useful links
 weblink:
@@ -97,7 +126,7 @@ weblink:
       url: https://lopresti.myqnapcloud.com
     - name: Onkyo (local)
       url: http://192.168.1.30
-    - name: NetAtmo
+    - name: NetAtmo station
       url: https://my.netatmo.com/app/station
     - name: Somfy Tahoma
       url: https://www.tahomalink.com
@@ -123,6 +152,83 @@ ifttt:
 # Sensors and devices
 #########################
 
+# MQTT broker (mosquitto) running on the QNAP
+mqtt:
+  broker: 192.168.1.48
+
+# Track mobile phones
+device_tracker:
+  - platform: nmap_tracker
+    home_interval: 10   # minutes
+    hosts:
+    - 192.168.1.51   # Giu
+    - 192.168.1.52   # Isa
+
+  - platform: owntracks
+
+# NetAtmo weather station
+netatmo:
+  api_key: !secret netatmo_api_key
+  secret_key: !secret netatmo_secret_key
+  username: glopresti@gmail.com
+  password: !secret netatmo_password
+  discovery: False
+
+# DLink camera
+camera:
+  - platform: generic
+    name: Salone-Ingresso
+    still_image_url: http://192.168.1.4/image.jpg
+    username: admin
+    password: !secret camera_password
+
+# MotoG camera
+  - platform: android_ip_webcam
+    host: 192.168.1.21
+    name: Veranda
+#    still_image_url: http://192.168.1.21:8080/shot.jpg
+#    username: admin
+#    password: !secret camera_password
+
+# Onkyo amplifier
+media_player:
+  - platform: onkyo
+    host: 192.168.1.30
+    name: Amplificatore
+    sources:
+      dvd: 'BD/DVD'
+      video2: 'Cable TV'
+      video6: 'NAS'
+      network: 'Network'
+      aux1: 'Aux'
+      #tuner: 'Tuner'
+      #dlna: 'DLNA'
+      #internet-radio: 'Radio'
+
+# Kodi player in QNAP/HybridDesk Station
+  - platform: kodi
+    name: Kodi player in QNAP
+    host: 192.168.1.48
+
+# Edimax power socket
+switch:
+  - platform: edimax
+    host: 192.168.1.40
+    name: Luce Salone
+    password: !secret edimax_password
+
+# KIRA IR remote control
+kira:
+  remotes:
+    - name: kira_remote
+      host: 192.168.1.31
+
+# Somfy Tahoma for shutters/roof/store
+cover:
+  - platform: somfytahoma
+    username: !secret somfy_user
+    password: !secret somfy_password
+
 # Track the Sun and the Moon
 sun:
 sensor:
@@ -133,6 +239,16 @@ sensor:
     name: HA bad logins
     command: grep -c 'Login attempt' /config/home-assistant.log
     scan_interval: 600
+
+# Internet speed test
+  - platform: speedtest
+    monitored_conditions:
+      - ping
+      - download
+      - upload
+    hour:
+      - 15
+      - 23
 
 # QNAP
   - platform: qnap
@@ -145,10 +261,6 @@ sensor:
       - cpu_usage
       - memory_percent_used
       - volume_size_free
-
-# Kodi player from QNAP/HybridDesk Station
-#  - platform: kodi
-#    host: 192.168.1.48
 
 # Particle photon Veranda
   - platform: mqtt
@@ -168,8 +280,10 @@ sensor:
     state_topic: thlveranda
     value_template: '{{ value_json.lux }}'
     unit_of_measurement: '%'
+
 # NetAtmo weather station
   - platform: netatmo
+    station: Meyrin Village
     modules:
       Indoor:
         - temperature
@@ -177,77 +291,40 @@ sensor:
         - pressure
         - co2
         - noise
-        - rain
       Outdoor:
         - temperature
         - humidity
+        - min_temp
+        - max_temp
         - battery_vp
-      Veranda:
+      Terrace:
         - windangle
+        - windstrength
         - gustangle
         - guststrength
         - battery_vp
 
-netatmo:
-  api_key: !secret netatmo_api_key
-  secret_key: !secret netatmo_secret_key
-  username: glopresti@gmail.com
-  password: !secret netatmo_password
-#  discovery: False
-
-# Track mobile phones
-device_tracker:
-  - platform: nmap_tracker
-    home_interval: 10   # minutes
-    hosts:
-    - 192.168.1.51   # Giu
-    - 192.168.1.52   # Isa
-
-# DLink camera
-camera:
-  - platform: generic
-    name: Salone-Ingresso
-    still_image_url: http://192.168.1.4/image.jpg
-    username: admin
-    password: !secret camera_password
-
-# MotoG camera
-  - platform: generic
-    name: Veranda
-    still_image_url: http://192.168.1.21:8080/shot.jpg
-    username: admin
-    password: !secret camera_password
-
-# Onkyo amplifier
-media_player:
-  - platform: onkyo
-    host: 192.168.1.30
-    name: Amplificatore
-    sources:
-      dvd: 'BD/DVD'
-      video2: 'Cable TV'
-      video6: 'NAS'
-      network: 'Network'
-      aux1: 'Aux'
-      #tuner: 'Tuner'
-      #dlna: 'DLNA'
-      #internet-radio: 'Radio'
-
-# Edimax power socket
-#switch:
-#  - platform: edimax
-#    host: 192.168.1.40
-#    name: Luce Salone
-#    password: !secret edimax_password
-
-# KIRA IR remote control
-kira:
-  remotes:
-    - name: kira_remote
-      host: 192.168.1.31
-
-# Somfy Tahoma for shutters/roof/store
-cover:
-  - platform: somfytahoma
-    username: !secret somfy_user
-    password: !secret somfy_password
+# WUnderground
+  - platform: wunderground
+    api_key: !secret wunderground_key
+    monitored_conditions:
+      - weather_1d_metric
+      - weather_1n_metric
+      - weather_2d_metric
+      - weather_2n_metric
+      - temp_high_record_c
+      - temp_high_1d_c
+      - temp_c
+      - feelslike_c
+      - dewpoint_c
+      - temp_low_1d_c
+      - temp_low_record_c
+      - relative_humidity
+      - pressure_mb
+      - pressure_trend
+      - precip_today_metric
+      - precip_1d
+      - wind_kph
+      - wind_gust_kph
+      - wind_dir
+      - alerts

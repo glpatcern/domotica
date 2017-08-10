@@ -3,3 +3,95 @@
 #
 ###############################################################
 
+default_view:
+  view: yes
+  entities:
+    - group.famiglia
+    - group.meteo
+    - group.media_center
+    - group.piano_terra
+    - group.veranda_giardino
+    - group.primo_piano
+    - group.it
+
+famiglia:
+  name: 'Famiglia'
+  entities:
+    - device_tracker.b49d0b54c248
+    - device_tracker.005a13abdfdb
+
+piano_terra:
+  name: 'Piano terra'
+  control: hidden
+  entities:
+    - cover.cucina
+    - cover.salone
+    - switch.luce_salone
+    - camera.saloneingresso
+
+veranda_giardino:
+  name: 'Veranda/giardino'
+  entities:
+    - cover.veranda
+    - sensor.temperature_veranda
+    - sensor.humidity_veranda
+    - sensor.luminosity_veranda
+    - camera.veranda
+#    - sensor.netatmo_windgust
+
+primo_piano:
+  name: 'Primo piano'
+  entities:
+    - cover.stanza_da_letto
+    - cover.camera_irene
+    - cover.camera
+    - cover.cupola
+
+media_center:
+  name: 'Media center'
+  entities:
+    - media_player.amplificatore
+    - media_player.kodi_player_in_qnap
+    - remote.kira_remote
+    - weblink.onkyo_local
+
+meteo:
+  name: 'Meteo'
+  entities:
+    - sensor.pws_weather_1d_metric
+    - sensor.pws_weather_1n_metric
+    - sun.sun
+    - sensor.moon
+    - sensor.pws_temp_c
+    - sensor.pws_relative_humidity
+    - sensor.pws_pressure_mb
+    - sensor.pws_precip_today_metric
+    - sensor.pws_precip_1d
+    - sensor.pws_wind_kph
+    - group.meteodetails
+    - weblink.netatmo_station
+
+meteodetails:
+  name: 'More details ...'
+  entities:
+    - sensor.pws_feelslike_c
+    - sensor.pws_dewpoint_c
+    - sensor.pws_temp_high_record_c
+    - sensor.pws_temp_high_1d_c
+    - sensor.pws_temp_low_1d_c
+    - sensor.pws_temp_low_record_c
+    - sensor.pws_pressure_trend
+    - sensor.pws_wind_gust_kph
+    - sensor.pws_wind_dir
+
+it:
+  name: 'IT'
+  entities:
+    - sensor.speedtest_download
+    - sensor.speedtest_upload
+    - sensor.speedtest_ping
+    - weblink.qnap
+    - sensor.naslopresti_cpu_usage
+    - sensor.naslopresti_free_space_data
+    - sensor.naslopresti_system_temperature
+    - sensor.ha_bad_logins
