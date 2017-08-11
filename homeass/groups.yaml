@@ -26,7 +26,7 @@ piano_terra:
   entities:
     - cover.cucina
     - cover.salone
-    - switch.luce_salone
+    - switch.smartplug
     - camera.saloneingresso
 
 veranda_giardino:
@@ -49,7 +49,9 @@ primo_piano:
 
 media_center:
   name: 'Media center'
+  control: hidden
   entities:
+    - scene.cinema
     - media_player.amplificatore
     - media_player.kodi_player_in_qnap
     - remote.kira_remote
@@ -92,6 +94,7 @@ it:
     - sensor.speedtest_ping
     - weblink.qnap
     - sensor.naslopresti_cpu_usage
+    - sensor.naslopresti_memory_usage
     - sensor.naslopresti_free_space_data
     - sensor.naslopresti_system_temperature
     - sensor.ha_bad_logins

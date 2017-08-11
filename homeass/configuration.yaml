@@ -15,6 +15,7 @@ homeassistant:
   elevation: !secret ha_elevation
   unit_system: metric
   time_zone: Europe/Zurich
+  # all custom icons and friendly names go here
   customize:
     sensor.ha_bad_logins:
       icon: mdi:account-key
@@ -22,14 +23,14 @@ homeassistant:
       icon: mdi:water-percent
     sensor.luminosity_veranda:
       icon: mdi:lightbulb-on-outline
+    sensor.pws_wind_dir:
+      icon: mdi:compass
     cover.cupola:
       icon: mdi:arrange-send-backward
-#    sensor.netatmo_indoor_wifi:
-#      hidden: True
-#    sensor.netatmo_outdoor_radio:
-#      hidden: True
-#    sensor.netatmo_veranda_radio:
-#      hidden: True
+    scene.cinema:
+      icon: mdi:projector
+    switch.smartplug:
+      friendly_name: 'Lume'
     sensor.pws_temp_high_record_c:
       friendly_name: 'High Temperature record'
     sensor.pws_temp_low_record_c:
@@ -38,6 +39,14 @@ homeassistant:
       friendly_name: 'Today'
     sensor.pws_weather_1n_metric:
       friendly_name: 'Tonight'
+    sensor.naslopresti_cpu_usage:
+      friendly_name: 'QNAP CPU usage'
+    sensor.naslopresti_memory_usage:
+      friendly_name: 'QNAP RAM usage'
+    sensor.naslopresti_system_temperature:
+      friendly_name: 'QNAP Temperature'
+    sensor.naslopresti_free_space_data:
+      friendly_name: 'QNAP Free space'
 
 # include all layout/grouping
 group: !include groups.yaml
@@ -45,13 +54,8 @@ group: !include groups.yaml
 # include all automation rules
 automation: !include automations.yaml
 
-scene:
-  - name: Cinema
-    entities:
-      cover.salone:
-        state: down
-      media_player.amplificatore:
-        state: on
+# include all scenes
+scene: !include scenes.yaml
 
 logger:
   default: warn
@@ -214,7 +218,7 @@ media_player:
 switch:
   - platform: edimax
     host: 192.168.1.40
-    name: Luce Salone
+    name: Smartplug
     password: !secret edimax_password
 
 # KIRA IR remote control
@@ -237,7 +241,7 @@ sensor:
 # HA bad logins
   - platform: command_line
     name: HA bad logins
-    command: grep -c 'Login attempt' /config/home-assistant.log
+    command: grep -sc 'Login attempt' /config/home-assistant.log
     scan_interval: 600
 
 # Internet speed test

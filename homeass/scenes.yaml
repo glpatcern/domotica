@@ -1,0 +1,14 @@
+#
+# LoPresti smart home - scenes
+#
+#######################################
+
+# Get ready for the home theater
+- name: Cinema
+  entities:
+    cover.salone:
+      state: down
+    media_player.amplificatore:
+      state: on
+    switch.smartplug:
+      state: off
