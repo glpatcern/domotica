@@ -51,11 +51,19 @@ homeassistant:
 # include all layout/grouping
 group: !include groups.yaml
 
-# include all automation rules
-automation: !include automations.yaml
-
 # include all scenes
 scene: !include scenes.yaml
+
+# the automation rules are split per type
+automation:
+  # Tenda veranda e serrande
+  - !include automations/covers.yaml
+  # Presa comandata lume
+  - !include automations/lume.yaml
+  # Irrigazione
+  - !include automations/irrigazione.yaml
+  # Cucu'
+  - !include automations/cucu.yaml
 
 logger:
   default: warn

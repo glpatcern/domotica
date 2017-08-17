@@ -1,0 +1,10 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+####################################################################
+
+# abbassa se temperatura > 25 & ora > alba & ora < tramonto - 2h & vento < soglia
+
+# alza se (ora > tramonto - 2h & ora < alba) | vento > soglia
+
+# chiudi tutte se nessuno in casa & ora = 11.00

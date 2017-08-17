@@ -1,0 +1,10 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+####################################################################
+
+# P1: accendi se ora >= tramonto + 1h & ora <= 23.00
+
+# P2: spegni se nessuno in casa & (ora > 23.00 | ora < tramonto + 1h)
+
+# P3: accendi se qualcuno in casa & ora > tramonto & ora < alba

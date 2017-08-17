@@ -1,0 +1,8 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+####################################################################
+
+# I1: accendi per 30' se ora = tramonto + 1h & temperatura > 20 & niente pioggia oggi
+
+# I2: accendi per 30' se ora = alba - 1h & temperatura > 15
