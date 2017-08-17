@@ -1,4 +1,4 @@
-#!/usr/bin/python36
+#!/usr/bin/python35
 
 import json, lnetatmo
 
