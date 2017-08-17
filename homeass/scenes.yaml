@@ -7,7 +7,7 @@
 - name: Cinema
   entities:
     cover.salone:
-      state: down
+      position: 0
     media_player.amplificatore:
       state: on
     switch.smartplug:

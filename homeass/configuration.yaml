@@ -87,8 +87,8 @@ config:
 http:
   api_password: !secret http_password
   base_url: !secret http_base_url
-  ssl_certificate: /config/myhost.crt
-  ssl_key: /config/myhost.key
+  ssl_certificate: /config/SSLcertificate.crt
+  ssl_key: /config/SSLprivatekey.key
   ip_ban_enabled: True
   login_attempts_threshold: 5
   trusted_networks:
@@ -158,8 +158,8 @@ notify:
   api_key: !secret pushbullet_api_key
 
 # IFTTT
-ifttt:
-  key: !secret ifttt_key
+#ifttt:
+#  key: !secret ifttt_key
 
 # Sensors and devices
 #########################
@@ -182,7 +182,7 @@ device_tracker:
 netatmo:
   api_key: !secret netatmo_api_key
   secret_key: !secret netatmo_secret_key
-  username: glopresti@gmail.com
+  username: !secret netatmo_user
   password: !secret netatmo_password
   discovery: False
 
@@ -195,12 +195,16 @@ camera:
     password: !secret camera_password
 
 # MotoG camera
-  - platform: android_ip_webcam
-    host: 192.168.1.21
-    name: Veranda
+android_ip_webcam:
+  name: Veranda
+  host: 192.168.1.21
 #    still_image_url: http://192.168.1.21:8080/shot.jpg
-#    username: admin
-#    password: !secret camera_password
+  username: admin
+  password: !secret camera_password
+  sensors:
+    - battery_level
+    - light
+    - motion
 
 # Onkyo amplifier
 media_player:
@@ -237,9 +241,39 @@ kira:
 
 # Somfy Tahoma for shutters/roof/store
 cover:
-  - platform: somfytahoma
-    username: !secret somfy_user
-    password: !secret somfy_password
+#  - platform: somfytahoma
+#    username: !secret somfy_user
+#    password: !secret somfy_password
+  - platform: command_line
+    covers:
+      cucina:
+        command_open: /config/pytahoma Cucina up
+        command_close: /config/pytahoma Cucina down
+        command_stop: /config/pytahoma Cucina stop
+      salone:
+        command_open: /config/pytahoma Salone up
+        command_close: /config/pytahoma Salone down
+        command_stop: /config/pytahoma Salone stop
+      stanza_da_letto:
+        command_open: /config/pytahoma 'Stanza da letto' up
+        command_close: /config/pytahoma 'Stanza da letto' down
+        command_stop: /config/pytahoma 'Stanza da letto' stop
+      camera_irene:
+        command_open: /config/pytahoma 'Camera Irene' up
+        command_close: /config/pytahoma 'Camera Irene' down
+        command_stop: /config/pytahoma 'Camera Irene' stop
+      camera:
+        command_open: /config/pytahoma Camera up
+        command_close: /config/pytahoma Camera down
+        command_stop: /config/pytahoma Camera stop
+      cupola:
+        command_open: /config/pytahoma Cupola up
+        command_close: /config/pytahoma Cupola down
+        command_stop: /config/pytahoma Cupola stop
+      veranda:
+        command_open: /config/pytahoma Veranda up
+        command_close: /config/pytahoma Veranda down
+        command_stop: /config/pytahoma Veranda stop
 
 # Track the Sun and the Moon
 sun:
@@ -319,6 +353,7 @@ sensor:
 # WUnderground
   - platform: wunderground
     api_key: !secret wunderground_key
+    pws_id: !secret wunderground_pws_id
     monitored_conditions:
       - weather_1d_metric
       - weather_1n_metric

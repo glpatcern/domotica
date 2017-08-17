@@ -37,7 +37,10 @@ veranda_giardino:
     - sensor.humidity_veranda
     - sensor.luminosity_veranda
     - camera.veranda
-#    - sensor.netatmo_windgust
+    - sensor.veranda_light_level
+    - sensor.veranda_motion
+    - sensor.veranda_battery_level
+    - sensor.netatmo_terrace_guststrength
 
 primo_piano:
   name: 'Primo piano'
@@ -70,6 +73,11 @@ meteo:
     - sensor.pws_precip_today_metric
     - sensor.pws_precip_1d
     - sensor.pws_wind_kph
+    - sensor.netatmo_indoor_temperature
+    - sensor.netatmo_indoor_humidity
+    - sensor.netatmo_indoor_pressure
+    - sensor.netatmo_indoor_co2
+    - sensor.netatmo_indoor_noise
     - group.meteodetails
     - weblink.netatmo_station
 
