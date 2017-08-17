@@ -15,38 +15,8 @@ homeassistant:
   elevation: !secret ha_elevation
   unit_system: metric
   time_zone: Europe/Zurich
-  # all custom icons and friendly names go here
-  customize:
-    sensor.ha_bad_logins:
-      icon: mdi:account-key
-    sensor.humidity_veranda:
-      icon: mdi:water-percent
-    sensor.luminosity_veranda:
-      icon: mdi:lightbulb-on-outline
-    sensor.pws_wind_dir:
-      icon: mdi:compass
-    cover.cupola:
-      icon: mdi:arrange-send-backward
-    scene.cinema:
-      icon: mdi:projector
-    switch.smartplug:
-      friendly_name: 'Lume'
-    sensor.pws_temp_high_record_c:
-      friendly_name: 'High Temperature record'
-    sensor.pws_temp_low_record_c:
-      friendly_name: 'Low Temperature record'
-    sensor.pws_weather_1d_metric:
-      friendly_name: 'Today'
-    sensor.pws_weather_1n_metric:
-      friendly_name: 'Tonight'
-    sensor.naslopresti_cpu_usage:
-      friendly_name: 'QNAP CPU usage'
-    sensor.naslopresti_memory_usage:
-      friendly_name: 'QNAP RAM usage'
-    sensor.naslopresti_system_temperature:
-      friendly_name: 'QNAP Temperature'
-    sensor.naslopresti_free_space_data:
-      friendly_name: 'QNAP Free space'
+  # custom icons and friendly names go there
+  customize: !include customizations.yaml
 
 # include all layout/grouping
 group: !include groups.yaml
@@ -54,7 +24,7 @@ group: !include groups.yaml
 # include all scenes
 scene: !include scenes.yaml
 
-# the automation rules are split per type
+# the automation rules are split per area
 automation:
   # Tenda veranda e serrande
   - !include automations/covers.yaml
@@ -63,7 +33,7 @@ automation:
   # Irrigazione
   - !include automations/irrigazione.yaml
   # Cucu'
-  - !include automations/cucu.yaml
+  #- !include automations/cucu.yaml
 
 logger:
   default: warn
@@ -87,8 +57,8 @@ config:
 http:
   api_password: !secret http_password
   base_url: !secret http_base_url
-  ssl_certificate: /config/SSLcertificate.crt
-  ssl_key: /config/SSLprivatekey.key
+  #ssl_certificate: /config/SSLcertificate.crt
+  #ssl_key: /config/SSLprivatekey.key
   ip_ban_enabled: True
   login_attempts_threshold: 5
   trusted_networks:

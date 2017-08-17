@@ -3,8 +3,8 @@
 #
 ####################################################################
 
-# P1: accendi se ora >= tramonto + 1h & ora <= 23.00
+# P1: accendi se ora = tramonto + 2h
+#alias: 'Lume di sera'
 
-# P2: spegni se nessuno in casa & (ora > 23.00 | ora < tramonto + 1h)
-
-# P3: accendi se qualcuno in casa & ora > tramonto & ora < alba
+# P2: spegni se nessuno in casa & ora = 23.00
+#alias: 'Lume simula presenza'

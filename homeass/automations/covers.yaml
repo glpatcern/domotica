@@ -3,8 +3,8 @@
 #
 ####################################################################
 
-# abbassa se temperatura > 25 & ora > alba & ora < tramonto - 2h & vento < soglia
+# abbassa se temperatura > 25 & ora > alba & ora < 18.00 & vento < 20 km/h
 
-# alza se (ora > tramonto - 2h & ora < alba) | vento > soglia
+# alza se vento > 20 km/h
 
 # chiudi tutte se nessuno in casa & ora = 11.00
