@@ -14,6 +14,7 @@ sensor.pws_wind_dir:
   icon: mdi:compass
 cover.cupola:
   icon: mdi:arrange-send-backward
+  friendly_name: 'Cupola'
 scene.cinema:
   icon: mdi:projector
 
@@ -36,3 +37,17 @@ sensor.naslopresti_system_temperature:
   friendly_name: 'QNAP Temperature'
 sensor.naslopresti_free_space_data:
   friendly_name: 'QNAP Free space'
+sensor.veranda_motion:
+  friendly_name: 'Camera motion'
+cover.veranda:
+  friendly_name: 'Tenda veranda'
+cover.salone:
+  friendly_name: 'Salone'
+cover.cucina:
+  friendly_name: 'Cucina'
+cover.camera:
+  friendly_name: 'Camera'
+cover.camera_irene:
+  friendly_name: 'Camera Irene'
+cover.stanza_da_letto:
+  friendly_name: 'Stanza da letto'

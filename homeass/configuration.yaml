@@ -25,15 +25,15 @@ group: !include groups.yaml
 scene: !include scenes.yaml
 
 # the automation rules are split per area
-automation:
+#automation:
   # Tenda veranda e serrande
-  - !include automations/covers.yaml
+#  - !include automations/covers.yaml
   # Presa comandata lume
-  - !include automations/lume.yaml
+#  - !include automations/lume.yaml
   # Irrigazione
-  - !include automations/irrigazione.yaml
+#  - !include automations/irrigazione.yaml
   # Cucu'
-  #- !include automations/cucu.yaml
+#  - !include automations/cucu.yaml
 
 logger:
   default: warn
@@ -57,19 +57,19 @@ config:
 http:
   api_password: !secret http_password
   base_url: !secret http_base_url
-  #ssl_certificate: /config/SSLcertificate.crt
-  #ssl_key: /config/SSLprivatekey.key
+  ssl_certificate: /config/SSLcertificate.crt
+  ssl_key: /config/SSLprivatekey.key
   ip_ban_enabled: True
   login_attempts_threshold: 5
   trusted_networks:
     - 192.168.0.0/24
 
-# Checks for available updates
+# Checks for available updates and reports used components
 updater:
   include_used_components: True
 
 # Allows you to issue voice commands from the frontend in enabled browsers
-#conversation:
+conversation:
 
 # Enables events recording
 recorder:
@@ -104,12 +104,14 @@ zone 1:
 # Useful links
 weblink:
   entities:
-    - name: QNAP
+    - name: QNAP administration
       url: https://lopresti.myqnapcloud.com
-    - name: Onkyo (local)
+    - name: Onkyo web interface
       url: http://192.168.1.30
     - name: NetAtmo station
       url: https://my.netatmo.com/app/station
+    - name: WUnderground station
+      url: https://www.wunderground.com/personal-weather-station/dashboard?ID=IMEYRIN21
     - name: Somfy Tahoma
       url: https://www.tahomalink.com
 
@@ -146,15 +148,19 @@ device_tracker:
     - 192.168.1.51   # Giu
     - 192.168.1.52   # Isa
 
-  - platform: owntracks
+#  - platform: owntracks
+
+# To get router statistics
+upnp:
+  port_mapping:
 
 # NetAtmo weather station
-netatmo:
-  api_key: !secret netatmo_api_key
-  secret_key: !secret netatmo_secret_key
-  username: !secret netatmo_user
-  password: !secret netatmo_password
-  discovery: False
+#netatmo:
+#  api_key: !secret netatmo_api_key
+#  secret_key: !secret netatmo_secret_key
+#  username: !secret netatmo_user
+#  password: !secret netatmo_password
+#  discovery: False
 
 # DLink camera
 camera:
@@ -168,19 +174,21 @@ camera:
 android_ip_webcam:
   name: Veranda
   host: 192.168.1.21
-#    still_image_url: http://192.168.1.21:8080/shot.jpg
   username: admin
   password: !secret camera_password
   sensors:
-    - battery_level
-    - light
     - motion
+  switches:
+    - focus
+    - torch
+    - video_recording
+    - overlay
 
 # Onkyo amplifier
 media_player:
   - platform: onkyo
     host: 192.168.1.30
-    name: Amplificatore
+    name: Amplificatore Onkyo
     sources:
       dvd: 'BD/DVD'
       video2: 'Cable TV'
@@ -296,29 +304,6 @@ sensor:
     state_topic: thlveranda
     value_template: '{{ value_json.lux }}'
     unit_of_measurement: '%'
-
-# NetAtmo weather station
-  - platform: netatmo
-    station: Meyrin Village
-    modules:
-      Indoor:
-        - temperature
-        - humidity
-        - pressure
-        - co2
-        - noise
-      Outdoor:
-        - temperature
-        - humidity
-        - min_temp
-        - max_temp
-        - battery_vp
-      Terrace:
-        - windangle
-        - windstrength
-        - gustangle
-        - guststrength
-        - battery_vp
 
 # WUnderground
   - platform: wunderground

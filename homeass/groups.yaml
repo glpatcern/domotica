@@ -37,9 +37,7 @@ veranda_giardino:
     - sensor.humidity_veranda
     - sensor.luminosity_veranda
     - camera.veranda
-    - sensor.veranda_light_level
     - sensor.veranda_motion
-    - sensor.veranda_battery_level
     - sensor.netatmo_terrace_guststrength
 
 primo_piano:
@@ -55,10 +53,10 @@ media_center:
   control: hidden
   entities:
     - scene.cinema
-    - media_player.amplificatore
+    - media_player.amplificatore_onkyo
     - media_player.kodi_player_in_qnap
     - remote.kira_remote
-    - weblink.onkyo_local
+    - weblink.onkyo_web_interface
 
 meteo:
   name: 'Meteo'
@@ -72,7 +70,7 @@ meteo:
     - sensor.pws_pressure_mb
     - sensor.pws_precip_today_metric
     - sensor.pws_precip_1d
-    - sensor.pws_wind_kph
+    - sensor.pws_wind_gust_kph
     - sensor.netatmo_indoor_temperature
     - sensor.netatmo_indoor_humidity
     - sensor.netatmo_indoor_pressure
@@ -80,6 +78,7 @@ meteo:
     - sensor.netatmo_indoor_noise
     - group.meteodetails
     - weblink.netatmo_station
+    - weblink.wunderground_station
 
 meteodetails:
   name: 'More details ...'
@@ -91,7 +90,7 @@ meteodetails:
     - sensor.pws_temp_low_1d_c
     - sensor.pws_temp_low_record_c
     - sensor.pws_pressure_trend
-    - sensor.pws_wind_gust_kph
+    - sensor.pws_wind_kph
     - sensor.pws_wind_dir
 
 it:
@@ -100,7 +99,9 @@ it:
     - sensor.speedtest_download
     - sensor.speedtest_upload
     - sensor.speedtest_ping
-    - weblink.qnap
+    - sensor.igd_received_bytes
+    - sensor.igd_sent_bytes
+    - weblink.qnap_administration
     - sensor.naslopresti_cpu_usage
     - sensor.naslopresti_memory_usage
     - sensor.naslopresti_free_space_data
