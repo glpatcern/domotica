@@ -35,6 +35,7 @@ piano_terra:
     - cover.salone
     - switch.smartplug
     - camera.salonecucina
+    - camera.entrata
 
 veranda_giardino:
   name: 'Veranda/giardino'

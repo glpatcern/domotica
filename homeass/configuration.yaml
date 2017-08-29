@@ -185,11 +185,15 @@ camera:
   - platform: mjpeg
     name: Salone-Cucina
     mjpeg_url: http://192.168.1.4/video.cgi
-    #still_image_url: image.jpg (for generic platform)
     username: admin
     password: !secret camera_password
 
 # Doorbell camera
+  - platform: generic
+    name: Entrata
+    still_image_url: http://192.168.1.200/image.jpg  # temporary
+    username: admin
+    password: !secret camera_password
 
 # MotoG camera
 android_ip_webcam:
