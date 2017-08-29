@@ -56,3 +56,23 @@ switch.veranda_torch:
   friendly_name: 'Luce camera Veranda'
 switch.veranda_focus:
   friendly_name: 'Focus camera Veranda'
+sensor.netatmo_terrace_gust_strength:
+  friendly_name: 'Raffiche'
+sensor.netatmo_terrace_angle:
+  friendly_name: 'Wind angle'
+sensor.netatmo_terrace_strength:
+  friendy_name: 'Wind strength'
+sensor.pws_temp_c:
+  friendly_name: 'Outdoor Temperature'
+sensor.netatmo_indoor_temperature:
+  friendly_name: 'Indoor Temperature'
+sensor.pws_relative_humidity:
+  friendly_name: 'Outdoor Humidity'
+sensor.netatmo_indoor_humidity:
+  friendly_name: 'Indoor Humidity'
+sensor.netatmo_indoor_co2:
+  friendly_name: 'Indoor CO₂'
+sensor.netatmo_indoor_noise:
+  friendly_name: 'Noise'
+sensor.netatmo_indoor_pressure:
+  friendly_name: 'Pressure'

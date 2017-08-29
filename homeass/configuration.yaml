@@ -173,12 +173,12 @@ upnp:
   port_mapping:
 
 # NetAtmo weather station
-#netatmo:
-#  api_key: !secret netatmo_api_key
-#  secret_key: !secret netatmo_secret_key
-#  username: !secret netatmo_user
-#  password: !secret netatmo_password
-#  discovery: False
+netatmo:
+  api_key: !secret netatmo_api_key
+  secret_key: !secret netatmo_secret_key
+  username: !secret netatmo_user
+  password: !secret netatmo_password
+  discovery: False
 
 # DLink camera
 camera:
@@ -322,6 +322,28 @@ sensor:
     state_topic: thlveranda
     value_template: '{{ value_json.lux }}'
     unit_of_measurement: '%'
+
+# NetAtmo weather station
+  - platform: netatmo
+    modules:
+      Indoor:
+        - temperature
+        - humidity
+        - pressure
+        - co2
+        - noise
+      Outdoor:
+        - temperature
+        - humidity
+        - min_temp
+        - max_temp
+        - battery_vp
+      Terrace:
+        - windangle
+        - windstrength
+        - gustangle
+        - guststrength
+        - battery_vp
 
 # WUnderground
   - platform: wunderground

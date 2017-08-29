@@ -44,8 +44,7 @@ veranda_giardino:
     - sensor.temperature_veranda
     - sensor.humidity_veranda
     - sensor.luminosity_veranda
-    - sensor.netatmo_terrace_gustangle
-    - sensor.netatmo_terrace_guststrength
+    - sensor.netatmo_terrace_gust_strength
     - switch.veranda_torch
     - switch.veranda_focus
     - switch.veranda_video_recording
@@ -78,14 +77,14 @@ meteo:
     - sensor.moon
     - sensor.pws_temp_c
     - sensor.pws_relative_humidity
-    - sensor.pws_pressure_mb
-    - sensor.pws_precip_today_metric
-    - sensor.pws_precip_1d
-    - sensor.pws_wind_gust_kph
     - sensor.netatmo_indoor_temperature
     - sensor.netatmo_indoor_humidity
+    - sensor.netatmo_indoor_pressure
     - sensor.netatmo_indoor_co2
     - sensor.netatmo_indoor_noise
+#   - sensor.pws_pressure_mb
+    - sensor.pws_precip_today_metric
+    - sensor.pws_precip_1d
     - group.meteodetails
     - weblink.netatmo_station
     - weblink.wunderground_station
@@ -99,14 +98,13 @@ meteodetails:
     - sensor.pws_temp_high_1d_c
     - sensor.pws_temp_low_1d_c
     - sensor.pws_temp_low_record_c
-    - sensor.netatmo_indoor_pressure
     - sensor.pws_pressure_trend
-    - sensor.pws_wind_kph
-    - sensor.pws_wind_dir
-    - sensor.netatmo_terrace_windangle
-    - sensor.netatmo_terrace_windstrength
-    - sensor.netatmo_terrace_battery_vp
-    - sensor.netatmo_outdoor_battery_vp
+#   - sensor.pws_wind_kph
+#   - sensor.pws_wind_dir
+    - sensor.netatmo_terrace_angle
+    - sensor.netatmo_terrace_strength
+    - sensor.netatmo_terrace_battery
+    - sensor.netatmo_outdoor_battery
 
 it:
   name: 'IT'
