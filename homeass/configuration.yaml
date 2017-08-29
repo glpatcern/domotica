@@ -25,7 +25,7 @@ group: !include groups.yaml
 scene: !include scenes.yaml
 
 # the automation rules are split per area
-#automation:
+automation:
   # Tenda veranda e serrande
 #  - !include automations/covers.yaml
   # Presa comandata lume
@@ -33,7 +33,7 @@ scene: !include scenes.yaml
   # Irrigazione
 #  - !include automations/irrigazione.yaml
   # Cucu'
-#  - !include automations/cucu.yaml
+  - !include automations/cucu.yaml
 
 logger:
   default: warn
@@ -101,6 +101,24 @@ zone 1:
   longitude: 6.050528
   radius: 600
 
+zone 2:
+  name: !secret z2_name
+  latitude: !secret z2_latitude
+  longitude: !secret z2_longitude
+  radius: 300
+
+zone 3:
+  name: !secret z3_name
+  latitude: !secret z3_latitude
+  longitude: !secret z3_longitude
+  radius: 100
+
+#zone 4:
+#  name: !secret z4_name
+#  latitude: !secret z4_latitude
+#  longitude: !secret z4_longitude
+#  radius: 10000
+
 # Useful links
 weblink:
   entities:
@@ -117,7 +135,7 @@ weblink:
 
 panel_iframe:
   router:
-    title: Router
+    title: Router (local)
     url: https://sunrise.box
 
 # Custom cloud services
@@ -164,11 +182,14 @@ upnp:
 
 # DLink camera
 camera:
-  - platform: generic
-    name: Salone-Ingresso
-    still_image_url: http://192.168.1.4/image.jpg
+  - platform: mjpeg
+    name: Salone-Cucina
+    mjpeg_url: http://192.168.1.4/video.cgi
+    #still_image_url: image.jpg (for generic platform)
     username: admin
     password: !secret camera_password
+
+# Doorbell camera
 
 # MotoG camera
 android_ip_webcam:
@@ -182,7 +203,6 @@ android_ip_webcam:
     - focus
     - torch
     - video_recording
-    - overlay
 
 # Onkyo amplifier
 media_player:
@@ -198,11 +218,6 @@ media_player:
       #tuner: 'Tuner'
       #dlna: 'DLNA'
       #internet-radio: 'Radio'
-
-# Kodi player in QNAP/HybridDesk Station
-  - platform: kodi
-    name: Kodi player in QNAP
-    host: 192.168.1.48
 
 # Edimax power socket
 switch:
@@ -271,8 +286,11 @@ sensor:
       - download
       - upload
     hour:
+      - 7
       - 15
       - 23
+    minute:
+      - 15
 
 # QNAP
   - platform: qnap
@@ -312,8 +330,8 @@ sensor:
     monitored_conditions:
       - weather_1d_metric
       - weather_1n_metric
-      - weather_2d_metric
-      - weather_2n_metric
+#     - weather_2d_metric
+#     - weather_2n_metric
       - temp_high_record_c
       - temp_high_1d_c
       - temp_c
@@ -330,3 +348,16 @@ sensor:
       - wind_gust_kph
       - wind_dir
       - alerts
+
+# TPG & SBB-CFF-FFS
+  - platform: gtfs
+    name: Tram 18
+    origin: 8593026        # Meyrin village
+    destination: 8587437   # Carouge
+    data: sbb20170816.zip
+
+  - platform: gtfs
+    name: Treno
+    origin: 8501006        # Meyrin-Vernier
+    destination: 8501008   # Geneve Cornavin
+    data: sbb20170816.zip

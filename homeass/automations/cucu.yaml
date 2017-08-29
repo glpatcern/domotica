@@ -16,7 +16,7 @@ condition:
     after: '07:50:00'
     before: '22:10:00'
   - condition: state
-    entity_id: group.family
+    entity_id: group.famiglia
     state: 'home'
   - condition: template
     value_template: >
@@ -31,15 +31,13 @@ action:
     entity_id: media_player.Amplificatore
 
   - service: media_player.volume_set
-    entity_id:
-      - media_player.Amplificatore
+    entity_id: media_player.Amplificatore
     data:
-      volume_level: 0.2
+      volume_level: 20
 
   - service: media_player.play_media
     data_template:
-      entity_id:
-        - media_player.Amplificatore
+      entity_id: media_player.Amplificatore
       media_content_id: >
         {% if now().strftime("%M")|int == 30 %}
         https://raw.githubusercontent.com/CCOSTAN/Home-AssistantConfig/master/sounds/cuckoo-clock-01.wav

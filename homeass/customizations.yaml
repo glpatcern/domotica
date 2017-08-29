@@ -51,3 +51,8 @@ cover.camera_irene:
   friendly_name: 'Camera Irene'
 cover.stanza_da_letto:
   friendly_name: 'Stanza da letto'
+switch.veranda_torch:
+  icon: mdi:flash
+  friendly_name: 'Luce camera Veranda'
+switch.veranda_focus:
+  friendly_name: 'Focus camera Veranda'

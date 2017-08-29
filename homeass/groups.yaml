@@ -7,6 +7,7 @@ default_view:
   view: yes
   entities:
     - group.famiglia
+    - group.trasporti
     - group.meteo
     - group.media_center
     - group.piano_terra
@@ -20,6 +21,12 @@ famiglia:
     - device_tracker.b49d0b54c248
     - device_tracker.005a13abdfdb
 
+trasporti:
+  name: 'TPG'
+  entities:
+    - sensor.gtfs_tram_18
+    - sensor.gtfs_treno_meyrin
+
 piano_terra:
   name: 'Piano terra'
   control: hidden
@@ -27,18 +34,22 @@ piano_terra:
     - cover.cucina
     - cover.salone
     - switch.smartplug
-    - camera.saloneingresso
+    - camera.salonecucina
 
 veranda_giardino:
   name: 'Veranda/giardino'
+  control: hidden
   entities:
     - cover.veranda
     - sensor.temperature_veranda
     - sensor.humidity_veranda
     - sensor.luminosity_veranda
-    - camera.veranda
-    - sensor.veranda_motion
+    - sensor.netatmo_terrace_gustangle
     - sensor.netatmo_terrace_guststrength
+    - switch.veranda_torch
+    - switch.veranda_focus
+    - switch.veranda_video_recording
+    - camera.veranda
 
 primo_piano:
   name: 'Primo piano'
@@ -73,7 +84,6 @@ meteo:
     - sensor.pws_wind_gust_kph
     - sensor.netatmo_indoor_temperature
     - sensor.netatmo_indoor_humidity
-    - sensor.netatmo_indoor_pressure
     - sensor.netatmo_indoor_co2
     - sensor.netatmo_indoor_noise
     - group.meteodetails
@@ -89,9 +99,14 @@ meteodetails:
     - sensor.pws_temp_high_1d_c
     - sensor.pws_temp_low_1d_c
     - sensor.pws_temp_low_record_c
+    - sensor.netatmo_indoor_pressure
     - sensor.pws_pressure_trend
     - sensor.pws_wind_kph
     - sensor.pws_wind_dir
+    - sensor.netatmo_terrace_windangle
+    - sensor.netatmo_terrace_windstrength
+    - sensor.netatmo_terrace_battery_vp
+    - sensor.netatmo_outdoor_battery_vp
 
 it:
   name: 'IT'
