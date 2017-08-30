@@ -130,8 +130,6 @@ weblink:
       url: https://my.netatmo.com/app/station
     - name: WUnderground station
       url: https://www.wunderground.com/personal-weather-station/dashboard?ID=IMEYRIN21
-    - name: Somfy Tahoma
-      url: https://www.tahomalink.com
 
 panel_iframe:
   router:
@@ -165,6 +163,12 @@ device_tracker:
     hosts:
     - 192.168.1.51   # Giu
     - 192.168.1.52   # Isa
+    - 192.168.1.25   # TV decoder
+    - 192.168.1.21   # Camera veranda
+    - 192.168.1.22   # iPad
+    - 192.168.1.29   # PC Isa
+    - 192.168.1.54   # PC Giu
+#   - ............   # Printer
 
 #  - platform: owntracks
 
@@ -310,19 +314,19 @@ sensor:
 
 # Particle photon Veranda
   - platform: mqtt
-    name: Temperature Veranda
+    name: Veranda Temperature
     state_topic: thlveranda
     value_template: '{{ value_json.temp }}'
     unit_of_measurement: '°C'
 
   - platform: mqtt
-    name: Humidity Veranda
+    name: Veranda Humidity
     state_topic: thlveranda
     value_template: '{{ value_json.humidity }}'
     unit_of_measurement: '%'
 
   - platform: mqtt
-    name: Luminosity Veranda
+    name: Veranda Brightness
     state_topic: thlveranda
     value_template: '{{ value_json.lux }}'
     unit_of_measurement: '%'

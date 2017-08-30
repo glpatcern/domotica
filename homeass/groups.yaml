@@ -42,9 +42,9 @@ veranda_giardino:
   control: hidden
   entities:
     - cover.veranda
-    - sensor.temperature_veranda
-    - sensor.humidity_veranda
-    - sensor.luminosity_veranda
+    - sensor.veranda_temperature
+    - sensor.veranda_humidity
+    - sensor.veranda_brightness
     - sensor.netatmo_terrace_gust_strength
     - switch.veranda_torch
     - switch.veranda_focus
@@ -121,3 +121,9 @@ it:
     - sensor.naslopresti_free_space_data
     - sensor.naslopresti_system_temperature
     - sensor.ha_bad_logins
+    - device_tracker.sunrisetv
+    - device_tracker.verandacam
+    - device_tracker.ipad
+    - device_tracker.isamac
+    - device_tracker.glplap
+    - device_tracker.printer
