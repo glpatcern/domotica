@@ -26,12 +26,14 @@ sensor.veranda_humidity:
 sensor.veranda_brightness:
   icon: mdi:lightbulb-on-outline
 sensor.veranda_motion:
-  friendly_name: 'Camera motion'
+  friendly_name: 'VerandaCam motion'
 switch.veranda_torch:
   icon: mdi:flash
-  friendly_name: 'Luce camera Veranda'
+  friendly_name: 'Flash VerandaCam'
 switch.veranda_focus:
-  friendly_name: 'Focus camera Veranda'
+  friendly_name: 'Focus VerandaCam'
+switch.veranda_video_recording:
+  friendly_name: 'Record VerandaCam'
 
 # Meteo
 sensor.pws_temp_high_record_c:

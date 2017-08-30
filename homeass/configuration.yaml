@@ -27,7 +27,7 @@ scene: !include scenes.yaml
 # the automation rules are split per area
 automation:
   # Cucu'
-#  - !include automations/cucu.yaml
+  - !include automations/cucu.yaml
   # Presa comandata lume
 #  - !include automations/lume1.yaml
 #  - !include automations/lume2.yaml
@@ -196,11 +196,11 @@ camera:
     password: !secret camera_password
 
 # Doorbell camera
-  - platform: generic
-    name: Entrata
-    still_image_url: http://192.168.1.200/image.jpg  # temporary
-    username: admin
-    password: !secret camera_password
+#  - platform: generic
+#    name: Entrata
+#    still_image_url: http://192.168.1.../image.jpg
+#    username: admin
+#    password: !secret camera_password
 
 # MotoG camera
 android_ip_webcam:
@@ -287,7 +287,7 @@ sensor:
 # HA bad logins
   - platform: command_line
     name: HA bad logins
-    command: grep -sc 'Login attempt' /config/home-assistant.log
+    command: grep -c Login.attempt /config/home-assistant.log
     scan_interval: 600
 
 # Internet speed test

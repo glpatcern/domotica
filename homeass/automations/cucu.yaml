@@ -33,7 +33,7 @@ action:
   - service: media_player.volume_set
     entity_id: media_player.amplificatore
     data:
-      volume_level: 20
+      volume_level: 0.2
 
   - service: media_player.play_media
     data_template:
