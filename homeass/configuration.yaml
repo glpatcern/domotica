@@ -159,7 +159,7 @@ mqtt:
 # Track mobile phones
 device_tracker:
   - platform: nmap_tracker
-    home_interval: 10   # minutes
+    interval_seconds: 30
     hosts:
     - 192.168.1.51   # Giu
     - 192.168.1.52   # Isa
