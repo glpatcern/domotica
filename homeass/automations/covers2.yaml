@@ -1,0 +1,15 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+####################################################################
+
+# alza se vento > 20 km/h
+alias: 'Alza tenda per vento'
+
+condition:
+  entity_id: sensor.netatmo_terrace_gust_strength
+  value: > 20
+
+action:
+  service: homeassistant.open
+  entity_id: cover.veranda

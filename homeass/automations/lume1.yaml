@@ -1,0 +1,14 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+####################################################################
+
+# accendi se ora = tramonto + 1h30
+alias: 'Lume di sera'
+trigger:
+  platform: sun
+  event: sunset
+  offset: "+01:30:00"
+action:
+  service: homeassistant.turn_on
+  entity_id: switch.smartplug

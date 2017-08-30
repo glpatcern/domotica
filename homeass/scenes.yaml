@@ -7,8 +7,9 @@
 - name: Cinema
   entities:
     cover.salone:
-      position: 0
+      state: 'closed'
     media_player.amplificatore:
-      state: on
+      state: 'on'
     switch.smartplug:
-      state: off
+      state: 'off'
+# TODO: add projector ON and leds ON via KIRA

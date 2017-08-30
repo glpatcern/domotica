@@ -26,14 +26,17 @@ scene: !include scenes.yaml
 
 # the automation rules are split per area
 automation:
-  # Tenda veranda e serrande
-#  - !include automations/covers.yaml
+  # Cucu'
+#  - !include automations/cucu.yaml
   # Presa comandata lume
-#  - !include automations/lume.yaml
+#  - !include automations/lume1.yaml
+#  - !include automations/lume2.yaml
+  # Tenda veranda e serrande
+#  - !include automations/covers1.yaml
+#  - !include automations/covers2.yaml
+#  - !include automations/covers3.yaml
   # Irrigazione
 #  - !include automations/irrigazione.yaml
-  # Cucu'
-  - !include automations/cucu.yaml
 
 logger:
   default: warn
@@ -140,9 +143,9 @@ panel_iframe:
 #########################
 
 # Pushbullet
-notify:
+notify me:
   platform: pushbullet
-  name: hass
+  name: notifyglp
   api_key: !secret pushbullet_api_key
 
 # IFTTT
@@ -331,6 +334,13 @@ sensor:
     value_template: '{{ value_json.lux }}'
     unit_of_measurement: '%'
 
+# OwnTrack-related sensors
+#  - platform: mqtt
+#    state_topic: "owntracks/nova"
+#    name: "Battery Nova"
+#    unit_of_measurement: "%"
+#    value_template: '{{ value_json.batt }}'
+
 # NetAtmo weather station
   - platform: netatmo
     modules:
@@ -353,7 +363,7 @@ sensor:
         - guststrength
         - battery_vp
 
-# WUnderground
+# WUnderground on top of NetAtmo
   - platform: wunderground
     api_key: !secret wunderground_key
     pws_id: !secret wunderground_pws_id

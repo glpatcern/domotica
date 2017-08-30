@@ -20,7 +20,7 @@ condition:
     state: 'home'
   - condition: template
     value_template: >
-      {% if is_state('media_player.Amplificatore', 'playing') %}
+      {% if is_state('media_player.amplificatore', 'playing') %}
         false
       {% else %}
         true
@@ -28,16 +28,16 @@ condition:
 
 action:
   - service: media_player.turn_on
-    entity_id: media_player.Amplificatore
+    entity_id: media_player.amplificatore
 
   - service: media_player.volume_set
-    entity_id: media_player.Amplificatore
+    entity_id: media_player.amplificatore
     data:
       volume_level: 20
 
   - service: media_player.play_media
     data_template:
-      entity_id: media_player.Amplificatore
+      entity_id: media_player.amplificatore
       media_content_id: >
         {% if now().strftime("%M")|int == 30 %}
         https://raw.githubusercontent.com/CCOSTAN/Home-AssistantConfig/master/sounds/cuckoo-clock-01.wav

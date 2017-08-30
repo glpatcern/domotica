@@ -1,0 +1,19 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+####################################################################
+
+# abbassa se temperatura > 25 & ora > 8.15 & ora < 18.00 & vento < 20 km/h
+alias: 'Abbassa tenda'
+trigger:
+  - platform: time
+    after: 8.15
+    before: 18.00
+
+condition:
+  entity_id: sensor.netatmo_terrace_gust_strength
+  value: < 20
+
+action:
+  service: homeassistant.close
+  entity_id: cover.veranda
