@@ -3,44 +3,7 @@
 #
 ##############################################################
 
-# icons
-sensor.ha_bad_logins:
-  icon: mdi:account-key
-sensor.humidity_veranda:
-  icon: mdi:water-percent
-sensor.luminosity_veranda:
-  icon: mdi:lightbulb-on-outline
-sensor.pws_wind_dir:
-  icon: mdi:compass
-cover.cupola:
-  icon: mdi:arrange-send-backward
-  friendly_name: 'Cupola'
-scene.cinema:
-  icon: mdi:projector
-
-# aliases
-switch.smartplug:
-  friendly_name: 'Lume'
-sensor.pws_temp_high_record_c:
-  friendly_name: 'High Temperature record'
-sensor.pws_temp_low_record_c:
-  friendly_name: 'Low Temperature record'
-sensor.pws_weather_1d_metric:
-  friendly_name: 'Today'
-sensor.pws_weather_1n_metric:
-  friendly_name: 'Tonight'
-sensor.naslopresti_cpu_usage:
-  friendly_name: 'QNAP CPU usage'
-sensor.naslopresti_memory_usage:
-  friendly_name: 'QNAP RAM usage'
-sensor.naslopresti_system_temperature:
-  friendly_name: 'QNAP Temperature'
-sensor.naslopresti_free_space_data:
-  friendly_name: 'QNAP Free space'
-sensor.veranda_motion:
-  friendly_name: 'Camera motion'
-cover.veranda:
-  friendly_name: 'Tenda veranda'
+# Covers
 cover.salone:
   friendly_name: 'Salone'
 cover.cucina:
@@ -51,11 +14,36 @@ cover.camera_irene:
   friendly_name: 'Camera Irene'
 cover.stanza_da_letto:
   friendly_name: 'Stanza da letto'
+cover.cupola:
+  icon: mdi:arrange-send-backward
+  friendly_name: 'Cupola'
+cover.veranda:
+  friendly_name: 'Tenda Veranda'
+
+# Veranda
+sensor.veranda_humidity:
+  icon: mdi:water-percent
+sensor.veranda_brightness:
+  icon: mdi:lightbulb-on-outline
+sensor.veranda_motion:
+  friendly_name: 'Camera motion'
 switch.veranda_torch:
   icon: mdi:flash
   friendly_name: 'Luce camera Veranda'
 switch.veranda_focus:
   friendly_name: 'Focus camera Veranda'
+
+# Meteo
+sensor.pws_temp_high_record_c:
+  friendly_name: 'High Temperature record'
+sensor.pws_temp_low_record_c:
+  friendly_name: 'Low Temperature record'
+sensor.pws_weather_1d_metric:
+  friendly_name: 'Today'
+sensor.pws_weather_1n_metric:
+  friendly_name: 'Tonight'
+sensor.pws_wind_dir:
+  icon: mdi:compass
 sensor.netatmo_terrace_gust_strength:
   friendly_name: 'Raffiche'
 sensor.netatmo_terrace_angle:
@@ -76,3 +64,19 @@ sensor.netatmo_indoor_noise:
   friendly_name: 'Noise'
 sensor.netatmo_indoor_pressure:
   friendly_name: 'Pressure'
+
+# misc
+scene.cinema:
+  icon: mdi:projector
+switch.smartplug:
+  friendly_name: 'Lume'
+sensor.ha_bad_logins:
+  icon: mdi:account-key
+sensor.naslopresti_cpu_usage:
+  friendly_name: 'QNAP CPU usage'
+sensor.naslopresti_memory_usage:
+  friendly_name: 'QNAP RAM usage'
+sensor.naslopresti_system_temperature:
+  friendly_name: 'QNAP Temperature'
+sensor.naslopresti_free_space_data:
+  friendly_name: 'QNAP Free space'
