@@ -65,7 +65,7 @@ media_center:
   entities:
     - scene.cinema
     - media_player.amplificatore_onkyo
-    - media_player.kodi_player_in_qnap
+    - media_player.chromecast
     - remote.kira_remote
     - weblink.onkyo_web_interface
 

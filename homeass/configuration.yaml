@@ -39,13 +39,12 @@ automation:
 #  - !include automations/irrigazione.yaml
 
 logger:
-  default: warn
+  default: warning
   logs:
     homeassistant.components.device_tracker: critical
     homeassistant.components.camera: info
     homeassistant.components.automation: debug
-    homeassistant.components.sensor: debug
-    homeassistant.components.sensor.command_line: warn
+    homeassistant.components.sensor.command_line: warning
     homeassistant.components.scene: debug
     homeassistant.components.switch: info
     homeassistant.components.cover: info
@@ -65,7 +64,7 @@ http:
   ip_ban_enabled: True
   login_attempts_threshold: 5
   trusted_networks:
-    - 192.168.0.0/24
+    - 192.168.1.0/24
 
 # Checks for available updates and reports used components
 updater:
@@ -78,7 +77,7 @@ conversation:
 recorder:
   exclude:
     domains:
-      - automation
+#     - automation
       - weblink
       - updater
     entities:
@@ -126,13 +125,13 @@ zone 3:
 weblink:
   entities:
     - name: QNAP administration
-      url: https://lopresti.myqnapcloud.com
+      url: !secret qnap_admin_link
     - name: Onkyo web interface
       url: http://192.168.1.30
     - name: NetAtmo station
       url: https://my.netatmo.com/app/station
     - name: WUnderground station
-      url: https://www.wunderground.com/personal-weather-station/dashboard?ID=IMEYRIN21
+      url: !secret wunderground_link
 
 panel_iframe:
   router:
@@ -221,14 +220,25 @@ media_player:
     host: 192.168.1.30
     name: Amplificatore Onkyo
     sources:
-      dvd: 'BD/DVD'
       video2: 'Cable TV'
+      dvd: 'BD/DVD'
       video6: 'NAS'
+      video3: 'Chromecast'
       network: 'Network'
       aux1: 'Aux'
       #tuner: 'Tuner'
       #dlna: 'DLNA'
       #internet-radio: 'Radio'
+
+# Google Chromecast
+  - platform: cast
+    host: 192.168.1.55
+
+# KIRA IR remote control
+kira:
+  remotes:
+    - name: kira_remote
+      host: 192.168.1.31
 
 # Edimax power socket
 switch:
@@ -236,12 +246,6 @@ switch:
     host: 192.168.1.40
     name: Smartplug
     password: !secret edimax_password
-
-# KIRA IR remote control
-kira:
-  remotes:
-    - name: kira_remote
-      host: 192.168.1.31
 
 # Somfy Tahoma for shutters/roof/store
 cover:
@@ -287,7 +291,7 @@ sensor:
 # HA bad logins
   - platform: command_line
     name: HA bad logins
-    command: grep -c Login.attempt /config/home-assistant.log
+    command: "grep -c Login.attempt /config/home-assistant.log"
     scan_interval: 600
 
 # Internet speed test
