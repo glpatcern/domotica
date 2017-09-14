@@ -1,0 +1,22 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+####################################################################
+
+alias: 'Cinema setup'
+
+trigger:
+  platform: event
+  event_type: call_service
+  event_data:
+    service_data:
+      entity_id: [scene.cinema]
+    domain: scene
+    service: turn_on
+
+action:
+  - service: homeassistant.turn_on
+    entity_id: script.telegram
+    data:
+      variables:
+        message: 'Home theater fully setup!'

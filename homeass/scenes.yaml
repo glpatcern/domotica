@@ -6,10 +6,10 @@
 # Get ready for the home theater
 - name: Cinema
   entities:
+    media_player.amplificatore_onkyo:
+      state: 'on'
     cover.salone:
       state: 'closed'
-    media_player.amplificatore:
-      state: 'on'
     switch.smartplug:
       state: 'off'
 # TODO: add projector ON and leds ON via KIRA

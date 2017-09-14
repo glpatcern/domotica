@@ -27,14 +27,18 @@ scene: !include scenes.yaml
 # the automation rules are split per area
 automation:
   # Cucu'
+  - !include automations/cucupre.yaml
   - !include automations/cucu.yaml
+  - !include automations/cucupost.yaml
   # Presa comandata lume
-#  - !include automations/lume1.yaml
-#  - !include automations/lume2.yaml
+  - !include automations/lume1.yaml
+  - !include automations/lume2.yaml
   # Tenda veranda e serrande
 #  - !include automations/covers1.yaml
 #  - !include automations/covers2.yaml
 #  - !include automations/covers3.yaml
+  # Cinema
+  - !include automations/cinema.yaml
   # Irrigazione
 #  - !include automations/irrigazione.yaml
 
@@ -166,7 +170,7 @@ device_tracker:
     - 192.168.1.51   # Giu
     - 192.168.1.52   # Isa
     - 192.168.1.25   # TV decoder
-    - 192.168.1.21   # Camera veranda
+    - 192.168.1.21   # VerandaCam
     - 192.168.1.22   # iPad
     - 192.168.1.29   # PC Isa
     - 192.168.1.54   # PC Giu
@@ -203,16 +207,18 @@ camera:
 
 # MotoG camera
 android_ip_webcam:
-  name: Veranda
+  name: VerandaCam
   host: 192.168.1.21
   username: admin
   password: !secret camera_password
   sensors:
     - motion
+    - light
   switches:
     - focus
     - torch
     - video_recording
+    - night_vision
 
 # Onkyo amplifier
 media_player:
@@ -394,14 +400,15 @@ sensor:
       - alerts
 
 # TPG & SBB-CFF-FFS
+# download data at https://opentransportdata.swiss/en/dataset
   - platform: gtfs
     name: Tram 18
     origin: 8593026        # Meyrin village
     destination: 8587437   # Carouge
-    data: sbb20170816.zip
+    data: sbb
 
   - platform: gtfs
     name: Treno
     origin: 8501006        # Meyrin-Vernier
     destination: 8501008   # Geneve Cornavin
-    data: sbb20170816.zip
+    data: sbb

@@ -8,7 +8,8 @@ default_view:
   entities:
     - group.famiglia
     - group.trasporti
-    - group.meteo
+    - group.meteo_forecast
+    - group.meteo_sensors
     - group.media_center
     - group.piano_terra
     - group.veranda_giardino
@@ -49,14 +50,13 @@ veranda_giardino:
   control: hidden
   entities:
     - cover.veranda
-    - sensor.veranda_temperature
-    - sensor.veranda_humidity
     - sensor.veranda_brightness
     - sensor.netatmo_terrace_gust_strength
-    - switch.veranda_torch
-    - switch.veranda_focus
-    - switch.veranda_video_recording
-    - camera.veranda
+    - switch.verandacam_torch
+#   - switch.veranda_focus
+    - switch.verandacam_night_vision
+    - switch.verandacam_video_recording
+    - camera.verandacam
 
 primo_piano:
   name: 'Primo piano'
@@ -76,17 +76,23 @@ media_center:
     - remote.kira_remote
     - weblink.onkyo_web_interface
 
-meteo:
-  name: 'Meteo'
+meteo_forecast:
+  name: 'Meteo Forecast'
   entities:
     - sensor.pws_weather_1d_metric
     - sensor.pws_weather_1n_metric
     - sun.sun
     - sensor.moon
+
+meteo_sensors:
+  name: 'Meteo Sensors'
+  entities:
     - sensor.pws_temp_c
-    - sensor.pws_relative_humidity
     - sensor.netatmo_indoor_temperature
+    - sensor.veranda_temperature
+    - sensor.pws_relative_humidity
     - sensor.netatmo_indoor_humidity
+    - sensor.veranda_humidity
     - sensor.netatmo_indoor_pressure
     - sensor.netatmo_indoor_co2
     - sensor.netatmo_indoor_noise
@@ -134,7 +140,7 @@ qnap:
     - sensor.ha_bad_logins
 
 devices:
-  name: 'Device tracking'
+  name: 'Devices tracking'
   entities:
     - device_tracker.sunrisetv
     - device_tracker.verandacam

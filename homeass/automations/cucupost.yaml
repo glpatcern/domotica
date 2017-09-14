@@ -1,0 +1,42 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+# Cucu' - turn everything off a bit afterwards, otherwise
+# the amplifier stays on :-(
+####################################################################
+
+alias: CucuPost
+trigger:
+  - platform: time
+    minutes: 00
+    seconds: 30
+  - platform: time
+    minutes: 30
+    seconds: 30
+
+condition:
+  - condition: time
+    after: '07:50:00'
+    before: '22:10:00'
+  - condition: state
+    entity_id: group.famiglia
+    state: 'home'
+  - condition: template
+    value_template: >
+      {% if is_state('media_player.amplificatore_onkyo', 'playing') %}
+        false
+      {% else %}
+        true
+      {% endif %}
+
+action:
+  - service: media_player.turn_off
+    entity_id: media_player.chromecast
+
+  - service: media_player.select_source
+    entity_id: media_player.amplificatore_onkyo
+    data:
+      source: CableTV
+
+  - service: media_player.turn_off
+    entity_id: media_player.amplificatore_onkyo
