@@ -8,7 +8,7 @@ default_view:
   entities:
     - group.famiglia
     - group.trasporti
-    - group.meteo_forecast
+    - group.meteo
     - group.meteo_sensors
     - group.media_center
     - group.piano_terra
@@ -42,6 +42,7 @@ piano_terra:
     - cover.cucina
     - cover.salone
     - switch.smartplug
+    - switch.notte
     - camera.salonecucina
     - camera.entrata
 
@@ -71,18 +72,21 @@ media_center:
   control: hidden
   entities:
     - scene.cinema
+    - scene.cinema_off
     - media_player.amplificatore_onkyo
     - media_player.chromecast
     - remote.kira_remote
     - weblink.onkyo_web_interface
 
-meteo_forecast:
-  name: 'Meteo Forecast'
+meteo:
+  name: 'Meteo'
   entities:
     - sensor.pws_weather_1d_metric
     - sensor.pws_weather_1n_metric
     - sun.sun
     - sensor.moon
+    - weblink.netatmo_station
+    - weblink.wunderground_station
 
 meteo_sensors:
   name: 'Meteo Sensors'
@@ -100,8 +104,6 @@ meteo_sensors:
     - sensor.pws_precip_today_metric
     - sensor.pws_precip_1d
     - group.meteodetails
-    - weblink.netatmo_station
-    - weblink.wunderground_station
 
 meteodetails:
   name: 'More details ...'
@@ -123,6 +125,7 @@ meteodetails:
 internet:
   name: 'Internet'
   entities:
+    - weblink.router_local
     - sensor.speedtest_download
     - sensor.speedtest_upload
     - sensor.speedtest_ping
@@ -140,11 +143,12 @@ qnap:
     - sensor.ha_bad_logins
 
 devices:
-  name: 'Devices tracking'
+  name: 'Devices'
   entities:
-    - device_tracker.sunrisetv
     - device_tracker.verandacam
+    - weblink.verandacam_administration
+    - device_tracker.printer
+    - device_tracker.sunrisetv
     - device_tracker.ipad
     - device_tracker.isamac
     - device_tracker.glplap
-    - device_tracker.printer

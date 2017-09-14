@@ -33,12 +33,12 @@ automation:
   # Presa comandata lume
   - !include automations/lume1.yaml
   - !include automations/lume2.yaml
+  # Cinema
+  - !include automations/cinemaon.yaml
   # Tenda veranda e serrande
 #  - !include automations/covers1.yaml
 #  - !include automations/covers2.yaml
 #  - !include automations/covers3.yaml
-  # Cinema
-  - !include automations/cinema.yaml
   # Irrigazione
 #  - !include automations/irrigazione.yaml
 
@@ -128,19 +128,23 @@ zone 3:
 # Useful links
 weblink:
   entities:
+    - name: Router (local)
+      url: http://192.168.1.1
     - name: QNAP administration
       url: !secret qnap_admin_link
     - name: Onkyo web interface
       url: http://192.168.1.30
+    - name: VerandaCam administration
+      url: http://192.168.1.21:8080
     - name: NetAtmo station
       url: https://my.netatmo.com/app/station
     - name: WUnderground station
       url: !secret wunderground_link
 
-panel_iframe:
-  router:
-    title: Router (local)
-    url: https://sunrise.box
+#panel_iframe:
+#  router:
+#    title: Router (local)
+#    url: https://192.168.1.1
 
 # Custom cloud services
 #########################
@@ -401,14 +405,14 @@ sensor:
 
 # TPG & SBB-CFF-FFS
 # download data at https://opentransportdata.swiss/en/dataset
-  - platform: gtfs
-    name: Tram 18
-    origin: 8593026        # Meyrin village
-    destination: 8587437   # Carouge
-    data: sbb
-
-  - platform: gtfs
-    name: Treno
-    origin: 8501006        # Meyrin-Vernier
-    destination: 8501008   # Geneve Cornavin
-    data: sbb
+#  - platform: gtfs
+#    name: Tram 18
+#    origin: 8593026        # Meyrin village
+#    destination: 8587437   # Carouge
+#    data: sbb
+#
+#  - platform: gtfs
+#    name: Treno
+#    origin: 8501006        # Meyrin-Vernier
+#    destination: 8501008   # Geneve Cornavin
+#    data: sbb

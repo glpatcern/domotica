@@ -13,3 +13,9 @@
     switch.smartplug:
       state: 'off'
 # TODO: add projector ON and leds ON via KIRA
+
+- name: Cinema off
+  entities:
+    media_player.amplificatore_onkyo:
+      state: 'off'
+# TODO: add projector OFF ...
