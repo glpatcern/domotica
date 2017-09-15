@@ -49,7 +49,7 @@ logger:
     homeassistant.components.camera: info
     homeassistant.components.automation: debug
     homeassistant.components.sensor.command_line: warning
-    homeassistant.components.scene: debug
+    homeassistant.components.scene: info
     homeassistant.components.switch: info
     homeassistant.components.cover: info
 
@@ -88,6 +88,16 @@ recorder:
       - sun.sun   # Don't record Sun/Moon data
       - sensor.moon
       - sensor.last_boot
+      - sensor.igd_received_bytes
+      - sensor.igd_sent_bytes
+      - sensor.dtverandacam
+      - sensor.dtprinter
+      - sensor.dtiomegadisk
+      - sensor.dtsunrisetv
+      - sensor.dtchromecast
+      - sensor.dtipad
+      - sensor.dtisamac
+      - sensor.dtglplap
 
 # Enables support for tracking state changes over time
 history:
@@ -128,7 +138,7 @@ zone 3:
 # Useful links
 weblink:
   entities:
-    - name: Router (local)
+    - name: Router
       url: http://192.168.1.1
     - name: QNAP administration
       url: !secret qnap_admin_link
@@ -136,15 +146,33 @@ weblink:
       url: http://192.168.1.30
     - name: VerandaCam administration
       url: http://192.168.1.21:8080
+    - name: Printer administration
+      url: http://192.168.1.50
+    - name: Google Cloud Print
+      url: https://www.google.com/cloudprint/#printers
+    - name: IOMega disk administration
+      url: http://192.168.1.32
     - name: NetAtmo station
       url: https://my.netatmo.com/app/station
     - name: WUnderground station
       url: !secret wunderground_link
 
-#panel_iframe:
-#  router:
-#    title: Router (local)
-#    url: https://192.168.1.1
+panel_iframe:
+  homeass:
+    title: Home Assistant Web
+    icon: mdi:home-assistant
+    url: https://home-assistant.io
+
+# Global home mode selector
+input_select:
+  globalmode:
+    name: Global mode
+    options:
+      - Normale
+      - Notte
+      - Festa
+    initial: Normale
+    icon: mdi:home
 
 # Custom cloud services
 #########################
@@ -169,16 +197,18 @@ mqtt:
 # Track mobile phones
 device_tracker:
   - platform: nmap_tracker
-    interval_seconds: 30
+    interval_seconds: 60
     hosts:
-    - 192.168.1.51   # Giu
-    - 192.168.1.52   # Isa
-    - 192.168.1.25   # TV decoder
-    - 192.168.1.21   # VerandaCam
+    - 192.168.1.52   # Cell Isa
+    - 192.168.1.51   # Cell Giu
     - 192.168.1.22   # iPad
     - 192.168.1.29   # PC Isa
     - 192.168.1.54   # PC Giu
-#   - ............   # Printer
+    - 192.168.1.21   # VerandaCam
+    - 192.168.1.32   # IOMega Disk
+    - 192.168.1.25   # TV decoder
+    - 192.168.1.55   # ChromeCast
+    - 192.168.1.50   # Printer
 
 #  - platform: owntracks
 
@@ -416,3 +446,39 @@ sensor:
 #    origin: 8501006        # Meyrin-Vernier
 #    destination: 8501008   # Geneve Cornavin
 #    data: sbb
+
+# convert all the devices' states to online/offline
+  - platform: template
+    sensors:
+      dtverandacam:
+        friendly_name: VerandaCam
+        icon_template: mdi:camera-front-variant
+        value_template: "{% if is_state('device_tracker.verandacam', 'home') %}on{% else %}off{% endif %}"
+      dtprinter:
+        friendly_name: Printer
+        icon_template: mdi:printer
+        value_template: "{% if is_state('device_tracker.printer', 'home') %}on{% else %}off{% endif %}"
+      dtiomegadisk:
+        friendly_name: IOMega Disk
+        icon_template: mdi:harddisk
+        value_template: "{% if is_state('device_tracker.iomegadisk', 'home') %}on{% else %}off{% endif %}"
+      dtsunrisetv:
+        friendly_name: Sunrise TV
+        icon_template: mdi:television
+        value_template: "{% if is_state('device_tracker.sunrisetv', 'home') %}on{% else %}off{% endif %}"
+      dtchromecast:
+        friendly_name: ChromeCast
+        icon_template: mdi:cast
+        value_template: "{% if is_state('device_tracker.chromecast', 'home') %}on{% else %}off{% endif %}"
+      dtipad:
+        friendly_name: iPad
+        icon_template: mdi:tablet-ipad
+        value_template: "{% if is_state('device_tracker.ipad', 'home') %}on{% else %}off{% endif %}"
+      dtisamac:
+        friendly_name: Mac Isa
+        icon_template: mdi:laptop-mac
+        value_template: "{% if is_state('device_tracker.isamac', 'home') %}on{% else %}off{% endif %}"
+      dtglplap:
+        friendly_name: PC Giu
+        icon_template: mdi:laptop-windows
+        value_template: "{% if is_state('device_tracker.glplap', 'home') %}on{% else %}off{% endif %}"

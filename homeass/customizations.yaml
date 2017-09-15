@@ -25,15 +25,15 @@ sensor.veranda_humidity:
   icon: mdi:water-percent
 sensor.veranda_brightness:
   icon: mdi:lightbulb-on-outline
-sensor.veranda_motion:
+sensor.verandacam_motion:
   friendly_name: 'VerandaCam motion'
-switch.veranda_torch:
+switch.verandacam_torch:
   icon: mdi:flash
   friendly_name: 'Flash VerandaCam'
-switch.veranda_focus:
-  friendly_name: 'Focus VerandaCam'
-switch.veranda_video_recording:
-  friendly_name: 'Record VerandaCam'
+switch.verandacam_video_recording:
+  friendly_name: 'VerandaCam Record'
+switch.verandacam_night_vision:
+  friendly_name: 'VerandaCam night mode'
 
 # Meteo
 sensor.pws_temp_high_record_c:
