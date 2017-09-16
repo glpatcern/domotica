@@ -30,9 +30,10 @@ automation:
   - !include automations/cucupre.yaml
   - !include automations/cucu.yaml
   - !include automations/cucupost.yaml
-  # Presa comandata lume
+  # Presa comandata lume e verandacam
   - !include automations/lume_verandacam_on.yaml
   - !include automations/lume_off.yaml
+  - !include automations/verandacam_day.yaml
   # Cinema
   - !include automations/cinemaon.yaml
   # Tenda veranda e serrande

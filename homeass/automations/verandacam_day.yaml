@@ -1,0 +1,17 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+####################################################################
+
+# metti webcam in modo giorno
+alias: 'Verandacam di giorno'
+
+trigger:
+# not using sunrise because most of the time homeassistant is off...
+  - platform: time
+    hours: 08
+    minutes: 00
+
+action:
+  - service: homeassistant.turn_off
+    entity_id: switch.verandacam_night_vision
