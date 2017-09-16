@@ -31,8 +31,8 @@ automation:
   - !include automations/cucu.yaml
   - !include automations/cucupost.yaml
   # Presa comandata lume
-  - !include automations/lume1.yaml
-  - !include automations/lume2.yaml
+  - !include automations/lume_verandacam_on.yaml
+  - !include automations/lume_off.yaml
   # Cinema
   - !include automations/cinemaon.yaml
   # Tenda veranda e serrande
@@ -165,8 +165,8 @@ panel_iframe:
 
 # Global home mode selector
 input_select:
-  globalmode:
-    name: Global mode
+  statocasa:
+    name: Stato casa
     options:
       - Normale
       - Notte
@@ -296,7 +296,7 @@ cover:
     covers:
       cucina:
         command_open: /config/pytahoma Cucina up
-        command_close: /config/pytahoma Cucina down
+        command_close: /config/pytahoma Cucina my
         command_stop: /config/pytahoma Cucina stop
       salone:
         command_open: /config/pytahoma Salone up

@@ -9,10 +9,10 @@ alias: CucuPre
 trigger:
   - platform: time
     minutes: 59
-    seconds: 30
+    seconds: 45
   - platform: time
     minutes: 29
-    seconds: 30
+    seconds: 45
 
 condition:
   - condition: time
@@ -33,7 +33,7 @@ action:
   - service: media_player.turn_on
     entity_id: media_player.chromecast
 
-  - service: media_player.volume_set
-    entity_id: media_player.amplificatore_onkyo
-    data:
-      volume_level: 0.2
+#  - service: media_player.volume_set
+#    entity_id: media_player.chromecast
+#    data:
+#      volume_level: 0.6       # 60% of the main amplifier volume

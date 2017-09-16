@@ -45,7 +45,7 @@ piano_terra:
   name: 'Piano terra'
   control: hidden
   entities:
-    - input_select.globalmode
+    - input_select.statocasa
     - cover.cucina
     - cover.salone
     - switch.smartplug

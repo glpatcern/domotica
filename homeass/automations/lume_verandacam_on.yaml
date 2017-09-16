@@ -1,0 +1,18 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+####################################################################
+
+# accendi luce 45' dopo il tramonto e metti webcam in modo notte
+alias: 'Lume di sera'
+
+trigger:
+  platform: sun
+  event: sunset
+  offset: "+00:45:00"
+
+action:
+  - service: homeassistant.turn_on
+    entity_id: switch.smartplug
+  - service: homeassistant.turn_on
+    entity_id: switch.verandacam_night_vision
