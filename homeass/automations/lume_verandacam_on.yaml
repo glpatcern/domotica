@@ -3,13 +3,13 @@
 #
 ####################################################################
 
-# accendi luce 45' dopo il tramonto e metti webcam in modo notte
-alias: 'Lume e verandacam di sera'
-
+# accendi luce 15' dopo il tramonto e metti webcam in modo notte
+alias: 'Lume e VerandaCam di sera'
+initial_state: True
 trigger:
   platform: sun
   event: sunset
-  offset: "+00:45:00"
+  offset: "+00:15:00"
 
 action:
   - service: homeassistant.turn_on

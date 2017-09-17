@@ -25,6 +25,7 @@ it:
     - group.internet
     - group.qnap
     - group.devices
+    - group.homeass
 
 # Groups
 ################################
@@ -57,6 +58,7 @@ veranda_giardino:
   control: hidden
   entities:
     - cover.veranda
+    - automation.apri_tenda_se_fa_caldo
     - sensor.veranda_brightness
     - sensor.netatmo_terrace_gust_strength
     - switch.verandacam_torch
@@ -97,7 +99,7 @@ meteo:
 meteo_sensors:
   name: 'Meteo Sensors'
   entities:
-    - sensor.pws_temp_c
+    - sensor.netatmo_outdoor_minmaxtemperature
     - sensor.netatmo_indoor_temperature
     - sensor.veranda_temperature
     - sensor.pws_relative_humidity
@@ -146,7 +148,6 @@ qnap:
     - sensor.naslopresti_memory_usage
     - sensor.naslopresti_free_space_data
     - sensor.naslopresti_system_temperature
-    - sensor.ha_bad_logins
 
 devices:
   name: 'Devices'
@@ -163,3 +164,15 @@ devices:
     - sensor.dtipad
     - sensor.dtisamac
     - sensor.dtglplap
+
+homeass:
+  name: 'Home Assistant'
+  entities:
+    - sensor.ha_bad_logins
+    - automation.apri_cupola_se_fa_caldo
+    - automation.chiudi_tenda_veranda_per_vento
+    - automation.cucu
+    - automation.lume_e_verandacam_di_sera
+    - automation.chiudi_serrande_simula_presenza
+    - automation.lume_simula_presenza_off
+    - automation.verandacam_di_giorno

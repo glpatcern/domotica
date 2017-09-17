@@ -4,8 +4,8 @@
 ####################################################################
 
 # metti webcam in modo giorno
-alias: 'Verandacam di giorno'
-
+alias: 'VerandaCam di giorno'
+initial_state: True
 trigger:
 # not using sunrise because most of the time homeassistant is off...
   - platform: time

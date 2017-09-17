@@ -24,8 +24,14 @@ group: !include groups.yaml
 # include all scenes
 scene: !include scenes.yaml
 
+# include all scripts
+script: !include scripts.yaml
+
 # the automation rules are split per area
 automation:
+  # Stato generale casa
+  - !include automations/notte.yaml
+  - !include automations/notteauto.yaml
   # Cucu'
   - !include automations/cucupre.yaml
   - !include automations/cucu.yaml
@@ -36,10 +42,11 @@ automation:
   - !include automations/verandacam_day.yaml
   # Cinema
   - !include automations/cinemaon.yaml
-  # Tenda veranda e serrande
-#  - !include automations/covers1.yaml
-#  - !include automations/covers2.yaml
-#  - !include automations/covers3.yaml
+  # Covers
+  - !include automations/tendaveranda_open.yaml
+  - !include automations/tendaveranda_close.yaml
+  - !include automations/covers_pianoterra_close.yaml
+  - !include automations/cupola.yaml
   # Irrigazione
 #  - !include automations/irrigazione.yaml
 
@@ -100,16 +107,22 @@ recorder:
       - sensor.dtisamac
       - sensor.dtglplap
 
-# Enables support for tracking state changes over time
+# Enables support for tracking state changes over time -> to be replaced by grafana
 history:
 
 # View all events in a logbook
 logbook:
 
-# Text to speech
-tts:
-  platform: google
-  language: 'it'
+# Global home mode selector
+input_select:
+  statocasa:
+    name: Stato casa
+    options:
+      - Normale
+      - Notte
+      - Festa
+    initial: Normale
+    icon: mdi:home
 
 # Zones
 zone 1:
@@ -163,20 +176,18 @@ panel_iframe:
     title: Home Assistant Web
     icon: mdi:home-assistant
     url: https://home-assistant.io
-
-# Global home mode selector
-input_select:
-  statocasa:
-    name: Stato casa
-    options:
-      - Normale
-      - Notte
-      - Festa
-    initial: Normale
-    icon: mdi:home
+# dashboard:
+#   title: Grafana for HA
+#   icon:
+#   url:
 
 # Custom cloud services
 #########################
+
+# Text to speech
+tts:
+  platform: google
+  language: 'it'
 
 # Pushbullet
 notify me:
@@ -320,8 +331,9 @@ cover:
         command_close: /config/pytahoma Cupola down
         command_stop: /config/pytahoma Cupola stop
       veranda:
-        command_open: /config/pytahoma Veranda up
-        command_close: /config/pytahoma Veranda down
+        # this is an awning, not a shutter
+        command_open: /config/pytahoma Veranda down
+        command_close: /config/pytahoma Veranda up
         command_stop: /config/pytahoma Veranda stop
 
 # Track the Sun and the Moon
@@ -448,6 +460,8 @@ sensor:
 #    destination: 8501008   # Geneve Cornavin
 #    data: sbb
 
+# Templated sensors
+#
 # convert all the devices' states to online/offline
   - platform: template
     sensors:
@@ -483,3 +497,9 @@ sensor:
         friendly_name: PC Giu
         icon_template: mdi:laptop-windows
         value_template: "{% if is_state('device_tracker.glplap', 'home') %}on{% else %}off{% endif %}"
+
+# group current, min, and max temperature in one sensor
+      netatmo_outdoor_minmaxtemperature:
+        friendly_name: Outdoor Temperature
+        icon_template: mdi:thermometer
+        value_template: "{{ states.sensor.netatmo_outdoor_temperature.state }}°C ({{ states.sensor.netatmo_outdoor_min_temp.state }}°C ÷ {{ states.sensor.netatmo_outdoor_max_temp.state }}°C)"

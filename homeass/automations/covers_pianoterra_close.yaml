@@ -5,17 +5,18 @@
 
 # chiudi salone e cucina se nessuno in casa & ora = 11.00
 alias: 'Chiudi serrande simula presenza'
-
+initial_state: True
 trigger:
   platform: time
   at: '11:00'
 
-condition: state
-  entity_id: group.famiglia
-  state: 'not home'
+condition:
+  - condition: state
+    entity_id: group.famiglia
+    state: 'not home'
 
 action:
-  - service: homeassistant.close
+  - service: cover.close_cover
     entity_id: cover.cucina
-  - service: homeassistant.close
+  - service: cover.close_cover
     entity_id: cover.salone

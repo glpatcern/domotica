@@ -1,0 +1,32 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+####################################################################
+
+# apri cupola per ventilare se temperatura interna > 26C
+
+alias: Apri cupola se fa caldo
+
+trigger:
+  platform: time
+  minutes: '/10'
+  seconds: 00
+
+condition:
+  - condition: time
+    after: '08:15'
+    before: '23:30'
+  - condition: numeric_state
+    entity_id: sensor.netatmo_indoor_temperature
+    above: 26
+  - condition: template      # this is to express that anything but 'Notte' is OK
+    value_template: >
+      {% if is_state('input_select.statocasa', 'Notte') %}
+        false
+      {% else %}
+        true
+      {% endif %}
+
+action:
+  service: cover.open_cover
+  entity_id: cover.cupola

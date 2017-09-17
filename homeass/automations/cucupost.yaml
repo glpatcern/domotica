@@ -9,10 +9,10 @@ alias: CucuPost
 trigger:
   - platform: time
     minutes: 00
-    seconds: 15
+    seconds: 20
   - platform: time
     minutes: 30
-    seconds: 15
+    seconds: 10
 
 condition:
   - condition: time

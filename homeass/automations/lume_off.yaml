@@ -5,7 +5,7 @@
 
 # spegni se nessuno in casa & ora = 23.00
 alias: 'Lume simula presenza off'
-
+initial_state: True
 trigger:
   platform: time
   at: '23:00'

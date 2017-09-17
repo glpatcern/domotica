@@ -4,7 +4,7 @@
 ####################################################################
 
 alias: 'Cinema setup'
-
+initial_state: True
 trigger:
   platform: event
   event_type: call_service

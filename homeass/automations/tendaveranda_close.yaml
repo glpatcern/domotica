@@ -1,0 +1,19 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+####################################################################
+
+# alza tenda se vento > 20 km/h + invia notifica
+alias: 'Chiudi tenda veranda per vento'
+initial_state: True
+trigger:
+  platform: numeric_state
+  entity_id: sensor.netatmo_terrace_gust_strength
+  above: 20
+
+action:
+  - service: cover.close_cover
+    entity_id: cover.veranda
+  - service: notify.notifyglp
+    data_template:
+      message: "Tenda veranda chiusa per raffiche di {{ states.sensor.netatmo_terrace_gust_strength.state }} km/h"

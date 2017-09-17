@@ -1,0 +1,29 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+# Auto night mode
+####################################################################
+
+alias: Modo notte automatico
+trigger:
+  - platform: time
+    hours: 22
+    minutes: 30
+    seconds: 00
+
+condition:
+  - condition: template      # this is to express that anything but 'Festa' is OK
+    value_template: >
+      {% if is_state('input_select.statocasa', 'Festa') %}
+        false
+      {% else %}
+        true
+      {% endif %}
+
+action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.statocasa
+      state: 'Notte'
+#  - service: script.turn_on
+#    entity_id: script.nightmode

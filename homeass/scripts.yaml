@@ -1,0 +1,14 @@
+#
+# LoPresti smart home - scripts
+#
+#######################################
+
+nightmode:
+  alias: Modo notte
+  sequence:
+    - alias: Spegni lume
+      service: homeassistant.turn_off
+      entity_id: switch.smartplug
+    - alias: Chiudi finestre
+      service: cover.close_cover
+      entity_id: group.all_covers
