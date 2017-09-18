@@ -1,0 +1,17 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+# Bad logins notification
+# Credits to @CCOSTAN
+####################################################################
+
+alias: Bad logins detector
+hide_entity: True
+trigger:
+  platform: template
+  value_template: "{{ states('persistent_notification.httplogin') != 'unknown' }}"
+
+action:
+- service: notify.notifyglp
+  data_template:
+    message: "Tentativo di login fallito"

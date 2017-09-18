@@ -1,0 +1,33 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+# Accendi il lume per 10' se qualcuno rientra la sera
+####################################################################
+
+alias: Lume rientro serale
+initial_state: True
+trigger:
+  - platform: state
+    entity_id: group.famiglia
+    to: 'home'
+    from: 'not home'
+
+condition:
+  - condition: sun
+    after: sunset
+
+  - condition: state
+    entity_id: switch.smartplug
+    state: 'off'
+
+action:
+  - service: homeassistant.turn_on
+    entity_id: switch.smartplug
+
+  - delay: "00:10:00"
+
+  - service: homeassistant.turn_off
+    entity_id: switch.smartplug
+
+# Also, check the following for automatic switch off after 20':
+# https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/automation/System/watchdog_light.yaml
