@@ -33,9 +33,7 @@ automation:
   - !include automations/notte.yaml
   - !include automations/notteauto.yaml
   # Cucu'
-  - !include automations/cucupre.yaml
   - !include automations/cucu.yaml
-  - !include automations/cucupost.yaml
   # Presa comandata lume e verandacam
   - !include automations/lume_verandacam_on.yaml
   - !include automations/lume_off.yaml
@@ -251,11 +249,13 @@ netatmo:
 
 # DLink camera
 camera:
-  - platform: mjpeg
+  - platform: generic
     name: Salone-Cucina
-    mjpeg_url: http://192.168.1.4/video.cgi
+    still_image_url: http://192.168.1.4/image.jpg
     username: admin
     password: !secret camera_password
+#  - platform: mjpeg
+#    mjpeg_url: http://192.168.1.4/video.cgi
 
 # Doorbell camera
 #  - platform: generic
@@ -288,7 +288,7 @@ media_player:
       video2: 'Cable TV'
       dvd: 'BD/DVD'
       video6: 'NAS'
-      video3: 'Chromecast'
+      video3: 'ChromeCast'
       network: 'Network'
       aux1: 'Aux'
       #tuner: 'Tuner'

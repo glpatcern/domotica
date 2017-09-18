@@ -63,7 +63,7 @@ veranda_giardino:
     - sensor.netatmo_terrace_gust_strength
     - switch.verandacam_torch
 #   - switch.veranda_focus
-    - switch.verandacam_night_vision
+#   - switch.verandacam_night_vision
     - switch.verandacam_video_recording
     - camera.verandacam
 
@@ -171,10 +171,8 @@ homeass:
     - sensor.ha_bad_logins
     - automation.apri_cupola_se_fa_caldo
     - automation.chiudi_tenda_veranda_per_vento
-    - automation.cucu
-    - automation.cucupre
-    - automation.cucupost
     - automation.lume_e_verandacam_di_sera
     - automation.chiudi_serrande_simula_presenza
     - automation.lume_simula_presenza_off
     - automation.verandacam_di_giorno
+    - automation.cucu
