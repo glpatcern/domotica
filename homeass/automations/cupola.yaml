@@ -1,9 +1,8 @@
 #
 # LoPresti smart home - automation configuration for Home Assistant
 #
+# Apri cupola per ventilare se temperatura interna > 26C
 ####################################################################
-
-# apri cupola per ventilare se temperatura interna > 26C
 
 alias: Apri cupola se fa caldo
 
