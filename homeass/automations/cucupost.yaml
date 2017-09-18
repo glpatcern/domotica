@@ -23,7 +23,7 @@ condition:
     state: 'home'
   - condition: template
     value_template: >
-      {% if is_state('media_player.amplificatore_onkyo', 'playing') %}
+      {% if is_state('media_player.amplificatore_onkyo', 'on') %}
         false
       {% else %}
         true

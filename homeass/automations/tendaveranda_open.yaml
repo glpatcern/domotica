@@ -16,6 +16,9 @@ condition:
   - condition: state
     entity_id: group.famiglia
     state: 'home'
+  - condition: state
+    entity_id: input_select.cover_veranda_state
+    state: 'closed'
   - condition: numeric_state
     entity_id: sensor.netatmo_terrace_gust_strength
     below: 20
@@ -24,5 +27,10 @@ condition:
     above: 25
 
 action:
-  service: cover.open_cover
-  entity_id: cover.veranda
+  - service: cover.open_cover
+    entity_id: cover.veranda
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.cover_veranda_state
+      option: 'open'
+

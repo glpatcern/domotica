@@ -11,9 +11,18 @@ trigger:
   entity_id: sensor.netatmo_terrace_gust_strength
   above: 20
 
+condition:
+  - condition: state
+    entity_id: input_select.cover_veranda_state
+    state: 'open'
+
 action:
   - service: cover.close_cover
     entity_id: cover.veranda
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.cover_veranda_state
+      option: 'closed'
   - service: notify.notifyglp
     data_template:
       message: "Tenda veranda chiusa per raffiche di {{ states.sensor.netatmo_terrace_gust_strength.state }} km/h"

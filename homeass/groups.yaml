@@ -172,6 +172,8 @@ homeass:
     - automation.apri_cupola_se_fa_caldo
     - automation.chiudi_tenda_veranda_per_vento
     - automation.cucu
+    - automation.cucupre
+    - automation.cucupost
     - automation.lume_e_verandacam_di_sera
     - automation.chiudi_serrande_simula_presenza
     - automation.lume_simula_presenza_off

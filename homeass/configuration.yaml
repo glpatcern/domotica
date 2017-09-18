@@ -50,6 +50,30 @@ automation:
   # Irrigazione
 #  - !include automations/irrigazione.yaml
 
+# Frontend helper components for automations
+input_select:
+  # Global home mode selector
+  statocasa:
+    name: Stato casa
+    options:
+      - Normale
+      - Notte
+      - Festa
+    initial: Normale
+    icon: mdi:home
+
+  # extra controls for the missing states of the covers - workaround until proper integration
+  cover_cupola_state:
+    options:
+      - open
+      - closed
+    initial: closed
+  cover_veranda_state:
+    options:
+      - open
+      - closed
+    initial: closed
+
 logger:
   default: warning
   logs:
@@ -112,17 +136,6 @@ history:
 
 # View all events in a logbook
 logbook:
-
-# Global home mode selector
-input_select:
-  statocasa:
-    name: Stato casa
-    options:
-      - Normale
-      - Notte
-      - Festa
-    initial: Normale
-    icon: mdi:home
 
 # Zones
 zone 1:
