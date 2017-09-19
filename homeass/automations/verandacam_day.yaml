@@ -3,7 +3,7 @@
 #
 ####################################################################
 
-# metti webcam in modo giorno
+# Alle 8 torna in modalita' normale e metti webcam in modo giorno
 alias: 'VerandaCam di giorno'
 initial_state: True
 trigger:
@@ -13,5 +13,9 @@ trigger:
     minutes: 00
 
 action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.statocasa
+      option: 'Normale'
   - service: homeassistant.turn_off
     entity_id: switch.verandacam_night_vision

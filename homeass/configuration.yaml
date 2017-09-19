@@ -33,13 +33,13 @@ automation:
   - !include automations/notte.yaml
   - !include automations/notteauto.yaml
   - !include automations/bad_logins.yaml
+  - !include automations/verandacam_day.yaml
   # Cucu'
   - !include automations/cucu.yaml
   # Presa comandata lume e verandacam
   - !include automations/lume_verandacam_on.yaml
-  #- !include automations/lume_off.yaml
   - !include automations/lume_rientro_serale.yaml
-  - !include automations/verandacam_day.yaml
+  #- !include automations/lume_off.yaml
   # Cinema
   - !include automations/cinemaon.yaml
   # Covers
@@ -59,7 +59,6 @@ input_select:
       - Normale
       - Notte
       - Festa
-    initial: Normale
     icon: mdi:home
 
   # extra controls for the missing states of the covers - workaround until proper integration
@@ -74,6 +73,7 @@ input_select:
       - closed
     initial: closed
 
+# Logging levels
 logger:
   default: warning
   logs:

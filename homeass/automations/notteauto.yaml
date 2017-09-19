@@ -25,5 +25,3 @@ action:
     data:
       entity_id: input_select.statocasa
       option: 'Notte'
-#  - service: script.turn_on
-#    entity_id: script.nightmode
