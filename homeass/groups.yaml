@@ -173,13 +173,14 @@ homeass:
   name: 'Home Assistant'
   entities:
     - sensor.ha_bad_logins
+    - sensor.current_version
     - automation.bad_logins_detector
     - automation.apri_cupola_se_fa_caldo
     - automation.chiudi_tenda_veranda_per_vento
     - automation.lume_e_verandacam_di_sera
     - automation.lume_rientro_serale
-    - automation.lume_pioggia_on
-    - automation.lume_pioggia_off
+    - automation.accendi_lume_se_troppo_nuvoloso
+    - automation.spegni_lume_se_torna_il_sereno
     - automation.chiudi_serrande_simula_presenza
     - automation.lume_simula_presenza_off
     - automation.cucu

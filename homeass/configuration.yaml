@@ -358,6 +358,9 @@ sun:
 sensor:
   - platform: moon
 
+# The current Home Assistant version, to track upgrades history
+  - platform: version
+
 # HA bad logins
   - platform: command_line
     name: HA bad logins

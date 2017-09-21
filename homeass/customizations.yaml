@@ -82,3 +82,5 @@ sensor.naslopresti_system_temperature:
   friendly_name: 'QNAP Temperature'
 sensor.naslopresti_free_space_data:
   friendly_name: 'QNAP Free space'
+sensor.current_version:
+  icon: mdi:home-assistant
