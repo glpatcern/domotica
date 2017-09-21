@@ -1,0 +1,22 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+# Spegni lume salone se torna il sereno
+####################################################################
+
+alias: 'Spegni lume se torna il sereno'
+trigger:
+  - platform: numeric_state
+    entity_id: sensor.dark_sky_cloud_coverage
+    below: 60
+
+condition:
+  - condition: state
+    entity_id: group.famiglia
+    state: 'home'
+  - condition: sun
+    before: sunset
+
+action:
+  service: homeassistant.turn_off
+  entity_id: switch.smartplug

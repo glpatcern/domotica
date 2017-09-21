@@ -3,6 +3,7 @@
 #
 #######################################
 
+# this is executed either automatically or as response to statocasa changed to 'Notte'
 nightmode:
   alias: Modo notte
   sequence:
@@ -12,3 +13,17 @@ nightmode:
     - alias: Chiudi finestre
       service: cover.close_cover
       entity_id: group.all_covers
+
+# this is executed by the 'Spegni cinema' scene
+lucesalone:
+  alias: Luce salone dopo cinema
+  sequence:
+    - condition: template
+      value_template: >
+        {% if is_state('sun.sun', 'below_horizon') %}
+          true
+        {% else %}
+          false
+        {% endif %}
+    - service: homeassistant.turn_on
+      entity_id: switch.smartplug

@@ -80,7 +80,7 @@ media_center:
   control: hidden
   entities:
     - scene.cinema
-    - scene.cinema_off
+    - scene.spegni_cinema
     - media_player.amplificatore_onkyo
     - media_player.chromecast
     - remote.kira_remote
@@ -109,19 +109,23 @@ meteo_sensors:
     - sensor.netatmo_indoor_co2
     - sensor.netatmo_indoor_noise
 #   - sensor.pws_pressure_mb
-    - sensor.pws_precip_today_metric
-    - sensor.pws_precip_1d
+#   - sensor.pws_precip_today_metric
+#   - sensor.pws_precip_1d
+    - sensor.dark_sky_precip_intensity
+    - sensor.dark_sky_precip_probability
     - group.meteodetails
 
 meteodetails:
   name: 'More details ...'
   entities:
+    - sensor.dark_sky_summary
     - sensor.pws_feelslike_c
     - sensor.pws_dewpoint_c
     - sensor.pws_temp_high_record_c
     - sensor.pws_temp_high_1d_c
     - sensor.pws_temp_low_1d_c
     - sensor.pws_temp_low_record_c
+    - sensor.dark_sky_cloud_coverage
     - sensor.pws_pressure_trend
     - sensor.pws_wind_kph
     - sensor.pws_wind_dir
@@ -174,7 +178,11 @@ homeass:
     - automation.chiudi_tenda_veranda_per_vento
     - automation.lume_e_verandacam_di_sera
     - automation.lume_rientro_serale
+    - automation.lume_pioggia_on
+    - automation.lume_pioggia_off
     - automation.chiudi_serrande_simula_presenza
     - automation.lume_simula_presenza_off
-    - automation.verandacam_di_giorno
     - automation.cucu
+    - automation.modo_giorno_automatico
+    - automation.modo_notte
+    - automation.modo_notte_automatico

@@ -1,0 +1,26 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+# Accendi lume salone se piove o e' troppo nuvoloso
+####################################################################
+
+alias: 'Accendi lume se troppo nuvoloso'
+trigger:
+  - platform: numeric_state
+    entity_id: sensor.dark_sky_cloud_coverage
+    above: 90
+  - platform: numeric_state
+    entity_id: sensor.dark_sky_precip_intensity
+    above: 0
+
+condition:
+  - condition: state
+    entity_id: group.famiglia
+    state: 'home'
+  - condition: time
+    after: '14:00'
+    before: '19:00'
+
+action:
+  service: homeassistant.turn_on
+  entity_id: switch.smartplug

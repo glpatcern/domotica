@@ -30,15 +30,17 @@ script: !include scripts.yaml
 # the automation rules are split per area
 automation:
   # Stato generale casa
+  - !include automations/giornoauto.yaml
   - !include automations/notte.yaml
   - !include automations/notteauto.yaml
   - !include automations/bad_logins.yaml
-  - !include automations/verandacam_day.yaml
   # Cucu'
   - !include automations/cucu.yaml
   # Presa comandata lume e verandacam
   - !include automations/lume_verandacam_on.yaml
   - !include automations/lume_rientro_serale.yaml
+  - !include automations/lume_pioggia_on.yaml
+  - !include automations/lume_pioggia_off.yaml
   #- !include automations/lume_off.yaml
   # Cinema
   - !include automations/cinemaon.yaml
@@ -460,6 +462,16 @@ sensor:
       - wind_gust_kph
       - wind_dir
       - alerts
+
+# Dark Sky web service
+  - platform: darksky
+    api_key: !secret darksky_api_key
+    monitored_conditions:
+      - summary
+      - precip_intensity
+      - precip_probability
+      - precip_intensity_max
+      - cloud_cover
 
 # TPG & SBB-CFF-FFS
 # download data at https://opentransportdata.swiss/en/dataset

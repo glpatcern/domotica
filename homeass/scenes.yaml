@@ -12,10 +12,11 @@
       state: 'closed'
     switch.smartplug:
       state: 'off'
-# TODO: add projector ON and leds ON via KIRA
+# TODO: add projector ON and open screen via KIRA
 
-- name: Cinema off
+- name: Spegni cinema
   entities:
     media_player.amplificatore_onkyo:
       state: 'off'
-# TODO: add projector OFF ...
+    # TODO: add projector OFF ...
+    script.lucesalone: 'on'

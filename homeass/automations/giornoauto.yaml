@@ -4,10 +4,10 @@
 ####################################################################
 
 # Alle 8 torna in modalita' normale e metti webcam in modo giorno
-alias: 'VerandaCam di giorno'
+alias: 'Modo giorno automatico'
 initial_state: True
 trigger:
-# not using sunrise because most of the time homeassistant is off...
+# not using sunrise because homeassistant may be shut off...
   - platform: time
     hours: 08
     minutes: 00
