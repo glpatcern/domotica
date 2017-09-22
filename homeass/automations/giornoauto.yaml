@@ -11,6 +11,7 @@ trigger:
   - platform: time
     hours: 08
     minutes: 00
+    seconds: 00
 
 action:
   - service: input_select.select_option

@@ -236,6 +236,7 @@ device_tracker:
     - 192.168.1.25   # TV decoder
     - 192.168.1.55   # ChromeCast
     - 192.168.1.50   # Printer
+#    - 192.168.1...   # Doorbell
 
 #  - platform: owntracks
 

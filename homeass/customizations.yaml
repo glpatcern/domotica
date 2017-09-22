@@ -49,7 +49,7 @@ sensor.pws_wind_dir:
 sensor.netatmo_terrace_gust_strength:
   friendly_name: 'Raffiche'
 sensor.netatmo_terrace_angle:
-  friendly_name: 'Wind angle'
+  friendly_name: 'Wind Angle'
 sensor.netatmo_terrace_strength:
   friendy_name: 'Wind strength'
 sensor.pws_temp_c:
