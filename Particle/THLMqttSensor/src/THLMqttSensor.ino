@@ -151,8 +151,12 @@ int readout(bool button) {
                 ", \"hmin\": " + shmin + ", \"hmax\": " + shmax +
                 ", \"lmin\": " + slmin + ", \"lmax\": " + slmax : "") +
       "}";
-  // make sure we're online
-  waitUntil(WiFi.ready);
+  // make sure we're online, but give up after 10 seconds
+  if(!waitFor(WiFi.ready, 10000)) {
+    // we failed to get online, try again after 2 seconds
+    lastReadoutTime = Time.now() - readoutTimeIntervalMins*60 + 2;
+    return -1;
+  }
   // connect to the MQTT broker
   client.connect("photon");
   // publish data to the MQTT broker
