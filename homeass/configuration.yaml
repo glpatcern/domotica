@@ -234,6 +234,7 @@ device_tracker:
     - 192.168.1.21   # VerandaCam
     - 192.168.1.32   # IOMega Disk
     - 192.168.1.25   # TV decoder
+    - 192.168.1.53   # BD/DVD
     - 192.168.1.55   # ChromeCast
     - 192.168.1.50   # Printer
 #    - 192.168.1...   # Doorbell
@@ -516,6 +517,10 @@ sensor:
         friendly_name: ChromeCast
         icon_template: mdi:cast
         value_template: "{% if is_state('device_tracker.chromecast', 'home') %}on{% else %}off{% endif %}"
+      dtbddvd:
+        friendly_name: BD/DVD
+        icon_template: mdi:disk
+        value_template: "{% if is_state('device_tracker.bddvd', 'home') %}on{% else %}off{% endif %}"
       dtipad:
         friendly_name: iPad
         icon_template: mdi:tablet-ipad

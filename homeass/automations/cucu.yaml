@@ -21,9 +21,9 @@ condition:
   - condition: state
     entity_id: group.famiglia
     state: 'home'
-  - condition: template      # check both the amplifier and the TV decoder
+  - condition: template      # check the amplifier, the TV decoder, and the BD/DVD
     value_template: >
-      {% if is_state('media_player.amplificatore_onkyo', 'on') or is_state('sensor.dtsunrisetv', 'on') %}
+      {% if is_state('media_player.amplificatore_onkyo', 'on') or is_state('sensor.dtsunrisetv', 'on') or is_state('sensor.dtbddvd', 'on') %}
         false
       {% else %}
         true

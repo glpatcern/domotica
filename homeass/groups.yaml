@@ -165,6 +165,7 @@ devices:
     - weblink.iomega_disk_administration
     - sensor.dtsunrisetv
 #   - sensor.dtchromecast
+    - sensor.dtbddvd
     - sensor.dtipad
     - sensor.dtisamac
     - sensor.dtglplap
