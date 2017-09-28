@@ -362,10 +362,20 @@ sensor:
 # The current Home Assistant version, to track upgrades history
   - platform: version
 
-# HA bad logins
+# HA-specific sensors
   - platform: command_line
     name: HA bad logins
     command: "grep -c Login.attempt /config/home-assistant.log"
+    scan_interval: 600
+
+  - platform: command_line
+    name: HA warnings
+    command: "grep -c WARN /config/home-assistant.log"
+    scan_interval: 600
+
+  - platform: command_line
+    name: HA errors
+    command: "grep -c ERROR /config/home-assistant.log"
     scan_interval: 600
 
 # Internet speed test
