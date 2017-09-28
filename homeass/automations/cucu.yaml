@@ -38,7 +38,7 @@ action:
   - service: media_player.volume_set
     entity_id: media_player.chromecast
     data:
-      volume_level: 0.7       # 70% of the main amplifier volume
+      volume_level: 0.75       # 75% of the main amplifier volume
 
   - delay: '00:00:10'
 
