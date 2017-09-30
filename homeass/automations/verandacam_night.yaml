@@ -3,16 +3,14 @@
 #
 ####################################################################
 
-# accendi luce al tramonto e metti webcam in modo notte
-alias: 'Lume e VerandaCam di sera'
+# metti webcam in modo notte mezz'ora dopo il tramonto
+alias: 'VerandaCam di sera'
 initial_state: True
 trigger:
   platform: sun
   event: sunset
-  offset: "-00:10:00"
+  offset: "+00:30:00"
 
 action:
-  - service: homeassistant.turn_on
-    entity_id: switch.smartplug
   - service: homeassistant.turn_on
     entity_id: switch.verandacam_night_vision

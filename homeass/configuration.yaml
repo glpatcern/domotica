@@ -36,11 +36,13 @@ automation:
   - !include automations/bad_logins.yaml
   # Cucu'
   - !include automations/cucu.yaml
-  # Presa comandata lume e verandacam
-  - !include automations/lume_verandacam_on.yaml
+  # Presa comandata lume
+  - !include automations/lume_sera.yaml
   - !include automations/lume_rientro_serale.yaml
   - !include automations/lume_pioggia_on.yaml
   - !include automations/lume_pioggia_off.yaml
+  # VerandaCam night mode
+  - !include automations/verandacam_night.yaml
   # Cinema
   - !include automations/cinemaon.yaml
   # Covers

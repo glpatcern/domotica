@@ -63,7 +63,7 @@ veranda_giardino:
     - sensor.netatmo_terrace_gust_strength
     - switch.verandacam_torch
 #   - switch.veranda_focus
-#   - switch.verandacam_night_vision
+    - switch.verandacam_night_vision
     - switch.verandacam_video_recording
     - camera.verandacam
 
@@ -173,20 +173,21 @@ devices:
 homeass:
   name: 'Home Assistant'
   entities:
+    - sensor.current_version
     - sensor.ha_bad_logins
     - sensor.ha_warnings
     - sensor.ha_errors
-    - sensor.current_version
-    - automation.bad_logins_detector
+    - automation.bad_logins_notifier
     - automation.apri_cupola_se_fa_caldo
     - automation.chiudi_tenda_veranda_per_vento
-    - automation.lume_e_verandacam_di_sera
+    - automation.lume_sera
     - automation.lume_rientro_serale
     - automation.accendi_lume_se_troppo_nuvoloso
     - automation.spegni_lume_se_torna_il_sereno
     - automation.chiudi_serrande_simula_presenza
     - automation.lume_simula_presenza_off
     - automation.cucu
+    - automation.verandacam_night
     - automation.modo_giorno_automatico
     - automation.modo_notte
     - automation.modo_notte_automatico
