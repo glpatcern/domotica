@@ -8,7 +8,7 @@ alias: 'Spegni lume se torna il sereno'
 trigger:
   - platform: numeric_state
     entity_id: sensor.dark_sky_cloud_coverage
-    below: 60
+    below: 50
 
 condition:
   - condition: state

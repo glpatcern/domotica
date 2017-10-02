@@ -4,7 +4,7 @@
 # Auto night mode
 ####################################################################
 
-alias: Modo notte automatico
+alias: 'Modo notte automatico'
 trigger:
   - platform: time
     hours: 22

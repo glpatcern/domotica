@@ -5,7 +5,7 @@
 # Credits to @CCOSTAN
 ####################################################################
 
-alias: Bad logins detector
+alias: 'Bad logins notifier'
 hide_entity: True
 trigger:
   platform: template

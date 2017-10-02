@@ -4,7 +4,7 @@
 # Apri cupola per ventilare se temperatura interna > 26C
 ####################################################################
 
-alias: Apri cupola se fa caldo
+alias: 'Apri cupola se fa caldo'
 
 trigger:
   platform: time

@@ -4,13 +4,13 @@
 # Accendi il lume per 10' se qualcuno rientra la sera
 ####################################################################
 
-alias: Lume rientro serale
+alias: 'Lume rientro serale'
 initial_state: True
 trigger:
   - platform: state
     entity_id: group.famiglia
-    to: 'home'
     from: 'not home'
+    to: 'home'
 
 condition:
   - condition: sun
@@ -31,3 +31,4 @@ action:
 
 # Also, check the following for automatic switch off after 20':
 # https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/automation/System/watchdog_light.yaml
+

@@ -4,7 +4,7 @@
 # Manual night mode
 ####################################################################
 
-alias: Modo notte manuale
+alias: 'Modo notte manuale'
 initial_state: True
 trigger:
   platform: state
