@@ -84,6 +84,7 @@ media_center:
     - media_player.amplificatore_onkyo
     - media_player.chromecast
     - remote.kira_remote
+    - input_select.internet_radio
     - weblink.onkyo_web_interface
 
 meteo:
@@ -156,13 +157,14 @@ qnap:
 devices:
   name: 'Devices'
   entities:
-    - sensor.dtverandacam
-    - weblink.verandacam_administration
     - sensor.dtprinter
     - weblink.printer_administration
     - weblink.google_cloud_print
     - sensor.dtiomegadisk
     - weblink.iomega_disk_administration
+    - sensor.dtsalonecam
+    - sensor.dtverandacam
+    - weblink.verandacam_administration
     - sensor.dtsunrisetv
 #   - sensor.dtchromecast
     - sensor.dtbddvd
@@ -180,14 +182,13 @@ homeass:
     - automation.bad_logins_notifier
     - automation.apri_cupola_se_fa_caldo
     - automation.chiudi_tenda_veranda_per_vento
-    - automation.lume_sera
+    - automation.lume_di_sera
     - automation.lume_rientro_serale
-    - automation.accendi_lume_se_troppo_nuvoloso
+    - automation.accendi_lume_se_troppo_nuvoloso_o_piove
     - automation.spegni_lume_se_torna_il_sereno
     - automation.chiudi_serrande_simula_presenza
     - automation.lume_simula_presenza_off
     - automation.cucu
-    - automation.verandacam_night
+    - automation.verandacam_di_sera
     - automation.modo_giorno_automatico
-    - automation.modo_notte
     - automation.modo_notte_automatico

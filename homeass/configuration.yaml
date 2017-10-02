@@ -70,11 +70,21 @@ input_select:
       - open
       - closed
     initial: closed
+
   cover_veranda_state:
     options:
       - open
       - closed
     initial: closed
+
+  # Radio selector
+  internet_radio:
+    name: Radio
+    options:
+      - Scegli...
+      - Radio Maria
+    initial: Scegli...
+    icon: mdi:radio
 
 # Logging levels
 logger:
@@ -232,6 +242,7 @@ device_tracker:
     - 192.168.1.22   # iPad
     - 192.168.1.29   # PC Isa
     - 192.168.1.54   # PC Giu
+    - 192.168.1.4    # SaloneCam
     - 192.168.1.21   # VerandaCam
     - 192.168.1.32   # IOMega Disk
     - 192.168.1.25   # TV decoder
@@ -512,6 +523,10 @@ sensor:
         friendly_name: VerandaCam
         icon_template: mdi:camera-front-variant
         value_template: "{% if is_state('device_tracker.verandacam', 'home') %}on{% else %}off{% endif %}"
+      dtsalonecam:
+        friendly_name: SaloneCam
+        icon_template: mdi:camera-front-variant
+        value_template: "{% if is_state('device_tracker.salonecam', 'home') %}on{% else %}off{% endif %}"
       dtprinter:
         friendly_name: Printer
         icon_template: mdi:printer
