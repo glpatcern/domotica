@@ -83,7 +83,7 @@ media_center:
     - scene.spegni_cinema
     - media_player.amplificatore_onkyo
     - media_player.chromecast
-    - remote.kira_remote
+    - remote.telecomando_kira
     - input_select.internet_radio
     - weblink.onkyo_web_interface
 
@@ -168,6 +168,7 @@ devices:
     - sensor.dtsunrisetv
 #   - sensor.dtchromecast
     - sensor.dtbddvd
+    - sensor.dtkira
     - sensor.dtipad
     - sensor.dtisamac
     - sensor.dtglplap

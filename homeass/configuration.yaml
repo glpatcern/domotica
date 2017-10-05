@@ -126,7 +126,6 @@ conversation:
 recorder:
   exclude:
     domains:
-#     - automation
       - weblink
       - updater
     entities:
@@ -135,6 +134,7 @@ recorder:
       - sensor.last_boot
       - sensor.igd_received_bytes
       - sensor.igd_sent_bytes
+      - sensor.dtsalonecam
       - sensor.dtverandacam
       - sensor.dtprinter
       - sensor.dtiomegadisk
@@ -232,25 +232,29 @@ notify me:
 mqtt:
   broker: 192.168.1.48
 
-# Track mobile phones
+# Track home devices
 device_tracker:
   - platform: nmap_tracker
     interval_seconds: 60
     hosts:
     - 192.168.1.52   # Cell Isa
     - 192.168.1.51   # Cell Giu
-    - 192.168.1.22   # iPad
     - 192.168.1.29   # PC Isa
     - 192.168.1.54   # PC Giu
+    - 192.168.1.22   # iPad
+    - 192.168.1.32   # IOMega Disk
+    - 192.168.1.50   # Printer
     - 192.168.1.4    # SaloneCam
     - 192.168.1.21   # VerandaCam
-    - 192.168.1.32   # IOMega Disk
     - 192.168.1.25   # TV decoder
     - 192.168.1.53   # BD/DVD
     - 192.168.1.55   # ChromeCast
-    - 192.168.1.50   # Printer
-#    - 192.168.1...   # Doorbell
+    - 192.168.1.31   # KIRA
+#    - 192.168.1...   # Skybell
+#    - 192.168.1...   # LED controller
+#    - 192.168.1...   # Sprinkler Photon
 
+# Track mobile phones' locations
 #  - platform: owntracks
 
 # To get router statistics
@@ -265,6 +269,13 @@ netatmo:
   password: !secret netatmo_password
   discovery: False
 
+# Doorbell camera
+#  - platform: generic
+#    name: Entrata
+#    still_image_url: http://192.168.1.../image.jpg
+#    username: admin
+#    password: !secret camera_password
+
 # DLink camera
 camera:
   - platform: generic
@@ -274,13 +285,6 @@ camera:
     password: !secret camera_password
 #  - platform: mjpeg
 #    mjpeg_url: http://192.168.1.4/video.cgi
-
-# Doorbell camera
-#  - platform: generic
-#    name: Entrata
-#    still_image_url: http://192.168.1.../image.jpg
-#    username: admin
-#    password: !secret camera_password
 
 # MotoG camera
 android_ip_webcam:
@@ -318,10 +322,10 @@ media_player:
     host: 192.168.1.55
 
 # KIRA IR remote control
-kira:
-  remotes:
-    - name: kira_remote
-      host: 192.168.1.31
+#kira:
+#  remotes:
+#    - name: Telecomando KIRA
+#      host: 192.168.1.31
 
 # Edimax power socket
 switch:
@@ -358,14 +362,18 @@ cover:
         command_close: /config/pytahoma Camera down
         command_stop: /config/pytahoma Camera stop
       cupola:
-        command_open: /config/pytahoma Cupola up
-        command_close: /config/pytahoma Cupola down
-        command_stop: /config/pytahoma Cupola stop
+        command_open: /config/pytahoma Cupola open
+        command_close: /config/pytahoma Cupola close
+        command_stop: /config/pytahoma Cupola stop    # not working actually
       veranda:
         # this is an awning, not a shutter
         command_open: /config/pytahoma Veranda down
         command_close: /config/pytahoma Veranda up
         command_stop: /config/pytahoma Veranda stop
+
+
+# Sensors
+###########
 
 # Track the Sun and the Moon
 sun:
@@ -519,14 +527,18 @@ sensor:
 # convert all the devices' states to online/offline
   - platform: template
     sensors:
-      dtverandacam:
-        friendly_name: VerandaCam
+      dtentratacam:
+        friendly_name: EntrataCam
         icon_template: mdi:camera-front-variant
-        value_template: "{% if is_state('device_tracker.verandacam', 'home') %}on{% else %}off{% endif %}"
+        value_template: "{% if is_state('device_tracker.entratacam', 'home') %}on{% else %}off{% endif %}"
       dtsalonecam:
         friendly_name: SaloneCam
         icon_template: mdi:camera-front-variant
         value_template: "{% if is_state('device_tracker.salonecam', 'home') %}on{% else %}off{% endif %}"
+      dtverandacam:
+        friendly_name: VerandaCam
+        icon_template: mdi:camera-front-variant
+        value_template: "{% if is_state('device_tracker.verandacam', 'home') %}on{% else %}off{% endif %}"
       dtprinter:
         friendly_name: Printer
         icon_template: mdi:printer
@@ -547,6 +559,10 @@ sensor:
         friendly_name: BD/DVD
         icon_template: mdi:disk
         value_template: "{% if is_state('device_tracker.bddvd', 'home') %}on{% else %}off{% endif %}"
+      dtkira:
+        friendly_name: KIRA
+        icon_template: mdi:remote
+        value_template: "{% if is_state('device_tracker.kira', 'home') %}on{% else %}off{% endif %}"
       dtipad:
         friendly_name: iPad
         icon_template: mdi:tablet-ipad
