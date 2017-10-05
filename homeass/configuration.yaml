@@ -347,7 +347,7 @@ cover:
     covers:
       cucina:
         command_open: /config/pytahoma Cucina up
-        command_close: /config/pytahoma Cucina my
+        command_close: /config/pytahoma Cucina my     # that's a Somfy feature
         command_stop: /config/pytahoma Cucina stop
       salone:
         command_open: /config/pytahoma Salone up
@@ -390,17 +390,19 @@ sensor:
 # HA-specific sensors
   - platform: command_line
     name: HA bad logins
-    command: "grep -c Login.attempt /config/home-assistant.log"
+    # this actually fails the very first time it is executed, possibly because HA is not
+    # fully operational: this way the first false hit is taken out
+    command: "grep Login.attempt /config/home-assistant.log | grep -cv '/config/home-assistant.log'"
     scan_interval: 600
 
   - platform: command_line
     name: HA warnings
-    command: "grep -c WARN /config/home-assistant.log"
+    command: "grep WARN /config/home-assistant.log | grep -cv '/config/home-assistant.log'"
     scan_interval: 600
 
   - platform: command_line
     name: HA errors
-    command: "grep -c ERROR /config/home-assistant.log"
+    command: "grep ERROR /config/home-assistant.log | grep -cv '/config/home-assistant.log'"
     scan_interval: 600
 
 # Internet speed test
