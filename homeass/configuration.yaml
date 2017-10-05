@@ -33,6 +33,7 @@ automation:
   - !include automations/giornoauto.yaml
   - !include automations/notte.yaml
   - !include automations/notteauto.yaml
+  - !include automations/festa.yaml
   - !include automations/bad_logins.yaml
   # Cucu'
   - !include automations/cucu.yaml
@@ -43,8 +44,9 @@ automation:
   - !include automations/lume_pioggia_off.yaml
   # VerandaCam night mode
   - !include automations/verandacam_night.yaml
-  # Cinema
+  # Media center
   - !include automations/cinemaon.yaml
+  - !include automations/radio.yaml
   # Covers
   - !include automations/tendaveranda_open.yaml
   - !include automations/tendaveranda_close.yaml
@@ -83,6 +85,8 @@ input_select:
     options:
       - Scegli...
       - Radio Maria
+      - Classic FM
+      - Ambient Nature
     initial: Scegli...
     icon: mdi:radio
 
@@ -225,8 +229,8 @@ notify me:
 #ifttt:
 #  key: !secret ifttt_key
 
-# Sensors and devices
-#########################
+# Connected devices
+####################
 
 # MQTT broker (mosquitto) running on the QNAP
 mqtt:
@@ -373,7 +377,7 @@ cover:
 
 
 # Sensors
-###########
+##########
 
 # Track the Sun and the Moon
 sun:

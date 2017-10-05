@@ -193,3 +193,5 @@ homeass:
     - automation.verandacam_di_sera
     - automation.modo_giorno_automatico
     - automation.modo_notte_automatico
+    - automation.modo_festa
+    - automation.selezione_radio

@@ -1,0 +1,30 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+# Radio selection
+####################################################################
+
+alias: 'Selezione radio'
+initial_state: True
+trigger:
+  platform: state
+  entity_id: input_select.internet_radio
+
+action:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.amplificatore_onkyo
+      volume_level: '0.35'
+  - service: media_player.volume_set
+    entity_id: media_player.chromecast
+    data:
+      volume_level: '1.0'
+  -  service: media_player.play_media
+     data_template:
+       entity_id: media_player.chromecast
+       media_content_id: >
+        {% if is_state("input_select.radio_station", "Radio Maria") %} http://cloudrad.io/radiomariaitalia/playersmall
+        {% elif is_state("input_select.radio_station", "Classic FM") %} http://19143.live.streamtheworld.com/CLASSICFM_SC
+        {% elif is_state("input_select.radio_station", "Ambient Nature") %} http://94.23.252.14:8067/stream
+        {% endif %}
+       media_content_type: 'audio/mp4'
