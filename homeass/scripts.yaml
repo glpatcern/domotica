@@ -14,6 +14,15 @@ nightmode:
       service: cover.close_cover
       entity_id: group.all_covers
 
+# this is executed as response to statocasa changed to 'Festa'
+partymode:
+  alias: Modo festa
+  sequence:
+#    - alias: LED arcobaleno
+#      service: homeassistant.turn_on
+#      entity_id: light.led_salone
+#      ...: rainbow
+
 # this is executed by the 'Spegni cinema' scene
 lucesalone:
   alias: Luce salone dopo cinema

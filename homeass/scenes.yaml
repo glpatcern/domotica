@@ -12,6 +12,8 @@
       state: 'closed'
     switch.smartplug:
       state: 'off'
+    #light.led_salone:
+    # state: 'on'
 # TODO: add projector ON and open screen via KIRA
 
 - name: Spegni cinema
@@ -20,3 +22,5 @@
       state: 'off'
     # TODO: add projector OFF ...
     script.lucesalone: 'on'
+    #light.led_salone:
+    # state: 'off'

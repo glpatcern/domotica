@@ -81,11 +81,11 @@ media_center:
   entities:
     - scene.cinema
     - scene.spegni_cinema
-    - media_player.amplificatore_onkyo
-    - media_player.chromecast
-    - remote.telecomando_kira
     - input_select.internet_radio
     - weblink.onkyo_web_interface
+    - media_player.amplificatore_onkyo
+    - media_player.chromecast
+#    - remote.telecomando_kira
 
 meteo:
   name: 'Meteo'
