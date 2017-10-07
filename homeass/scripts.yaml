@@ -36,3 +36,14 @@ lucesalone:
         {% endif %}
     - service: homeassistant.turn_on
       entity_id: switch.smartplug
+
+# this is available in the Media center group to e.g. stop the radio
+stopaudio:
+  alias: Stop audio
+  sequence:
+    - alias: Spegni ChromeCast
+      service: media_player.turn_off
+      entity_id: media_player.chromecast
+    - alias: Spegni Amplificatore
+      service: media_player.turn_off
+      entity_id: media_player.amplificatore_onkyo

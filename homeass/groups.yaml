@@ -82,7 +82,9 @@ media_center:
     - scene.cinema
     - scene.spegni_cinema
     - input_select.internet_radio
-    - weblink.onkyo_web_interface
+    - script.stopaudio
+#    - light.salone_led
+#    - cover.schermo
     - media_player.amplificatore_onkyo
     - media_player.chromecast
 #    - remote.telecomando_kira
@@ -165,10 +167,12 @@ devices:
     - sensor.dtsalonecam
     - sensor.dtverandacam
     - weblink.verandacam_administration
+    - weblink.onkyo_web_interface
     - sensor.dtsunrisetv
 #   - sensor.dtchromecast
     - sensor.dtbddvd
     - sensor.dtkira
+    - sensor.dtledcontroller
     - sensor.dtipad
     - sensor.dtisamac
     - sensor.dtglplap
