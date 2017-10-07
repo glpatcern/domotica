@@ -10,6 +10,10 @@ trigger:
   platform: state
   entity_id: input_select.internet_radio
 
+condition:
+  - condition: template      # anything but 'Scegli...' is OK
+    value_template: "{{ states.input_select.internet_radio.state != 'Scegli...' }}"
+
 action:
   - service: media_player.volume_set
     data:
@@ -23,8 +27,8 @@ action:
      data_template:
        entity_id: media_player.chromecast
        media_content_id: >
-        {% if is_state("input_select.radio_station", "Radio Maria") %} http://dreamsiteradiocp.com:8092/;
-        {% elif is_state("input_select.radio_station", "Classic FM") %} http://19143.live.streamtheworld.com/CLASSICFM_SC
-        {% elif is_state("input_select.radio_station", "Ambient Nature") %} http://94.23.252.14:8067/stream
+        {% if is_state("input_select.internet_radio", "Radio Maria") %} http://dreamsiteradiocp.com:8092/;
+        {% elif is_state("input_select.internet_radio", "Classic FM") %} http://19143.live.streamtheworld.com/CLASSICFM_SC
+        {% elif is_state("input_select.internet_radio", "Ambient Nature") %} http://94.23.252.14:8067/stream
         {% endif %}
        media_content_type: 'audio/mp4'

@@ -41,6 +41,11 @@ lucesalone:
 stopaudio:
   alias: Stop audio
   sequence:
+    - alias: Reset Internet radio
+      service: input_select.select_option
+      data:
+        entity_id: input_select.internet_radio
+        option: 'Scegli...'
     - alias: Spegni ChromeCast
       service: media_player.turn_off
       entity_id: media_player.chromecast
