@@ -86,7 +86,6 @@ input_select:
       - Scegli...
       - Radio Maria
       - Venezia Classica
-      - Classic FM
     initial: Scegli...
     icon: mdi:radio
 

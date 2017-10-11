@@ -18,7 +18,7 @@ action:
   - service: media_player.volume_set
     data:
       entity_id: media_player.amplificatore_onkyo
-      volume_level: '0.35'
+      volume_level: '0.3'
   - service: media_player.volume_set
     entity_id: media_player.chromecast
     data:
@@ -29,6 +29,5 @@ action:
        media_content_id: >
         {% if is_state("input_select.internet_radio", "Radio Maria") %} http://dreamsiteradiocp.com:8092/;
         {% elif is_state("input_select.internet_radio", "Venezia Classica") %} http://174.36.206.197:8000/;stream/1
-        {% elif is_state("input_select.internet_radio", "Classic FM") %} http://19143.live.streamtheworld.com/CLASSICFM_SC
         {% endif %}
        media_content_type: 'audio/mp4'
