@@ -347,6 +347,15 @@ switch:
     name: Smartplug
     password: !secret edimax_password
 
+# Commands to interface to KIRA
+  - platform: command_line
+    switches:
+      kira_projector_power:
+        command_on: "/usr/bin/curl -X GET http://192.168.1.31/remote2.htm?button020"
+        command_off: "/usr/bin/curl -X GET http://192.168.1.31/remote2.htm?button020"
+        value_template: '{{ value == "1" }}'
+        friendly_name: KIRA Sony Projector
+
 # Somfy Tahoma for shutters/roof/store
 cover:
 #  - platform: somfytahoma

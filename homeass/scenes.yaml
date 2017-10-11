@@ -14,12 +14,15 @@
       state: 'off'
     #light.led_salone:
     # state: 'on'
-# TODO: add projector ON and open screen via KIRA
+    switch.kira_projector_power:
+      state: 'on'
+# TODO: open screen via KIRA
 
 # Turn everything off and switch on the light in the evening
 - name: Spegni cinema
   entities:
-    # TODO: add projector OFF ...
+    switch.kira_projector_power:
+      state: 'off'
     script.stopaudio: 'on'
     script.lucesalone: 'on'
     #light.led_salone:
