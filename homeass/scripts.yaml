@@ -52,3 +52,14 @@ stopaudio:
     - alias: Spegni Amplificatore
       service: media_player.turn_off
       entity_id: media_player.amplificatore_onkyo
+
+# test for KIRA
+projectorpower:
+  alias: Accendi/spegni proiettore
+  sequence:
+    - alias: Send IR
+      service: remote.send_command
+      data:
+        entity_id: remote.kira_remote
+        command: sony_projector_power
+        num_repeats: 1
