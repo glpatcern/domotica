@@ -50,8 +50,8 @@ piano_terra:
     - cover.cucina
     - cover.salone
     - switch.smartplug
-    - camera.salonecucina
     - camera.entrata
+    - camera.salonecucina
 
 veranda_giardino:
   name: 'Veranda/giardino'
@@ -85,9 +85,9 @@ media_center:
     - script.stopaudio
 #    - light.salone_led
 #    - cover.schermo
+    - script.projectorpower
     - media_player.amplificatore_onkyo
     - media_player.chromecast
-#    - remote.telecomando_kira
 
 meteo:
   name: 'Meteo'
@@ -98,6 +98,7 @@ meteo:
     - sensor.moon
     - weblink.netatmo_station
     - weblink.wunderground_station
+    - history_graph.gr_temp
 
 meteo_sensors:
   name: 'Meteo Sensors'
@@ -169,7 +170,7 @@ devices:
     - weblink.verandacam_administration
     - weblink.onkyo_web_interface
     - sensor.dtsunrisetv
-#   - sensor.dtchromecast
+    - sensor.dtchromecast
     - sensor.dtbddvd
     - sensor.dtkira
     - sensor.dtledcontroller

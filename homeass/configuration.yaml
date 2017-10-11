@@ -341,12 +341,6 @@ media_player:
   - platform: cast
     host: 192.168.1.55
 
-# KIRA IR remote control
-#kira:
-#  remotes:
-#    - name: KIRA remote
-#      host: 192.168.1.31
-
 # Edimax power socket
 switch:
   - platform: edimax
