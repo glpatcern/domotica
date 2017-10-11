@@ -16,11 +16,11 @@
     # state: 'on'
 # TODO: add projector ON and open screen via KIRA
 
+# Turn everything off and switch on the light in the evening
 - name: Spegni cinema
   entities:
-    media_player.amplificatore_onkyo:
-      state: 'off'
     # TODO: add projector OFF ...
+    script.stopaudio: 'on'
     script.lucesalone: 'on'
     #light.led_salone:
     # state: 'off'
