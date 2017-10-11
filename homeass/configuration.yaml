@@ -85,8 +85,8 @@ input_select:
     options:
       - Scegli...
       - Radio Maria
+      - Venezia Classica
       - Classic FM
-      - Ambient Nature
     initial: Scegli...
     icon: mdi:radio
 
@@ -138,15 +138,31 @@ recorder:
       - sensor.last_boot
       - sensor.igd_received_bytes
       - sensor.igd_sent_bytes
+      - sensor.dtentratacam
       - sensor.dtsalonecam
       - sensor.dtverandacam
       - sensor.dtprinter
       - sensor.dtiomegadisk
       - sensor.dtsunrisetv
       - sensor.dtchromecast
+      - sensor.dtledcontroller
       - sensor.dtipad
       - sensor.dtisamac
       - sensor.dtglplap
+
+# Displays graphs in the main frontend
+#history_graph:
+#  gr_temp:
+#    name: Temperature
+#    entities:
+#      - sensor.netatmo_outdoor_temperature
+#      - sensor.netatmo_indoor_temperature
+#      - sensor.veranda_temperature
+#      - sensor.pws_feelslike_c
+#      - sensor.pws_dewpoint_c
+#      - sensor.pws_temp_high_record_c
+#      - sensor.pws_temp_low_record_c
+#    hours_to_show: 36
 
 # Enables support for tracking state changes over time -> to be replaced by grafana
 history:
@@ -259,7 +275,7 @@ device_tracker:
 #    - 192.168.1...   # Sprinkler Photon
 
 # Track mobile phones' locations
-#  - platform: owntracks
+  - platform: gpslogger
 
 # To get router statistics
 upnp:
@@ -273,6 +289,7 @@ netatmo:
   password: !secret netatmo_password
   discovery: False
 
+camera:
 # Doorbell camera
 #  - platform: generic
 #    name: Entrata
@@ -281,7 +298,6 @@ netatmo:
 #    password: !secret camera_password
 
 # DLink camera
-camera:
   - platform: generic
     name: Salone-Cucina
     still_image_url: http://192.168.1.4/image.jpg
@@ -328,7 +344,7 @@ media_player:
 # KIRA IR remote control
 #kira:
 #  remotes:
-#    - name: Telecomando KIRA
+#    - name: KIRA remote
 #      host: 192.168.1.31
 
 # Edimax power socket
@@ -399,17 +415,17 @@ sensor:
     name: HA bad logins
     # this actually fails the very first time it is executed, possibly because HA is not
     # fully operational: this way the first false hit is taken out
-    command: "grep 'Login attempt' /config/home-assistant.log | grep -cv '/config/home-assistant.log'"
+    command: "grep 'Login attempt' /config/home-assistant.log | grep -cv 'Command failed'"
     scan_interval: 600
 
   - platform: command_line
     name: HA warnings
-    command: "grep WARN /config/home-assistant.log | grep -cv '/config/home-assistant.log'"
+    command: "grep WARN /config/home-assistant.log | grep -cv 'Command failed'"
     scan_interval: 600
 
   - platform: command_line
     name: HA errors
-    command: "grep ERROR /config/home-assistant.log | grep -cv '/config/home-assistant.log'"
+    command: "grep ERROR /config/home-assistant.log | grep -cv 'Command failed'"
     scan_interval: 600
 
 # Internet speed test

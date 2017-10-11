@@ -28,7 +28,7 @@ action:
        entity_id: media_player.chromecast
        media_content_id: >
         {% if is_state("input_select.internet_radio", "Radio Maria") %} http://dreamsiteradiocp.com:8092/;
+        {% elif is_state("input_select.internet_radio", "Venezia Classica") %} http://174.36.206.197:8000/;stream/1
         {% elif is_state("input_select.internet_radio", "Classic FM") %} http://19143.live.streamtheworld.com/CLASSICFM_SC
-        {% elif is_state("input_select.internet_radio", "Ambient Nature") %} http://94.23.252.14:8067/stream
         {% endif %}
        media_content_type: 'audio/mp4'
