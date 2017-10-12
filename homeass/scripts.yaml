@@ -10,6 +10,8 @@ nightmode:
     - alias: Spegni lume
       service: homeassistant.turn_off
       entity_id: switch.smartplug
+#   - service: homeassistant.turn_off
+#     entity_id: light.led_salone
     - alias: Chiudi finestre
       service: cover.close_cover
       entity_id: group.all_covers
@@ -27,6 +29,8 @@ partymode:
 lucesalone:
   alias: Luce salone dopo cinema
   sequence:
+#   - service: homeassistant.turn_on
+#     entity_id: light.led_salone
     - service: homeassistant.turn_on
       data_template:
         entity_id: >-

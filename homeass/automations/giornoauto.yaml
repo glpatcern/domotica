@@ -9,8 +9,8 @@ initial_state: True
 trigger:
 # not using sunrise because homeassistant may be shut off...
   - platform: time
-    hours: 08
-    minutes: 00
+    hours: 07
+    minutes: 50
     seconds: 00
 
 action:
