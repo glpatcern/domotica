@@ -23,19 +23,18 @@ partymode:
 #      entity_id: light.led_salone
 #      ...: rainbow
 
-# this is executed by the 'Spegni cinema' scene
+# this is executed by the 'Spegni cinema' scene: either switch on light or open cover
 lucesalone:
   alias: Luce salone dopo cinema
   sequence:
-    - condition: template
-      value_template: >
-        {% if is_state('sun.sun', 'below_horizon') %}
-          true
-        {% else %}
-          false
-        {% endif %}
     - service: homeassistant.turn_on
-      entity_id: switch.smartplug
+      data_template:
+        entity_id: >-
+          {% if is_state('sun.sun', 'below_horizon') %}
+            switch.smartplug
+          {% else %}
+            switch.cover_salone_my
+          {% endif %}
 
 # this is available in the Media center group to e.g. stop the radio
 stopaudio:

@@ -351,10 +351,17 @@ switch:
   - platform: command_line
     switches:
       kira_projector_power:
-        command_on: "/usr/bin/curl -X GET http://192.168.1.31/remote2.htm?button020"
-        command_off: "/usr/bin/curl -X GET http://192.168.1.31/remote2.htm?button020"
+        command_on: /usr/bin/curl -X GET http://192.168.1.31/remote2.htm?button020
+        command_off: /usr/bin/curl -X GET http://192.168.1.31/remote2.htm?button020
         value_template: '{{ value == "1" }}'
         friendly_name: KIRA Sony Projector
+      #kira_dvd_power:
+      #kira_tvdecoder_power:
+
+      # a switch for the 'my' position of a cover (cf. below)
+      cover_salone_my:
+        command_on: /config/pytahoma Salone my
+        friendly_name: Salone cover semiopen
 
 # Somfy Tahoma for shutters/roof/store
 cover:
