@@ -178,9 +178,10 @@ devices:
 portables:
   name: 'Portable Devices'
   entities:
-    - sensor.dtipad
     - sensor.dtisamac
     - sensor.dtglplap
+    - sensor.dtipad
+    - sensor.dthtc
 
 homeass:
   name: 'Home Assistant'

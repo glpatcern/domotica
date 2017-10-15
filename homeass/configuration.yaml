@@ -137,6 +137,9 @@ recorder:
       - sensor.last_boot
       - sensor.igd_received_bytes
       - sensor.igd_sent_bytes
+      - sensor.ha_bad_logins
+      - sensor.ha_warnings
+      - sensor.ha_errors
       - sensor.dtentratacam
       - sensor.dtsalonecam
       - sensor.dtverandacam
@@ -146,6 +149,7 @@ recorder:
       - sensor.dtchromecast
       - sensor.dtledcontroller
       - sensor.dtipad
+      - sensor.dthtc
       - sensor.dtisamac
       - sensor.dtglplap
 
@@ -261,6 +265,8 @@ device_tracker:
     - 192.168.1.29   # PC Isa
     - 192.168.1.54   # PC Giu
     - 192.168.1.22   # iPad
+#    - 192.168.1...   # HTC
+#    - 192.168.1...    # Belkin repeater
     - 192.168.1.32   # IOMega Disk
     - 192.168.1.50   # Printer
     - 192.168.1.4    # SaloneCam
@@ -269,7 +275,7 @@ device_tracker:
     - 192.168.1.53   # BD/DVD
     - 192.168.1.55   # ChromeCast
     - 192.168.1.31   # KIRA
-#    - 192.168.1...   # Skybell
+#    - 192.168.1...   # Entrata
 #    - 192.168.1...   # LED controller
 #    - 192.168.1...   # Sprinkler Photon
 
@@ -424,17 +430,17 @@ sensor:
     name: HA bad logins
     # this actually fails the very first time it is executed, possibly because HA is not
     # fully operational: this way the first false hit is taken out
-    command: "grep 'Login attempt' /config/home-assistant.log | grep -cv 'Command failed'"
+    command: grep "Login attempt" /config/home-assistant.log | grep -cv "Command failed"
     scan_interval: 600
 
   - platform: command_line
     name: HA warnings
-    command: "grep WARN /config/home-assistant.log | grep -cv 'Command failed'"
+    command: grep -c WARN /config/home-assistant.log
     scan_interval: 600
 
   - platform: command_line
     name: HA errors
-    command: "grep ERROR /config/home-assistant.log | grep -cv 'Command failed'"
+    command: grep -c ERROR /config/home-assistant.log
     scan_interval: 600
 
 # Internet speed test
@@ -609,6 +615,10 @@ sensor:
         friendly_name: iPad
         icon_template: mdi:tablet-ipad
         value_template: "{% if is_state('device_tracker.ipad', 'home') %}on{% else %}off{% endif %}"
+      dthtc:
+        friendly_name: HTC
+        icon_template: mdi:cellphone-android
+        value_template: "{% if is_state('device_tracker.htc', 'home') %}on{% else %}off{% endif %}"
       dtisamac:
         friendly_name: Mac Isa
         icon_template: mdi:laptop-mac

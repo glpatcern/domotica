@@ -21,7 +21,7 @@ condition:
       {% endif %}
 
 action:
-  - delay: '{{ "00:" ~ ((range(1, 10) | random) | int)  ~ ":00" }}'
+  - delay: '{{ "00:" ~ ((range(1, 10) | random) | int)  ~ ":00" }}'   # aggiunge un ritardo random
   - service: input_select.select_option
     data:
       entity_id: input_select.statocasa

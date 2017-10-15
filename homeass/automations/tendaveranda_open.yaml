@@ -33,4 +33,3 @@ action:
     data:
       entity_id: input_select.cover_veranda_state
       option: 'open'
-
