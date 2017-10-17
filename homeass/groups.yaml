@@ -59,7 +59,6 @@ veranda_giardino:
   control: hidden
   entities:
     - cover.veranda
-    - automation.apri_tenda_se_fa_caldo
     - sensor.veranda_brightness
     - sensor.netatmo_terrace_gust_strength
     - switch.verandacam_torch
@@ -192,6 +191,7 @@ homeass:
     - sensor.ha_errors
     - automation.bad_logins_notifier
     - automation.apri_cupola_se_fa_caldo
+    - automation.apri_tenda_se_fa_caldo
     - automation.chiudi_tenda_veranda_per_vento
     - automation.lume_di_sera
     - automation.lume_rientro_serale
@@ -199,9 +199,11 @@ homeass:
     - automation.spegni_lume_se_torna_il_sereno
     - automation.chiudi_serrande_simula_presenza
     - automation.lume_simula_presenza_off
-    - automation.cucu
+    - automation.cinema_setup
+    - automation.orologio_a_cucu
     - automation.verandacam_di_sera
     - automation.modo_giorno_automatico
     - automation.modo_notte_automatico
+    - automation.modo_notte_manuale
     - automation.modo_festa
     - automation.selezione_radio

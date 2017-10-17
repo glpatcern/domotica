@@ -1,11 +1,11 @@
 #
 # LoPresti smart home - automation configuration for Home Assistant
 #
-# Cucu'
+# Cucù
 # credits to CCOSTAN@github
 ####################################################################
 
-alias: Cucu
+alias: 'Orologio a cucù'
 trigger:
   - platform: time
     minutes: 59
