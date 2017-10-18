@@ -143,6 +143,7 @@ recorder:
       - sensor.dtentratacam
       - sensor.dtsalonecam
       - sensor.dtverandacam
+      - sensor.dtrepeater
       - sensor.dtprinter
       - sensor.dtiomegadisk
       - sensor.dtsunrisetv
@@ -215,6 +216,8 @@ weblink:
       url: https://www.google.com/cloudprint/#printers
     - name: IOMega disk administration
       url: http://192.168.1.32
+    - name: WiFi Repeater administration
+      url: http://192.168.1.30
     - name: NetAtmo station
       url: https://my.netatmo.com/app/station
     - name: WUnderground station
@@ -260,24 +263,7 @@ device_tracker:
   - platform: nmap_tracker
     interval_seconds: 60
     hosts:
-    - 192.168.1.52   # Cell Isa
-    - 192.168.1.51   # Cell Giu
-    - 192.168.1.29   # PC Isa
-    - 192.168.1.54   # PC Giu
-    - 192.168.1.22   # iPad
-#    - 192.168.1...   # HTC
-#    - 192.168.1...    # Belkin repeater
-    - 192.168.1.32   # IOMega Disk
-    - 192.168.1.50   # Printer
-    - 192.168.1.4    # SaloneCam
-    - 192.168.1.21   # VerandaCam
-    - 192.168.1.25   # TV decoder
-    - 192.168.1.53   # BD/DVD
-    - 192.168.1.55   # ChromeCast
-    - 192.168.1.31   # KIRA
-#    - 192.168.1...   # Entrata
-#    - 192.168.1...   # LED controller
-#    - 192.168.1...   # Sprinkler Photon
+    - 192.168.1.1/24
 
 # Track mobile phones' locations
   - platform: gpslogger
@@ -583,6 +569,10 @@ sensor:
         friendly_name: VerandaCam
         icon_template: mdi:camera-front-variant
         value_template: "{% if is_state('device_tracker.verandacam', 'home') %}on{% else %}off{% endif %}"
+      dtrepeater:
+        friendly_name: WiFi Repeater
+        icon_template: mdi:access-point-network
+        value_template: "{% if is_state('device_tracker.repeater', 'home') %}on{% else %}off{% endif %}"
       dtprinter:
         friendly_name: Printer
         icon_template: mdi:printer

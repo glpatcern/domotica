@@ -164,6 +164,8 @@ devices:
     - weblink.google_cloud_print
     - sensor.dtiomegadisk
     - weblink.iomega_disk_administration
+    - sensor.dtrepeater
+    - weblink.wifi_repeater_administration
     - sensor.dtsalonecam
     - sensor.dtverandacam
     - weblink.verandacam_administration
