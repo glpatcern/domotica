@@ -51,7 +51,6 @@ piano_terra:
     - cover.cucina
     - cover.salone
     - switch.smartplug
-    - camera.entrata
     - camera.salonecucina
 
 veranda_giardino:
