@@ -132,7 +132,7 @@ recorder:
       - weblink
       - updater
     entities:
-      - sun.sun   # Don't record Sun/Moon data
+      - sun.sun
       - sensor.moon
       - sensor.last_boot
       - sensor.igd_received_bytes
@@ -154,18 +154,19 @@ recorder:
       - sensor.dtglplap
 
 # Displays graphs in the main frontend
-#history_graph:
-#  gr_temp:
-#    name: Temperature
-#    entities:
-#      - sensor.netatmo_outdoor_temperature
-#      - sensor.netatmo_indoor_temperature
-#      - sensor.veranda_temperature
-#      - sensor.pws_feelslike_c
-#      - sensor.pws_dewpoint_c
-#      - sensor.pws_temp_high_record_c
-#      - sensor.pws_temp_low_record_c
-#    hours_to_show: 36
+history_graph:
+  gr_temperature:
+    name: Temperature
+    entities:
+      - sensor.netatmo_outdoor_temperature
+      - sensor.netatmo_indoor_temperature
+      - sensor.veranda_temperature
+      - sensor.pws_feelslike_c
+      - sensor.pws_dewpoint_c
+      - sensor.pws_temp_high_record_c
+      - sensor.pws_temp_low_record_c
+    hours_to_show: 36
+    refresh: 600   # 10 minutes
 
 # Enables support for tracking state changes over time -> to be replaced by grafana
 history:
@@ -198,6 +199,9 @@ zone 3:
 #  longitude: !secret z4_longitude
 #  radius: 10000
 
+# Add a map with locations in the frontend
+map:
+
 # Useful links
 weblink:
   entities:
@@ -223,14 +227,14 @@ weblink:
       url: !secret wunderground_link
 
 panel_iframe:
+# dashboard:
+#   title: Grafana Dashboard
+#   icon: mdi:view-dashboard
+#   url: 
   homeass:
     title: Home Assistant Web
     icon: mdi:home-assistant
     url: https://home-assistant.io
-# dashboard:
-#   title: Grafana for HA
-#   icon:
-#   url:
 
 # Custom cloud services
 #########################
@@ -262,7 +266,7 @@ device_tracker:
   - platform: nmap_tracker
     interval_seconds: 60
     hosts:
-    - 192.168.1.1/24
+    - 192.168.1.0/24
 
 # Track mobile phones' locations
   - platform: gpslogger

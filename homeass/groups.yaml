@@ -44,7 +44,7 @@ trasporti:
     - sensor.gtfs_treno_meyrin
 
 piano_terra:
-  name: 'Piano terra'
+  name: 'Piano Terra'
   control: hidden
   entities:
     - input_select.statocasa
@@ -54,7 +54,7 @@ piano_terra:
     - camera.salonecucina
 
 veranda_giardino:
-  name: 'Veranda/giardino'
+  name: 'Veranda/Giardino'
   control: hidden
   entities:
     - cover.veranda
@@ -67,7 +67,7 @@ veranda_giardino:
     - camera.verandacam
 
 primo_piano:
-  name: 'Primo piano'
+  name: 'Primo Piano'
   entities:
     - cover.stanza_da_letto
     - cover.camera_irene
@@ -75,7 +75,7 @@ primo_piano:
     - cover.cupola
 
 media_center:
-  name: 'Media center'
+  name: 'Media Center'
   control: hidden
   entities:
     - scene.cinema
@@ -84,6 +84,7 @@ media_center:
     - script.stopaudio
 #    - light.salone_led
 #    - cover.schermo
+    - weblink.qnap_administration
     - media_player.amplificatore_onkyo
     - media_player.chromecast
 
@@ -96,7 +97,7 @@ meteo:
     - sensor.moon
     - weblink.netatmo_station
     - weblink.wunderground_station
-    - history_graph.gr_temp
+    - history_graph.temperature
 
 meteo_sensors:
   name: 'Meteo Sensors'
