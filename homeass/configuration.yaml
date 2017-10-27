@@ -388,12 +388,12 @@ cover:
         command_close: /config/pytahoma Veranda up
         command_stop: /config/pytahoma Veranda stop
 
-#light:
+light:
 # LED for the home theater
-#  - platform: flux_led
-#    devices:
-#      192.168.1...:
-#        name: led_salone
+  - platform: flux_led
+    devices:
+      192.168.1.56:
+        name: LED Salone
 
 
 # Sensors
@@ -577,6 +577,10 @@ sensor:
         friendly_name: Sunrise TV
         icon_template: mdi:television
         value_template: "{% if is_state('device_tracker.sunrisetv', 'home') %}on{% else %}off{% endif %}"
+      dtonkyoamp:
+        friendly_name: Onkyo
+        icon_template: mdi:amplifier
+        value_template: "{% if is_state('device_tracker.onkyoamp', 'home') %}on{% else %}off{% endif %}"
       dtchromecast:
         friendly_name: ChromeCast
         icon_template: mdi:cast

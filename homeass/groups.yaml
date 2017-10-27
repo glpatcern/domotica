@@ -82,7 +82,7 @@ media_center:
     - scene.spegni_cinema
     - input_select.internet_radio
     - script.stopaudio
-#    - light.salone_led
+    - light.led_salone
 #    - cover.schermo
     - weblink.qnap_administration
     - media_player.amplificatore_onkyo
@@ -97,7 +97,6 @@ meteo:
     - sensor.moon
     - weblink.netatmo_station
     - weblink.wunderground_station
-    - history_graph.temperature
 
 meteo_sensors:
   name: 'Meteo Sensors'
@@ -169,6 +168,7 @@ devices:
     - sensor.dtsalonecam
     - sensor.dtverandacam
     - weblink.verandacam_administration
+    - sensor.dtonkyoamp
     - weblink.onkyo_web_interface
     - sensor.dtsunrisetv
     - sensor.dtchromecast
