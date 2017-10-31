@@ -12,7 +12,7 @@ trigger:
 condition:
   - condition: time
     after: '08:15:00'
-    before: '18:00:00'
+    before: '17:00:00'
   - condition: state
     entity_id: group.famiglia
     state: 'home'

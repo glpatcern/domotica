@@ -29,4 +29,4 @@ action:
       option: 'closed'
   - service: notify.notifyglp
     data_template:
-      message: "Tenda veranda chiusa per raffiche di {{ states.sensor.netatmo_terrace_gust_strength.state }} km/h"
+      message: "Tenda veranda chiusa, raffiche di {{ states.sensor.netatmo_terrace_gust_strength.state }} km/h"
