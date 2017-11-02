@@ -38,7 +38,7 @@ action:
   - service: media_player.volume_set
     entity_id: media_player.chromecast
     data:
-      volume_level: 0.75       # 75% of the main amplifier volume
+      volume_level: 0.70       # 70% of the main amplifier volume
 
   - delay: '00:00:10'
 
@@ -47,9 +47,9 @@ action:
       entity_id: media_player.chromecast
       media_content_id: >
         {% if now().strftime("%M")|int == 30 %}
-        https://raw.githubusercontent.com/glpatcern/DOMOTICA/homeass/resources/cuckoo-clock-01.wav
+        https://raw.githubusercontent.com/glpatcern/domotica/master/homeass/resources/cuckoo-clock-01.wav
         {% else %}
-        https://raw.githubusercontent.com/glpatcern/DOMOTICA/homeass/resources/cuckoo-clock-{{now().strftime("%I")}}.wav
+        https://raw.githubusercontent.com/glpatcern/domotica/master/homeass/resources/cuckoo-clock-{{now().strftime("%I")}}.wav
         {% endif %}
       media_content_type: audio/mp4
 
