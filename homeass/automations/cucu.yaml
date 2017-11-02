@@ -47,9 +47,9 @@ action:
       entity_id: media_player.chromecast
       media_content_id: >
         {% if now().strftime("%M")|int == 30 %}
-        https://raw.githubusercontent.com/CCOSTAN/Home-AssistantConfig/master/sounds/cuckoo-clock-01.wav
+        http://naslopresti/homeass-resources/sounds/cuckoo-clock-01.wav
         {% else %}
-        https://raw.githubusercontent.com/CCOSTAN/Home-AssistantConfig/master/sounds/cuckoo-clock-{{now().strftime("%I")}}.wav
+        http://naslopresti/homeass-resources/sounds/cuckoo-clock-{{now().strftime("%I")}}.wav
         {% endif %}
       media_content_type: audio/mp4
 
