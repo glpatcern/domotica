@@ -20,6 +20,9 @@ condition:
     entity_id: switch.smartplug
     state: 'off'
 
+  - condition: time
+    before: "00:15:00"
+
 action:
   - service: homeassistant.turn_on
     entity_id: switch.smartplug

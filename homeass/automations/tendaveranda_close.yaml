@@ -1,7 +1,8 @@
 #
 # LoPresti smart home - automation configuration for Home Assistant
 #
-# alza tenda se vento > 20 km/h o se sono le 17 + invia notifica
+# alza tenda se vento > 20 km/h o temperatura < 24C o se sono le 17
+# in ogni caso invia notifica
 ####################################################################
 
 alias: 'Chiudi tenda veranda per vento'
@@ -10,6 +11,9 @@ trigger:
   - platform: numeric_state
     entity_id: sensor.netatmo_terrace_gust_strength
     above: 20
+  - platform: numeric_state
+    entity_id: sensor.veranda_temperature
+    below: 24
   - platform: time
     hours: 17
     minutes: 00
