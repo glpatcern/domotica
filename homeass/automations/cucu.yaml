@@ -23,7 +23,7 @@ condition:
     state: 'home'
   - condition: template      # check the amplifier, the TV decoder, and the BD/DVD
     value_template: >
-      {% if is_state('media_player.amplificatore_onkyo', 'on') or is_state('sensor.dtsunrisetv', 'on') or is_state('sensor.dtbddvd', 'on') %}
+      {% if is_state('media_player.amplificatore_onkyo', 'on') or is_state('sensor.dt_sunrisetv', 'on') or is_state('sensor.dt_bddvd', 'on') %}
         false
       {% else %}
         true
@@ -40,7 +40,7 @@ action:
     data:
       volume_level: 0.70       # 70% of the main amplifier volume
 
-  - delay: '00:00:10'
+  - delay: '00:00:15'
 
   - service: media_player.play_media
     data_template:
@@ -56,7 +56,8 @@ action:
   - delay: '00:00:15'
 
   - service: media_player.turn_off
-    entity_id: media_player.chromecast
+    entity_id: media_player.amplificatore_onkyo
 
   - service: media_player.turn_off
-    entity_id: media_player.amplificatore_onkyo
+    entity_id: media_player.chromecast
+

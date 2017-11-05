@@ -158,31 +158,32 @@ qnap:
 devices:
   name: 'Home Devices'
   entities:
-    - sensor.dtprinter
+    - sensor.dt_printer
     - weblink.printer_administration
     - weblink.google_cloud_print
-    - sensor.dtiomegadisk
+    - sensor.dt_iomegadisk
     - weblink.iomega_disk_administration
-    - sensor.dtrepeater
+    - sensor.dt_repeater
     - weblink.wifi_repeater_administration
-    - sensor.dtsalonecam
-    - sensor.dtverandacam
+    - sensor.dt_salonecam
+    - sensor.dt_verandacam
     - weblink.verandacam_administration
-    - sensor.dtonkyoamp
+    - sensor.dt_edimaxswitch
+    - sensor.dt_onkyoamp
     - weblink.onkyo_web_interface
-    - sensor.dtsunrisetv
-    - sensor.dtchromecast
-    - sensor.dtbddvd
-    - sensor.dtkira
-    - sensor.dtledcontroller
+    - sensor.dt_sunrisetv
+    - sensor.dt_chromecast
+    - sensor.dt_bddvd
+    - sensor.dt_kira
+    - sensor.dt_ledcontroller
 
 portables:
   name: 'Portable Devices'
   entities:
-    - sensor.dtisamac
-    - sensor.dtglplap
-    - sensor.dtipad
-    - sensor.dthtc
+    - sensor.dt_isamac
+    - sensor.dt_glplap
+    - sensor.dt_ipad
+    - sensor.dt_htc
 
 homeass:
   name: 'Home Assistant'
