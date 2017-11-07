@@ -19,6 +19,8 @@ condition:
     state: 'home'
   - condition: time
     after: '15:00'
+  - condition: template      # anything but 'Notte' is OK
+    value_template: "{{ states.input_select.statocasa.state != 'Notte' }}"
 
 action:
   service: homeassistant.turn_on
