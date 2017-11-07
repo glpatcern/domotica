@@ -220,7 +220,7 @@ weblink:
     - name: IOMega disk administration
       url: http://192.168.1.32
     - name: WiFi Repeater administration
-      url: http://192.168.1.30
+      url: http://192.168.1.32
     - name: NetAtmo station
       url: https://my.netatmo.com/app/station
     - name: WUnderground station
@@ -410,18 +410,17 @@ sensor:
 # HA-specific sensors
   - platform: command_line
     name: HA bad logins
-    # this is actually failing...
-    command: grep -c Login.attempt /config/home-assistant.log
+    command: "grep Login.attempt /config/home-assistant.log | grep -cv grep"
     scan_interval: 600
 
   - platform: command_line
     name: HA warnings
-    command: ls -l /config/home-assistant.log
+    command: "grep WARN /config/home-assistant.log | grep -cv grep"
     scan_interval: 600
 
   - platform: command_line
     name: HA errors
-    command: grep -c ERROR /config/home-assistant.log
+    command: "grep ERROR /config/home-assistant.log | grep -cv grep"
     scan_interval: 600
 
 # Internet speed test
