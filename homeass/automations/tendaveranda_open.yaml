@@ -3,7 +3,7 @@
 #
 ####################################################################
 
-# abbassa la tenda durante il giorno, se c'e' qualcuno, temperatura > 25C & vento < 20 km/h
+# abbassa la tenda d'estate durante il giorno, se c'e' qualcuno, temperatura > 25C & vento < 20 km/h
 alias: 'Apri tenda se fa caldo'
 trigger:
   platform: time
@@ -13,6 +13,8 @@ condition:
   - condition: time
     after: '08:15:00'
     before: '17:00:00'
+  - condition: template
+    value_template: '{{ now().month > 4 and (now().month < 10 or (now().month == 10 and now().day < 15)) }}'
   - condition: state
     entity_id: group.famiglia
     state: 'home'
