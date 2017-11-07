@@ -56,7 +56,7 @@ int getAndStoreValues() {
   hum = dht.getHumidity();
   //dp = dht.getDewPoint();
   // Check if any reads failed and exit early
-  if (isnan(hum) || isnan(temp)) {
+  if (isnan(hum) || isnan(temp) || (temp > 60)) {
     return -1;
   }
   // apply a correction factor to the humidity reading, following
