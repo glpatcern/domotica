@@ -4,7 +4,7 @@
 ####################################################################
 
 # abbassa la tenda d'estate durante il giorno, se c'e' qualcuno, temperatura > 25C & vento < 20 km/h
-alias: 'Apri tenda se fa caldo'
+alias: 'Apri tenda veranda se fa caldo'
 trigger:
   platform: time
   minutes: '/10'    # check every 10' to avoid fast loops in case of critical wind conditions
