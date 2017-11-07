@@ -16,6 +16,7 @@ condition:
     state: 'home'
   - condition: sun
     before: sunset
+    before_offset: "00:30:00"   # same as lume_sera.yaml offset
 
 action:
   service: homeassistant.turn_off
