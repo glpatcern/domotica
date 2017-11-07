@@ -20,10 +20,10 @@ nightmode:
 partymode:
   alias: Modo festa
   sequence:
-#    - alias: LED arcobaleno
-#      service: homeassistant.turn_on
-#      entity_id: light.led_salone
-#      ...: rainbow
+    - service: light.turn_on
+      data:
+        entity_id: light.led_salone
+        effect: random
 
 # this is executed by the 'Spegni cinema' scene: either switch on light or open cover
 lucesalone:
