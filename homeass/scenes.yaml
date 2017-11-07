@@ -12,9 +12,9 @@
       state: 'closed'
     switch.smartplug:
       state: 'off'
-    light.led_salone:
-      state: 'on'
     switch.kira_projector_power:
+      state: 'on'
+    light.led_salone:
       state: 'on'
 # TODO: open screen via KIRA
 

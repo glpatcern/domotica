@@ -11,12 +11,12 @@ default_view:
   entities:
     - group.famiglia
     - group.trasporti
-    - group.meteo
-    - group.meteo_sensors
-    - group.media_center
     - group.piano_terra
     - group.veranda_giardino
+    - group.media_center
     - group.primo_piano
+    - group.meteo
+    - group.meteo_sensors
 
 it:
   name: 'IT'
@@ -202,7 +202,6 @@ homeass:
     - automation.spegni_lume_se_torna_il_sereno
     - automation.chiudi_serrande_simula_presenza
     - automation.lume_simula_presenza_off
-    - automation.cinema_setup
     - automation.orologio_a_cucu
     - automation.verandacam_di_sera
     - automation.modo_giorno_automatico
