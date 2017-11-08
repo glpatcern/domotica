@@ -1,0 +1,22 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+####################################################################
+
+# chiudi salone e cucina la sera dopo il tramonto
+alias: 'Chiudi serrande piano terra di sera'
+initial_state: True
+trigger:
+  platform: sun
+  event: sunset
+  offset: "01:00:00"
+
+condition:
+  - condition: template      # we must still be in normal mode
+    value_template: "{{ states.input_select.statocasa.state == 'Normale' }}"
+
+action:
+  - service: cover.close_cover
+    entity_id: cover.cucina
+  - service: cover.close_cover
+    entity_id: cover.salone

@@ -51,6 +51,7 @@ automation:
   - !include automations/tendaveranda_open.yaml
   - !include automations/tendaveranda_close.yaml
   - !include automations/covers_pianoterra_close.yaml
+  - !include automations/covers_pianoterra_sera.yaml
   - !include automations/cupola.yaml
   # Irrigazione
 #  - !include automations/irrigazione.yaml

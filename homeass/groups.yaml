@@ -201,6 +201,7 @@ homeass:
     - automation.accendi_lume_se_troppo_nuvoloso_o_piove
     - automation.spegni_lume_se_torna_il_sereno
     - automation.chiudi_serrande_simula_presenza
+    - automation.chiudi_serrande_piano_terra_di_sera
     - automation.lume_simula_presenza_off
     - automation.orologio_a_cucu
     - automation.verandacam_di_sera
