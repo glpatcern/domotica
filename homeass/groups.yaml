@@ -189,6 +189,7 @@ homeass:
   name: 'Home Assistant'
   entities:
     - sensor.current_version
+    - sensor.ha_config_loc
     - sensor.ha_bad_logins
     - sensor.ha_warnings
     - sensor.ha_errors

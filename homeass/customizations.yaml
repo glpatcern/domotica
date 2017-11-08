@@ -76,10 +76,12 @@ switch.smartplug:
   friendly_name: 'Lume'
 sensor.ha_bad_logins:
   icon: mdi:account-key
+sensor.ha_config_loc:
+  icon: mdi:code-tags
 sensor.ha_warnings:
-  icon: mdi:format-align-left
+  icon: mdi:note-text
 sensor.ha_errors:
-  icon: mdi:format-align-left
+  icon: mdi:note-text
 sensor.naslopresti_cpu_usage:
   friendly_name: 'QNAP CPU usage'
 sensor.naslopresti_memory_usage:

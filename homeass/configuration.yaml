@@ -424,6 +424,11 @@ sensor:
     command: "grep ERROR /config/home-assistant.log | grep -cv grep"
     scan_interval: 600
 
+  - platform: command_line
+    name: HA Config LoC
+    command: "wc -l /config/*yaml /config/automations/* | grep total | awk '{print $1}'"
+    scan_interval: 40000
+
 # Internet speed test
   - platform: speedtest
     monitored_conditions:
