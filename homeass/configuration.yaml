@@ -7,7 +7,7 @@
 ############################
 
 homeassistant:
-  name: !secret ha_name
+  name: Casa
   # location required to calculate the time the sun rises and sets
   latitude: !secret ha_latitude
   longitude: !secret ha_longitude
@@ -112,8 +112,8 @@ config:
 http:
   api_password: !secret http_password
   base_url: !secret http_base_url
-  ssl_certificate: /config/SSLcertificate.crt
-  ssl_key: /config/SSLprivatekey.key
+  ssl_certificate: /config/sslcert.crt
+  ssl_key: /config/sslkey.key
   ip_ban_enabled: True
   login_attempts_threshold: 5
   trusted_networks:
@@ -340,8 +340,8 @@ switch:
   - platform: command_line
     switches:
       kira_projector_power:
-        command_on: /usr/bin/curl -X GET http://192.168.1.31/remote2.htm?button020
-        command_off: /usr/bin/curl -X GET http://192.168.1.31/remote2.htm?button020
+        command_on: /usr/bin/curl -X GET http://192.168.1.31/remote2.htm\?button020
+        command_off: /usr/bin/curl -X GET http://192.168.1.31/remote2.htm\?button020
         value_template: '{{ value == "1" }}'
         friendly_name: KIRA Sony Projector
       #kira_dvd_power:
@@ -350,7 +350,7 @@ switch:
       # a switch for the 'my' position of a cover (cf. below)
       cover_salone_my:
         command_on: /config/pytahoma Salone my
-        friendly_name: Salone cover semiopen
+        friendly_name: Salone semiapertura
 
 # Somfy Tahoma for shutters/roof/store
 cover:
@@ -410,24 +410,24 @@ sensor:
 
 # HA-specific sensors
   - platform: command_line
-    name: HA bad logins
+    name: HA Config LoC
+    command: "wc -l /config/*yaml /config/automations/* | grep total | awk '{print $1}'"
+    scan_interval: 40000
+
+  - platform: command_line
+    name: HA Bad Logins
     command: "grep Login.attempt /config/home-assistant.log | grep -cv grep"
     scan_interval: 600
 
   - platform: command_line
-    name: HA warnings
+    name: HA Warnings
     command: "grep WARN /config/home-assistant.log | grep -cv grep"
     scan_interval: 600
 
   - platform: command_line
-    name: HA errors
+    name: HA Errors
     command: "grep ERROR /config/home-assistant.log | grep -cv grep"
     scan_interval: 600
-
-  - platform: command_line
-    name: HA Config LoC
-    command: "wc -l /config/*yaml /config/automations/* | grep total | awk '{print $1}'"
-    scan_interval: 40000
 
 # Internet speed test
   - platform: speedtest
