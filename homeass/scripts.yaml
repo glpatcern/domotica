@@ -10,8 +10,6 @@ nightmode:
     - alias: Spegni lume
       service: homeassistant.turn_off
       entity_id: switch.smartplug
-    - service: homeassistant.turn_off
-      entity_id: light.led_salone
     - alias: Chiudi finestre
       service: cover.close_cover
       entity_id: group.all_covers
