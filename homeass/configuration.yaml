@@ -138,7 +138,6 @@ recorder:
       - sensor.last_boot
       - sensor.igd_received_bytes
       - sensor.igd_sent_bytes
-      - sensor.ha_bad_logins
       - sensor.ha_warnings
       - sensor.ha_errors
       - sensor.dt_salonecam
@@ -166,7 +165,7 @@ history_graph:
       - sensor.pws_dewpoint_c
       - sensor.pws_temp_high_record_c
       - sensor.pws_temp_low_record_c
-    hours_to_show: 36
+    hours_to_show: 48
     refresh: 600   # 10 minutes
 
 # Enables support for tracking state changes over time -> to be replaced by grafana
@@ -413,11 +412,6 @@ sensor:
     name: HA Config LoC
     command: "wc -l /config/*yaml /config/automations/* | grep total | awk '{print $1}'"
     scan_interval: 40000
-
-  - platform: command_line
-    name: HA Bad Logins
-    command: "grep Login.attempt /config/home-assistant.log | grep -cv grep"
-    scan_interval: 600
 
   - platform: command_line
     name: HA Warnings
