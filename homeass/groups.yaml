@@ -15,8 +15,14 @@ default_view:
     - group.veranda_giardino
     - group.media_center
     - group.primo_piano
-    - group.meteo
+
+meteo:
+  name: 'Meteo'
+  view: yes
+  entities:
+    - group.meteo_general
     - group.meteo_sensors
+    - group.meteo_details
 
 it:
   name: 'IT'
@@ -24,8 +30,8 @@ it:
   entities:
     - group.homeass
     - group.internet
-    - group.qnap
     - group.devices
+    - group.qnap
     - group.portables
 
 # Groups
@@ -48,6 +54,7 @@ piano_terra:
   control: hidden
   entities:
     - input_select.statocasa
+    - sensor.netatmo_indoor_temperature
     - cover.cucina
     - cover.salone
     - switch.smartplug
@@ -58,11 +65,9 @@ veranda_giardino:
   control: hidden
   entities:
     - cover.veranda
-    - sensor.veranda_brightness
     - sensor.netatmo_terrace_gust_strength
+    - sensor.veranda_brightness
     - switch.verandacam_torch
-#   - switch.veranda_focus
-    - switch.verandacam_night_vision
     - switch.verandacam_video_recording
     - camera.verandacam
 
@@ -88,8 +93,8 @@ media_center:
     - media_player.amplificatore_onkyo
     - media_player.chromecast
 
-meteo:
-  name: 'Meteo'
+meteo_general:
+  name: 'General'
   entities:
     - sensor.pws_weather_1d_metric
     - sensor.pws_weather_1n_metric
@@ -97,6 +102,7 @@ meteo:
     - sensor.moon
     - weblink.netatmo_station
     - weblink.wunderground_station
+    - history_graph.temperature
 
 meteo_sensors:
   name: 'Meteo Sensors'
@@ -111,17 +117,17 @@ meteo_sensors:
     - sensor.netatmo_indoor_co2
     - sensor.netatmo_indoor_noise
 #   - sensor.pws_pressure_mb
-#   - sensor.pws_precip_today_metric
+    - sensor.pws_precip_today_metric
 #   - sensor.pws_precip_1d
+    - sensor.dark_sky_summary
     - sensor.dark_sky_precip_intensity
     - sensor.dark_sky_precip_probability
     - sensor.dark_sky_cloud_coverage
-    - group.meteodetails
+#   - group.meteodetails
 
-meteodetails:
-  name: 'More details ...'
+meteo_details:
+  name: 'More Details'
   entities:
-    - sensor.dark_sky_summary
     - sensor.pws_feelslike_c
     - sensor.pws_dewpoint_c
     - sensor.pws_temp_high_record_c
@@ -146,17 +152,9 @@ internet:
     - sensor.igd_received_bytes
     - sensor.igd_sent_bytes
 
-qnap:
-  name: 'QNAP'
-  entities:
-    - weblink.qnap_administration
-    - sensor.naslopresti_cpu_usage
-    - sensor.naslopresti_memory_usage
-    - sensor.naslopresti_free_space_data
-    - sensor.naslopresti_system_temperature
-
 devices:
   name: 'Home Devices'
+  control: hidden
   entities:
     - sensor.dt_printer
     - weblink.printer_administration
@@ -167,6 +165,8 @@ devices:
     - weblink.wifi_repeater_administration
     - sensor.dt_salonecam
     - sensor.dt_verandacam
+    - switch.verandacam_night_vision
+    - switch.verandacam_focus
     - weblink.verandacam_administration
     - sensor.dt_edimaxswitch
     - sensor.dt_onkyoamp
@@ -176,6 +176,15 @@ devices:
     - sensor.dt_bddvd
     - sensor.dt_kira
     - sensor.dt_ledcontroller
+
+qnap:
+  name: 'QNAP'
+  entities:
+    - weblink.qnap_administration
+    - sensor.naslopresti_cpu_usage
+    - sensor.naslopresti_memory_usage
+    - sensor.naslopresti_free_space_data
+    - sensor.naslopresti_system_temperature
 
 portables:
   name: 'Portable Devices'
