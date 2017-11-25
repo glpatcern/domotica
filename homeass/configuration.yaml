@@ -165,7 +165,7 @@ history_graph:
       - sensor.pws_dewpoint_c
       - sensor.pws_temp_high_record_c
       - sensor.pws_temp_low_record_c
-    hours_to_show: 48
+    hours_to_show: 36
     refresh: 600   # 10 minutes
 
 # Enables support for tracking state changes over time -> to be replaced by grafana
