@@ -414,6 +414,11 @@ sensor:
     scan_interval: 40000
 
   - platform: command_line
+    name: HA Entities
+    command: "grep -c '^ *-' /config/groups.yaml"
+    scan_interval: 40000
+
+  - platform: command_line
     name: HA Warnings
     command: "grep WARN /config/home-assistant.log | grep -cv grep"
     scan_interval: 600

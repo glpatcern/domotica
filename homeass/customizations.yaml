@@ -78,6 +78,8 @@ sensor.ha_bad_logins:
   icon: mdi:account-key
 sensor.ha_config_loc:
   icon: mdi:code-tags
+sensor.ha_entities:
+  icon: mdi:code-tags-check
 sensor.ha_warnings:
   icon: mdi:note-text
 sensor.ha_errors:
