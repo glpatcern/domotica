@@ -352,10 +352,13 @@ switch:
         friendly_name: Salone semiapertura
 
 # Somfy Tahoma for shutters/roof/store
+tahoma:
+  username: !secret somfy_user
+  password: !secret somfy_password
+
 cover:
-#  - platform: somfytahoma
-#    username: !secret somfy_user
-#    password: !secret somfy_password
+# - platform: tahoma
+
   - platform: command_line
     covers:
       cucina:
