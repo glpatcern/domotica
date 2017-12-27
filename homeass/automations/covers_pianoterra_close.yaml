@@ -3,7 +3,7 @@
 #
 ####################################################################
 
-# chiudi salone e cucina se nessuno in casa & ora ~= 11.00 in un range di 40 minuti
+# chiudi la cucina se nessuno in casa & ora ~= 11.00 in un range di 40 minuti
 alias: 'Chiudi serrande simula presenza'
 initial_state: True
 trigger:
@@ -21,5 +21,3 @@ action:
   - delay: '{{ "00:" ~ ((range(5, 45) | random) | int)  ~ ":00" }}'
   - service: cover.close_cover
     entity_id: cover.cucina
-  - service: cover.close_cover
-    entity_id: cover.salone
