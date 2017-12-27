@@ -3,7 +3,7 @@
 #
 ####################################################################
 
-# chiudi salone e cucina la sera dopo il tramonto
+# chiudi salone e cucina la sera 1h dopo il tramonto (per l'inverno)
 alias: 'Chiudi serrande piano terra di sera'
 initial_state: True
 trigger:
