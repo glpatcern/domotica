@@ -428,6 +428,26 @@ sensor:
     command: "grep ERROR /config/home-assistant.log | grep -cv grep"
     scan_interval: 600
 
+# QNAP
+  - platform: qnap
+    host: 192.168.1.48
+    username: admin
+    password: !secret qnap_password
+    verify_ssl: true
+    monitored_conditions:
+      - system_temp
+      - cpu_usage
+      - memory_percent_used
+#     - volume_size_free
+
+# Free space (in GiB) from QNAP itself and the IOMega disk mounted on /mnt
+  - platform: systemmonitor
+    resources:
+      - type: disk_free
+        arg: /config
+      - type: disk_free
+        arg: /mnt
+
 # Internet speed test
   - platform: speedtest
     monitored_conditions:
@@ -440,18 +460,6 @@ sensor:
       - 23
     minute:
       - 15
-
-# QNAP
-  - platform: qnap
-    host: 192.168.1.48
-    username: admin
-    password: !secret qnap_password
-    verify_ssl: true
-    monitored_conditions:
-      - system_temp
-      - cpu_usage
-      - memory_percent_used
-      - volume_size_free
 
 # Particle photon Veranda
   - platform: mqtt
@@ -627,3 +635,15 @@ sensor:
         friendly_name: Outdoor Temperature
         icon_template: mdi:thermometer
         value_template: "{{ states.sensor.netatmo_outdoor_temperature.state }}°C ({{ states.sensor.netatmo_outdoor_min_temp.state }}°C ÷ {{ states.sensor.netatmo_outdoor_max_temp.state }}°C)"
+
+# Disks free space
+      naslopresti_free_space:
+        friendly_name: QNAP Free Space
+        icon_template: mdi:chart-pie
+        unit_of_measurement: GiB
+        value_template: "{{ states('sensor.disk_free_config')|int }}"
+      iomega_free_space:
+        friendly_name: IOMega Free Space
+        icon_template: mdi:chart-pie
+        unit_of_measurement: GiB
+        value_template: "{{ states('sensor.disk_free_mnt')|int }}"

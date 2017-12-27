@@ -160,6 +160,7 @@ devices:
     - weblink.printer_administration
     - weblink.google_cloud_print
     - sensor.dt_iomegadisk
+    - sensor.iomega_free_space
     - weblink.iomega_disk_administration
     - sensor.dt_repeater
     - weblink.wifi_repeater_administration
@@ -183,7 +184,7 @@ qnap:
     - weblink.qnap_administration
     - sensor.naslopresti_cpu_usage
     - sensor.naslopresti_memory_usage
-    - sensor.naslopresti_free_space_data
+    - sensor.naslopresti_free_space
     - sensor.naslopresti_system_temperature
 
 portables:
