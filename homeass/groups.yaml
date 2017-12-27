@@ -55,6 +55,7 @@ piano_terra:
   entities:
     - input_select.statocasa
     - sensor.netatmo_indoor_temperature
+    - sensor.netatmo_indoor_noise
     - cover.cucina
     - cover.salone
     - switch.smartplug
@@ -64,9 +65,9 @@ veranda_giardino:
   name: 'Veranda/Giardino'
   control: hidden
   entities:
-    - cover.veranda
     - sensor.netatmo_terrace_gust_strength
     - sensor.veranda_brightness
+    - cover.veranda
     - switch.verandacam_torch
     - switch.verandacam_video_recording
     - camera.verandacam
@@ -113,9 +114,8 @@ meteo_sensors:
     - sensor.pws_relative_humidity
     - sensor.netatmo_indoor_humidity
     - sensor.veranda_humidity
-    - sensor.netatmo_indoor_pressure
     - sensor.netatmo_indoor_co2
-    - sensor.netatmo_indoor_noise
+    - sensor.netatmo_indoor_pressure
 #   - sensor.pws_pressure_mb
     - sensor.pws_precip_today_metric
 #   - sensor.pws_precip_1d
