@@ -1,31 +1,24 @@
 #!/usr/bin/python3
 
 import json
-import tahoma.protocol
+from tahoma_api import TahomaApi
 
 creds = open('.tahoma.credentials').read()
 creds = json.loads(creds)
 print('Logging in to Tahomalink')
-tahoma = tahoma.protocol.Protocol(creds['USERNAME'], creds['PASSWORD'], 'tahomacookie')
-tahoma.getSetup()
+tahoma = TahomaApi(creds['USERNAME'], creds['PASSWORD'])
+tahoma.get_setup()
 
-#print('User:', tahoma.getUser())
-
-print('All registered devices')
+print('Get all registered devices')
 devbylabel = {}
-devs = tahoma.getDevices()
-for d in devs.keys():
-    # build reverse dictionary by label
-    devbylabel[devs[d].label] = devs[d]
+devs = tahoma.get_devices()
+for d in devs:
+    _dev = tahoma.get_device(d)
     # print info
-    print('Device %s: type = %s, label = %s' % (d, devs[d].type, devs[d].label))
-    print('    commands = %s' % devs[d].commandDefinitions)
+    print('Device %s: type = %s, label = %s' % (_dev, _dev.type, _dev.label))
+    print('    commands = %s' % _dev.command_definitions)
     try:
-        print('    state = %s' % devs[d].activeStates)
+        print('    state = %s' % _dev.active_states)
     except AttributeError:
         pass
-
-for ag in tahoma.getActionGroups():
-	for a in ag.actions:
-	    print('For device %s, command = %s' % (devs[a.deviceURL].label, a.commands))
-
+    print('\n')
