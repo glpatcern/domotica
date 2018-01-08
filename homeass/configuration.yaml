@@ -440,9 +440,9 @@ sensor:
     monitored_conditions:
       - system_temp
       - cpu_usage
+      - memory_percent_used
       - drive_smart_status
       - drive_temp
-      - memory_percent_used
 #     - volume_size_free
 
 # Count of banned IPs because of failed login attempts
@@ -592,11 +592,11 @@ sensor:
         friendly_name: PC Giu
         icon_template: mdi:laptop-windows
         value_template: "{% if is_state('device_tracker.glplap', 'home') %}on{% else %}off{% endif %}"
+
       dt_edimaxswitch:
         friendly_name: Power Plug
         icon_template: mdi:power-plug
         value_template: "{% if is_state('device_tracker.edimaxswitch', 'home') %}on{% else %}off{% endif %}"
-
       dt_salonecam:
         friendly_name: SaloneCam
         icon_template: mdi:camera-front-variant
@@ -642,7 +642,7 @@ sensor:
         icon_template: mdi:led-strip
         value_template: "{% if is_state('device_tracker.ledcontroller', 'home') %}on{% else %}off{% endif %}"
 
-# group current, min, and max temperature in one sensor
+# Group current, min, and max outdoor temperatures in one sensor
       netatmo_outdoor_minmaxtemperature:
         friendly_name: Outdoor Temperature
         icon_template: mdi:thermometer
@@ -659,3 +659,21 @@ sensor:
         icon_template: mdi:chart-pie
         unit_of_measurement: GiB
         value_template: "{{ states('sensor.disk_free_mnt')|int }}"
+
+# Group QNAP SMART states
+      naslopresti_smart_status:
+        icon_template: mdi:harddisk
+        friendly_name: 'QNAP Drives SMART Status'
+        value_template: >
+          {% if is_state('sensor.naslopresti_smart_status_drive_01', 'OK') and is_state('sensor.naslopresti_smart_status_drive_02', 'OK') %}
+            OK
+          {% else %}
+            {{ states.sensor.naslopresti_smart_status_drive_01 }} & {{ states.sensor.naslopresti_smart_status_drive_02 }}
+          {% endif %}
+
+# Group QNAP disks temperatures
+      naslopresti_drives_max_temperature:
+        icon_template: mdi:thermometer
+        friendly_name: 'QNAP Drives Temperature'
+        unit_of_measurement: °C
+        value_template: "{{ [states('sensor.naslopresti_temperature_drive_01')|int, states('sensor.naslopresti_temperature_drive_02')|int] | max }}"
