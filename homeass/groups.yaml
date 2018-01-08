@@ -182,10 +182,15 @@ qnap:
   name: 'QNAP'
   entities:
     - weblink.qnap_administration
+    - sensor.naslopresti_free_space
+    - sensor.qnap_banned_ips
     - sensor.naslopresti_cpu_usage
     - sensor.naslopresti_memory_usage
-    - sensor.naslopresti_free_space
     - sensor.naslopresti_system_temperature
+    - sensor.naslopresti_smart_status_drive_01
+    - sensor.naslopresti_temperature_drive_01
+    - sensor.naslopresti_smart_status_drive_02
+    - sensor.naslopresti_temperature_drive_02
 
 portables:
   name: 'Portable Devices'

@@ -158,11 +158,10 @@ history_graph:
   gr_temperature:
     name: Temperature
     entities:
-      - sensor.netatmo_outdoor_temperature
       - sensor.netatmo_indoor_temperature
       - sensor.veranda_temperature
+      - sensor.netatmo_outdoor_temperature
       - sensor.pws_feelslike_c
-      - sensor.pws_dewpoint_c
       - sensor.pws_temp_high_record_c
       - sensor.pws_temp_low_record_c
     hours_to_show: 36
@@ -260,6 +259,7 @@ notify me:
 # MQTT broker (mosquitto) running on the QNAP
 mqtt:
   broker: 192.168.1.48
+  client_id: homeass
 
 # Track home devices
 device_tracker:
@@ -440,8 +440,17 @@ sensor:
     monitored_conditions:
       - system_temp
       - cpu_usage
+      - drive_smart_status
+      - drive_temp
       - memory_percent_used
 #     - volume_size_free
+
+# Count of banned IPs because of failed login attempts
+  - platform: command_line
+    name: QNAP Banned IPs
+    # /media is actually a mount of /mnt/HDA_ROOT/.logs!
+    command: "grep -ac ban /media/notice.log"
+    scan_interval: 600
 
 # Free space (in GiB) from QNAP itself and the IOMega disk mounted on /mnt
   - platform: systemmonitor

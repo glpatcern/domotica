@@ -19,5 +19,6 @@ docker pull homeassistant/home-assistant | grep Status | grep -v 'up to date' &&
 docker rm $currcont
 echo === Starting a new container with the new image ===
 docker run -d -p 8123:8123 --name="home-assistant" --privileged -v /share/Container/homeass-config:/config \
-       -v /mnt/rf/nd/0/0407ca651ddb04329464fd677429486f816b7766:/mnt --net=host --restart=always homeassistant/home-assistant
+       -v /mnt/rf/nd/0/0407ca651ddb04329464fd677429486f816b7766:/mnt -v /mnt/HDA_ROOT/.logs:/media \
+       --net=host --restart=always homeassistant/home-assistant
 
