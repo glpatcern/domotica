@@ -346,10 +346,14 @@ switch:
       #kira_dvd_power:
       #kira_tvdecoder_power:
 
-      # a switch for the 'my' position of a cover (cf. below)
+      # a switch for the 'my' position of Somfy covers
       cover_salone_my:
         command_on: /config/pytahoma Salone my
         friendly_name: Salone semiapertura
+
+      cover_cucina_my:
+        command_on: /config/pytahoma Cucina my
+        friendly_name: Cucina semiapertura
 
 # Somfy Tahoma for shutters/roof/store
 tahoma:
@@ -357,39 +361,7 @@ tahoma:
   password: !secret somfy_password
 
 cover:
-# - platform: tahoma
-
-  - platform: command_line
-    covers:
-      cucina:
-        command_open: /config/pytahoma Cucina up
-        command_close: /config/pytahoma Cucina my     # that's a Somfy feature
-        command_stop: /config/pytahoma Cucina stop
-      salone:
-        command_open: /config/pytahoma Salone up
-        command_close: /config/pytahoma Salone down
-        command_stop: /config/pytahoma Salone stop
-      stanza_da_letto:
-        command_open: /config/pytahoma 'Stanza da letto' up
-        command_close: /config/pytahoma 'Stanza da letto' down
-        command_stop: /config/pytahoma 'Stanza da letto' stop
-      camera_irene:
-        command_open: /config/pytahoma 'Camera Irene' up
-        command_close: /config/pytahoma 'Camera Irene' down
-        command_stop: /config/pytahoma 'Camera Irene' stop
-      camera:
-        command_open: /config/pytahoma Camera up
-        command_close: /config/pytahoma Camera down
-        command_stop: /config/pytahoma Camera stop
-      cupola:
-        command_open: /config/pytahoma Cupola open
-        command_close: /config/pytahoma Cupola close
-        command_stop: /config/pytahoma Cupola stop    # not working actually
-      veranda:
-        # this is an awning, not a shutter
-        command_open: /config/pytahoma Veranda down
-        command_close: /config/pytahoma Veranda up
-        command_stop: /config/pytahoma Veranda stop
+  - platform: tahoma
 
 light:
 # LED for the home theater
