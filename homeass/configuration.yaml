@@ -226,10 +226,10 @@ weblink:
       url: !secret wunderground_link
 
 panel_iframe:
-# dashboard:
-#   title: Grafana Dashboard
-#   icon: mdi:view-dashboard
-#   url: 
+  dashboard:
+    title: Grafana Dashboard
+    icon: mdi:view-dashboard
+    url: !secret qnap_grafana_link
   homeass:
     title: Home Assistant Web
     icon: mdi:home-assistant
