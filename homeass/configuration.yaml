@@ -346,15 +346,6 @@ switch:
       #kira_dvd_power:
       #kira_tvdecoder_power:
 
-      # a switch for the 'my' position of Somfy covers
-      cover_salone_my:
-        command_on: /config/pytahoma Salone my
-        friendly_name: Salone semiapertura
-
-      cover_cucina_my:
-        command_on: /config/pytahoma Cucina my
-        friendly_name: Cucina semiapertura
-
 # Somfy Tahoma for shutters/roof/store
 tahoma:
   username: !secret somfy_user
