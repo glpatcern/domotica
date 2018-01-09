@@ -25,7 +25,3 @@ condition:
 action:
   - service: cover.open_cover
     entity_id: cover.cupola
-  - service: input_select.select_option
-    data:
-      entity_id: input_select.cover_cupola_state
-      option: 'open'

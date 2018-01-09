@@ -77,13 +77,7 @@ input_select:
     initial: Scegli...
     icon: mdi:radio
 
-  # extra hidden controls for the missing states of the covers - workaround until proper integration
-  cover_cupola_state:
-    options:
-      - open
-      - closed
-    initial: closed
-
+  # extra hidden control for the missing state of the Veranda (Somfy) curtain
   cover_veranda_state:
     options:
       - open
