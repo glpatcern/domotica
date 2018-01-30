@@ -42,6 +42,7 @@ famiglia:
   entities:
     - device_tracker.bqisa
     - device_tracker.novagiu
+    - device_tracker.giu_nova
 
 trasporti:
   name: 'TPG'
@@ -117,7 +118,6 @@ meteo_sensors:
     - sensor.netatmo_indoor_co2
     - sensor.netatmo_indoor_pressure
 #   - sensor.pws_pressure_mb
-    - sensor.pws_precip_today_metric
 #   - sensor.pws_precip_1d
     - sensor.dark_sky_summary
     - sensor.dark_sky_precip_intensity
