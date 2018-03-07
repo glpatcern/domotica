@@ -18,6 +18,7 @@ cover.cupola:
   icon: mdi:arrange-send-backward
   friendly_name: 'Cupola'
 cover.veranda:
+  icon: mdi:inbox-arrow-down
   friendly_name: 'Tenda Veranda'
 
 # Veranda
@@ -33,7 +34,7 @@ switch.verandacam_torch:
 switch.verandacam_video_recording:
   friendly_name: 'VerandaCam Record'
 switch.verandacam_night_vision:
-  friendly_name: 'VerandaCam night mode'
+  friendly_name: 'VerandaCam Night Mode'
 
 # Meteo
 sensor.pws_temp_high_record_c:
