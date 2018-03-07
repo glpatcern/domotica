@@ -570,6 +570,15 @@ sensor:
 #    destination: 8501008   # Geneve Cornavin
 #    data: sbb
 
+# OWL Intuition Power Meter
+# fase 1 = marrone = microonde + lavastoviglie + cucina
+# fase 2 = nera = frigo + locale tecnico + salone
+# fase 3 = grigia = camere + caldaia + lavanderia
+  - platform: udp
+    name: OWL Power Meter
+    port: 3200
+    timeout: 70
+
 # Templated sensors
 #
 # convert all the devices' states to online/offline
@@ -636,6 +645,10 @@ sensor:
         friendly_name: LED Salone
         icon_template: mdi:led-strip
         value_template: "{% if is_state('device_tracker.ledcontroller', 'home') %}on{% else %}off{% endif %}"
+      dt_owlintuition:
+        friendly_name: OWL Intuition Power Meter
+        icon_template: mdi:speedometer
+        value_template: "{% if is_state('device_tracker.owlintuition', 'home') %}on{% else %}off{% endif %}"
 
 # Group current, min, and max outdoor temperatures in one sensor
       netatmo_outdoor_minmaxtemperature:
