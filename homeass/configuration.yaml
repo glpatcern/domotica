@@ -123,6 +123,7 @@ conversation:
 
 # Enables events recording
 recorder:
+  purge_interval: 0
   exclude:
     domains:
       - weblink
@@ -137,7 +138,6 @@ recorder:
       - sensor.ha_errors
       - sensor.dt_salonecam
       - sensor.dt_verandacam
-      - sensor.dt_repeater
       - sensor.dt_printer
       - sensor.dt_iomegadisk
       - sensor.dt_sunrisetv
@@ -147,6 +147,7 @@ recorder:
       - sensor.dt_htc
       - sensor.dt_isamac
       - sensor.dt_glplap
+      - sensor.netatmo_outdoor_minmaxtemperature
 
 # Displays graphs in the main frontend
 history_graph:
@@ -164,6 +165,32 @@ history_graph:
 
 # Enables support for tracking state changes over time -> to be replaced by grafana
 history:
+
+# Enable infuxDB as the history store as opposed to SQLite
+influxdb:
+  exclude:
+    domains:
+      - weblink
+      - updater
+    entities:
+      - sun.sun
+      - sensor.moon
+      - sensor.last_boot
+      - sensor.igd_received_bytes
+      - sensor.igd_sent_bytes
+      - sensor.ha_warnings
+      - sensor.ha_errors
+      - sensor.dt_salonecam
+      - sensor.dt_verandacam
+      - sensor.dt_printer
+      - sensor.dt_iomegadisk
+      - sensor.dt_sunrisetv
+      - sensor.dt_chromecast
+      - sensor.dt_ledcontroller
+      - sensor.dt_ipad
+      - sensor.dt_htc
+      - sensor.dt_isamac
+      - sensor.dt_glplap
 
 # View all events in a logbook
 logbook:
@@ -199,8 +226,9 @@ map:
 # Useful links
 weblink:
   entities:
-    - name: Router
+    - name: Router administration
       url: http://192.168.1.1
+      icon: mdi:router-wireless
     - name: QNAP administration
       url: !secret qnap_admin_link
     - name: Onkyo web interface
@@ -214,11 +242,14 @@ weblink:
     - name: IOMega disk administration
       url: http://192.168.1.32
     - name: WiFi Repeater administration
-      url: http://192.168.1.32
+      url: http://192.168.1.35
+      icon: mdi:access-point-network
     - name: NetAtmo station
       url: https://my.netatmo.com/app/station
     - name: WUnderground station
       url: !secret wunderground_link
+    - name: OWL Intuition monitor
+      url: https://www.owlintuition.com/
 
 panel_iframe:
   dashboard:
@@ -229,6 +260,9 @@ panel_iframe:
     title: Home Assistant Web
     icon: mdi:home-assistant
     url: https://home-assistant.io
+
+# Enable browser for local addresses
+browser:
 
 # Custom cloud services
 #########################
@@ -262,9 +296,15 @@ device_tracker:
     interval_seconds: 60
     hosts:
     - 192.168.1.0/24
+    # devices behind the WiFi repeater:
+    - 192.168.1.32    # IOMega
+    - 192.168.1.35    # WiFi repeater
+    - 192.168.1.42    # TaHoma
+    - 192.168.1.60    # owl
 
 # Track mobile phones' locations
-  - platform: gpslogger
+  - platform: owntracks_http
+    max_gps_accuracy: 200
 
 # To get router statistics
 upnp:
@@ -331,6 +371,7 @@ switch:
     password: !secret edimax_password
 
 # Commands to interface to KIRA
+# XXX TODO sort out the curl command
   - platform: command_line
     switches:
       kira_projector_power:
@@ -563,10 +604,6 @@ sensor:
         friendly_name: VerandaCam
         icon_template: mdi:camera-front-variant
         value_template: "{% if is_state('device_tracker.verandacam', 'home') %}on{% else %}off{% endif %}"
-      dt_repeater:
-        friendly_name: WiFi Repeater
-        icon_template: mdi:access-point-network
-        value_template: "{% if is_state('device_tracker.repeater', 'home') %}on{% else %}off{% endif %}"
       dt_printer:
         friendly_name: Printer
         icon_template: mdi:printer
