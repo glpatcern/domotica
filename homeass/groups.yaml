@@ -7,6 +7,7 @@
 ################################
 
 default_view:
+  name: 'Casa'
   view: yes
   entities:
     - group.famiglia
@@ -29,7 +30,7 @@ it:
   view: yes
   entities:
     - group.homeass
-    - group.internet
+    - group.network
     - group.devices
     - group.qnap
     - group.portables
@@ -142,10 +143,11 @@ meteo_details:
     - sensor.netatmo_terrace_battery
     - sensor.netatmo_outdoor_battery
 
-internet:
-  name: 'Internet'
+network:
+  name: 'Network'
   entities:
-    - weblink.router
+    - weblink.router_administration
+    - weblink.wifi_repeater_administration
     - sensor.speedtest_download
     - sensor.speedtest_upload
     - sensor.speedtest_ping
@@ -156,27 +158,27 @@ devices:
   name: 'Home Devices'
   control: hidden
   entities:
-    - sensor.dt_printer
-    - weblink.printer_administration
-    - weblink.google_cloud_print
     - sensor.dt_iomegadisk
     - sensor.iomega_free_space
     - weblink.iomega_disk_administration
-    - sensor.dt_repeater
-    - weblink.wifi_repeater_administration
+    - sensor.dt_printer
+    - weblink.printer_administration
+    - weblink.google_cloud_print
     - sensor.dt_salonecam
     - sensor.dt_verandacam
     - switch.verandacam_night_vision
     - switch.verandacam_focus
     - weblink.verandacam_administration
-    - sensor.dt_edimaxswitch
     - sensor.dt_onkyoamp
     - weblink.onkyo_web_interface
+    - sensor.dt_edimaxswitch
     - sensor.dt_sunrisetv
     - sensor.dt_chromecast
     - sensor.dt_bddvd
     - sensor.dt_kira
     - sensor.dt_ledcontroller
+    - sensor.dt_owlintuition
+    - weblink.owl_intuition_monitor
 
 qnap:
   name: 'QNAP'
@@ -200,6 +202,7 @@ portables:
 
 homeass:
   name: 'Home Assistant'
+  control: hidden
   entities:
     - sensor.current_version
     - sensor.ha_config_loc
