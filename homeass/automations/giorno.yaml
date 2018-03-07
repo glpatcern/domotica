@@ -1,0 +1,20 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+# Manual normal mode
+####################################################################
+
+alias: 'Modo normale/giorno manuale'
+initial_state: True
+trigger:
+  platform: state
+  entity_id: input_select.statocasa
+
+condition:
+  - condition: state
+    entity_id: input_select.statocasa
+    state: 'Normale'
+
+action:
+  - service: script.turn_on
+    entity_id: script.normalmode

@@ -9,14 +9,21 @@ initial_state: True
 trigger:
 # not using sunrise because homeassistant may be shut off...
   - platform: time
-    hours: 07
-    minutes: 50
+    hours: 08
+    minutes: 00
     seconds: 00
+
+condition:
+  - condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
 
 action:
   - service: input_select.select_option
     data:
       entity_id: input_select.statocasa
       option: 'Normale'
-  - service: homeassistant.turn_off
-    entity_id: switch.verandacam_night_vision

@@ -30,6 +30,7 @@ script: !include scripts.yaml
 # the automation rules are split per area
 automation:
   # Stato generale casa
+  - !include automations/giorno.yaml
   - !include automations/giornoauto.yaml
   - !include automations/notte.yaml
   - !include automations/notteauto.yaml
