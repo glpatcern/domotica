@@ -9,7 +9,12 @@ initial_state: True
 trigger:
   platform: sun
   event: sunset
-  offset: "-00:30:00"
+  offset: "-00:20:00"
+
+condition:
+  - condition: state
+    entity_id: group.famiglia
+    state: 'home'
 
 action:
   - service: homeassistant.turn_on

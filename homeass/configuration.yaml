@@ -40,7 +40,7 @@ automation:
   - !include automations/cucu.yaml
   # Presa comandata lume
   - !include automations/lume_sera.yaml
-  - !include automations/lume_rientro_serale.yaml
+  #- !include automations/lume_rientro_serale.yaml
   - !include automations/lume_pioggia_on.yaml
   - !include automations/lume_pioggia_off.yaml
   # VerandaCam night mode

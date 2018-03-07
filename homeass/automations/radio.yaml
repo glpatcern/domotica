@@ -15,6 +15,9 @@ condition:
     value_template: "{{ states.input_select.internet_radio.state != 'Scegli...' }}"
 
 action:
+  - service: media_player.turn_on
+    data:
+      entity_id: media_player.amplificatore_onkyo
   - service: media_player.volume_set
     data:
       entity_id: media_player.amplificatore_onkyo

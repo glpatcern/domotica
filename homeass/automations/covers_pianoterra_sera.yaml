@@ -16,7 +16,7 @@ condition:
     value_template: "{{ states.input_select.statocasa.state == 'Normale' }}"
 
 action:
-  - service: cover.close_cover
+  - service: cover.stop_cover
     entity_id: cover.cucina
   - service: cover.close_cover
     entity_id: cover.salone

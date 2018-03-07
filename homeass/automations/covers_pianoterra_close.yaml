@@ -16,8 +16,11 @@ condition:
   - condition: state
     entity_id: group.famiglia
     state: 'not_home'
+  - condition: state
+    entity_id: group.portables
+    state: 'off'
 
 action:
   - delay: '{{ "00:" ~ ((range(5, 45) | random) | int)  ~ ":00" }}'
-  - service: cover.close_cover
+  - service: cover.stop_cover
     entity_id: cover.cucina
