@@ -56,7 +56,7 @@ int getAndStoreValues() {
   hum = dht.getHumidity();
   //dp = dht.getDewPoint();
   // Check if any reads failed and exit early
-  if (isnan(hum) || isnan(temp) || (temp > 60)) {
+  if (isnan(hum) || isnan(temp) || (temp > 60) || (temp < 10)) {
     return -1;
   }
   // apply a correction factor to the humidity reading, following
@@ -153,8 +153,8 @@ int readout(bool button) {
       "}";
   // make sure we're online, but give up after 10 seconds
   if(!waitFor(WiFi.ready, 10000)) {
-    // we failed to get online, try again after 2 seconds
-    lastReadoutTime = Time.now() - readoutTimeIntervalMins*60 + 2;
+    // we failed to get online, try again after 10 seconds
+    lastReadoutTime = Time.now() - readoutTimeIntervalMins*60 + 10;
     return -1;
   }
   // connect to the MQTT broker
