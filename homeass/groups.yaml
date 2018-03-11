@@ -44,6 +44,7 @@ famiglia:
     - device_tracker.bqisa
     - device_tracker.novagiu
     - device_tracker.giu_nova
+    - binary_sensor.presence
 
 trasporti:
   name: 'TPG'
@@ -158,26 +159,26 @@ devices:
   name: 'Home Devices'
   control: hidden
   entities:
-    - sensor.dt_iomegadisk
+    - binary_sensor.dt_iomegadisk
     - sensor.iomega_free_space
     - weblink.iomega_disk_administration
-    - sensor.dt_printer
+    - binary_sensor.dt_printer
     - weblink.printer_administration
     - weblink.google_cloud_print
-    - sensor.dt_salonecam
-    - sensor.dt_verandacam
+    - binary_sensor.dt_salonecam
+    - binary_sensor.dt_verandacam
     - switch.verandacam_night_vision
     - switch.verandacam_focus
     - weblink.verandacam_administration
-    - sensor.dt_onkyoamp
+    - binary_sensor.dt_onkyoamp
     - weblink.onkyo_web_interface
-    - sensor.dt_edimaxswitch
-    - sensor.dt_sunrisetv
-    - sensor.dt_chromecast
-    - sensor.dt_bddvd
-    - sensor.dt_kira
-    - sensor.dt_ledcontroller
-    - sensor.dt_owlintuition
+    - binary_sensor.dt_edimaxswitch
+    - binary_sensor.dt_sunrisetv
+    - binary_sensor.dt_chromecast
+    - binary_sensor.dt_bddvd
+    - binary_sensor.dt_kira
+    - binary_sensor.dt_ledcontroller
+    - binary_sensor.dt_owlintuition
     - weblink.owl_intuition_monitor
 
 qnap:
@@ -195,10 +196,11 @@ qnap:
 portables:
   name: 'Portable Devices'
   entities:
-    - sensor.dt_isamac
-    - sensor.dt_glplap
-    - sensor.dt_ipad
-    - sensor.dt_htc
+    - binary_sensor.dt_isamac
+    - binary_sensor.dt_glplap
+    - binary_sensor.dt_ipad
+    - binary_sensor.dt_htc
+    - binary_sensor.dt_guests
 
 homeass:
   name: 'Home Assistant'

@@ -300,7 +300,7 @@ device_tracker:
     - 192.168.1.32    # IOMega
     - 192.168.1.35    # WiFi repeater
     - 192.168.1.42    # TaHoma
-    - 192.168.1.60    # owl
+    - 192.168.1.60    # OWL Intuition
 
 # Track mobile phones' locations
   - platform: owntracks_http
@@ -580,75 +580,8 @@ sensor:
     timeout: 70
 
 # Templated sensors
-#
-# convert all the devices' states to online/offline
   - platform: template
     sensors:
-      dt_ipad:
-        friendly_name: iPad
-        icon_template: mdi:tablet-ipad
-        value_template: "{% if is_state('device_tracker.ipad', 'home') %}on{% else %}off{% endif %}"
-      dt_htc:
-        friendly_name: HTC
-        icon_template: mdi:cellphone-android
-        value_template: "{% if is_state('device_tracker.htc', 'home') %}on{% else %}off{% endif %}"
-      dt_isamac:
-        friendly_name: Mac Isa
-        icon_template: mdi:laptop-mac
-        value_template: "{% if is_state('device_tracker.isamac', 'home') %}on{% else %}off{% endif %}"
-      dt_glplap:
-        friendly_name: PC Giu
-        icon_template: mdi:laptop-windows
-        value_template: "{% if is_state('device_tracker.glplap', 'home') %}on{% else %}off{% endif %}"
-
-      dt_edimaxswitch:
-        friendly_name: Power Plug
-        icon_template: mdi:power-plug
-        value_template: "{% if is_state('device_tracker.edimaxswitch', 'home') %}on{% else %}off{% endif %}"
-      dt_salonecam:
-        friendly_name: SaloneCam
-        icon_template: mdi:camera-front-variant
-        value_template: "{% if is_state('device_tracker.salonecam', 'home') %}on{% else %}off{% endif %}"
-      dt_verandacam:
-        friendly_name: VerandaCam
-        icon_template: mdi:camera-front-variant
-        value_template: "{% if is_state('device_tracker.verandacam', 'home') %}on{% else %}off{% endif %}"
-      dt_printer:
-        friendly_name: Printer
-        icon_template: mdi:printer
-        value_template: "{% if is_state('device_tracker.printer', 'home') %}on{% else %}off{% endif %}"
-      dt_iomegadisk:
-        friendly_name: IOMega Disk
-        icon_template: mdi:harddisk
-        value_template: "{% if is_state('device_tracker.iomegadisk', 'home') %}on{% else %}off{% endif %}"
-      dt_sunrisetv:
-        friendly_name: Sunrise TV
-        icon_template: mdi:television
-        value_template: "{% if is_state('device_tracker.sunrisetv', 'home') %}on{% else %}off{% endif %}"
-      dt_onkyoamp:
-        friendly_name: Onkyo
-        icon_template: mdi:amplifier
-        value_template: "{% if is_state('device_tracker.onkyoamp', 'home') %}on{% else %}off{% endif %}"
-      dt_chromecast:
-        friendly_name: ChromeCast
-        icon_template: mdi:cast
-        value_template: "{% if is_state('device_tracker.chromecast', 'home') %}on{% else %}off{% endif %}"
-      dt_bddvd:
-        friendly_name: BD/DVD
-        icon_template: mdi:disk
-        value_template: "{% if is_state('device_tracker.bddvd', 'home') %}on{% else %}off{% endif %}"
-      dt_kira:
-        friendly_name: KIRA
-        icon_template: mdi:remote
-        value_template: "{% if is_state('device_tracker.kira', 'home') %}on{% else %}off{% endif %}"
-      dt_ledcontroller:
-        friendly_name: LED Salone
-        icon_template: mdi:led-strip
-        value_template: "{% if is_state('device_tracker.ledcontroller', 'home') %}on{% else %}off{% endif %}"
-      dt_owlintuition:
-        friendly_name: OWL Intuition Power Meter
-        icon_template: mdi:speedometer
-        value_template: "{% if is_state('device_tracker.owlintuition', 'home') %}on{% else %}off{% endif %}"
 
 # Group current, min, and max outdoor temperatures in one sensor
       netatmo_outdoor_minmaxtemperature:
@@ -685,3 +618,103 @@ sensor:
         friendly_name: 'QNAP Drives Temperature'
         unit_of_measurement: °C
         value_template: "{{ [states('sensor.naslopresti_temperature_drive_01')|int, states('sensor.naslopresti_temperature_drive_02')|int] | max }}"
+
+binary_sensor:
+
+# Templated binary sensors
+  - platform: template
+    sensors:
+
+# presence detection. Do NOT use group.famiglia as it includes this!
+      presence:
+        friendly_name: Presenza
+        icon_template: mdi:home-account
+        value_template: >-
+          {{ is_state('device_tracker.novagiu', 'home') or
+             is_state('device_tracker.glplap', 'home') or
+             is_state('device_tracker.isamac', 'home') or
+             is_state('device_tracker.bqisa', 'home') or
+             is_state('device_tracker.angio1', 'home') or
+             is_state('device_tracker.angio2', 'home') or
+             is_state('device_tracker.angio3', 'home') or
+             is_state('device_tracker.papa1', 'home') or
+             is_state('device_tracker.papa2', 'home') or
+             states('sensor.netatmo_indoor_noise')|int > 35
+          }}
+
+# convert all the devices' states to online/offline
+      dt_isamac:
+        friendly_name: Mac Isa
+        icon_template: mdi:laptop-mac
+        value_template: "{{ is_state('device_tracker.isamac', 'home') }}"
+      dt_glplap:
+        friendly_name: PC Giu
+        icon_template: mdi:laptop-windows
+        value_template: "{{ is_state('device_tracker.glplap', 'home') }}"
+      dt_ipad:
+        friendly_name: iPad
+        icon_template: mdi:tablet-ipad
+        value_template: "{{ is_state('device_tracker.ipad', 'home') }}"
+      dt_htc:
+        friendly_name: HTC
+        icon_template: mdi:cellphone-android
+        value_template: "{{ is_state('device_tracker.htc', 'home') }}"
+      dt_guests:
+        friendly_name: Altri
+        icon_template: mdi:cellphone-link
+        value_template: >-
+          {{ is_state('device_tracker.angio1', 'home') or
+             is_state('device_tracker.angio2', 'home') or
+             is_state('device_tracker.angio3', 'home') or
+             is_state('device_tracker.papa1', 'home') or
+             is_state('device_tracker.papa2', 'home')
+          }}
+
+      dt_edimaxswitch:
+        friendly_name: Power Plug
+        icon_template: mdi:power-plug
+        value_template: "{{ is_state('device_tracker.edimaxswitch', 'home') }}"
+      dt_salonecam:
+        friendly_name: SaloneCam
+        icon_template: mdi:camera-front-variant
+        value_template: "{{ is_state('device_tracker.salonecam', 'home') }}"
+      dt_verandacam:
+        friendly_name: VerandaCam
+        icon_template: mdi:camera-front-variant
+        value_template: "{{ is_state('device_tracker.verandacam', 'home') }}"
+      dt_printer:
+        friendly_name: Printer
+        icon_template: mdi:printer
+        value_template: "{{ is_state('device_tracker.printer', 'home') }}"
+      dt_iomegadisk:
+        friendly_name: IOMega Disk
+        icon_template: mdi:harddisk
+        value_template: "{{ is_state('device_tracker.iomegadisk', 'home') }}"
+      dt_sunrisetv:
+        friendly_name: Sunrise TV
+        icon_template: mdi:television
+        value_template: "{{ is_state('device_tracker.sunrisetv', 'home') }}"
+      dt_onkyoamp:
+        friendly_name: Onkyo
+        icon_template: mdi:amplifier
+        value_template: "{{ is_state('device_tracker.onkyoamp', 'home') }}"
+      dt_chromecast:
+        friendly_name: ChromeCast
+        icon_template: mdi:cast
+        value_template: "{{ is_state('device_tracker.chromecast', 'home') }}"
+      dt_bddvd:
+        friendly_name: BD/DVD
+        icon_template: mdi:disk
+        value_template: "{{ is_state('device_tracker.bddvd', 'home') }}"
+      dt_kira:
+        friendly_name: KIRA
+        icon_template: mdi:remote
+        value_template: "{{ is_state('device_tracker.kira', 'home') }}"
+      dt_ledcontroller:
+        friendly_name: LED Salone
+        icon_template: mdi:led-strip
+        value_template: "{{ is_state('device_tracker.ledcontroller', 'home') }}"
+      dt_owlintuition:
+        friendly_name: OWL Intuition Power Meter
+        icon_template: mdi:speedometer
+        value_template: "{{ is_state('device_tracker.owlintuition', 'home') }}"
