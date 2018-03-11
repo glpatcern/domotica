@@ -556,19 +556,12 @@ sensor:
       - precip_intensity_max
       - cloud_cover
 
-# TPG & SBB-CFF-FFS
-# download data at https://opentransportdata.swiss/en/dataset
-#  - platform: gtfs
-#    name: Tram 18
-#    origin: 8593026        # Meyrin village
-#    destination: 8587437   # Carouge
-#    data: sbb
-#
-#  - platform: gtfs
-#    name: Treno
-#    origin: 8501006        # Meyrin-Vernier
-#    destination: 8501008   # Geneve Cornavin
-#    data: sbb
+# Google Maps
+  - platform: google_travel_time
+    name: Google Travel Time to Home
+    api_key: !secret google_maps_matrix_key
+    origin: device_tracker.novagiu
+    destination: zone.home
 
 # OWL Intuition Power Meter
 # fase 1 = marrone = microonde + lavastoviglie + cucina

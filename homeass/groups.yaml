@@ -11,7 +11,6 @@ default_view:
   view: yes
   entities:
     - group.famiglia
-    - group.trasporti
     - group.piano_terra
     - group.veranda_giardino
     - group.media_center
@@ -45,12 +44,7 @@ famiglia:
     - device_tracker.novagiu
     - device_tracker.giu_nova
     - binary_sensor.presence
-
-trasporti:
-  name: 'TPG'
-  entities:
-    - sensor.gtfs_tram_18
-    - sensor.gtfs_treno_meyrin
+    - sensor.google_travel_time_to_home
 
 piano_terra:
   name: 'Piano Terra'
