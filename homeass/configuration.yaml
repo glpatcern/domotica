@@ -564,13 +564,17 @@ sensor:
     destination: zone.home
 
 # OWL Intuition Power Meter
-# fase 1 = marrone = microonde + lavastoviglie + cucina
+# fase 1 = marrone = microonde + cucina
 # fase 2 = nera = frigo + locale tecnico + salone
-# fase 3 = grigia = camere + caldaia + lavanderia
-  - platform: udp
-    name: OWL Power Meter
-    port: 3200
-    timeout: 70
+# fase 3 = grigia = camere + caldaia + lavanderia + lavastoviglie
+#  - platform: owlintuition
+#    name: OWL Power Meter
+#    port: 3200
+#    monitored_conditions:
+#      chan1
+#      chan2
+#      chan3
+#      battery1
 
 # Templated sensors
   - platform: template
