@@ -15,8 +15,8 @@ trigger:
 
 condition:
   - condition: state
-    entity_id: group.famiglia
-    state: 'home'
+    entity_id: binary_sensor.presence
+    state: 'on'
   - condition: time
     after: '15:00'
   - condition: template      # anything but 'Notte' is OK

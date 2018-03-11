@@ -7,9 +7,9 @@
 alias: 'Lume rientro serale'
 trigger:
   - platform: state
-    entity_id: group.famiglia
-    from: 'not_home'
-    to: 'home'
+    entity_id: binary_sensor.presence
+    from: 'off'
+    to: 'on'
 
 condition:
   - condition: sun

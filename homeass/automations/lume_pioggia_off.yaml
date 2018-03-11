@@ -12,8 +12,8 @@ trigger:
 
 condition:
   - condition: state
-    entity_id: group.famiglia
-    state: 'home'
+    entity_id: binary_sensor.presence
+    state: 'on'
   - condition: sun
     before: sunset
     before_offset: "-00:45:00"

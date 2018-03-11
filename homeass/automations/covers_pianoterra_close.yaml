@@ -14,10 +14,7 @@ trigger:
 
 condition:
   - condition: state
-    entity_id: group.famiglia
-    state: 'not_home'
-  - condition: state
-    entity_id: group.portables
+    entity_id: binary_sensor.presence
     state: 'off'
 
 action:

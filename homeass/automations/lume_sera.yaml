@@ -13,8 +13,8 @@ trigger:
 
 condition:
   - condition: state
-    entity_id: group.famiglia
-    state: 'home'
+    entity_id: binary_sensor.presence
+    state: 'on'
 
 action:
   - service: homeassistant.turn_on

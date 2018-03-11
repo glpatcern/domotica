@@ -16,8 +16,8 @@ condition:
   - condition: template
     value_template: '{{ now().month > 4 and (now().month < 10 or (now().month == 10 and now().day < 15)) }}'
   - condition: state
-    entity_id: group.famiglia
-    state: 'home'
+    entity_id: binary_sensor.presence
+    state: 'on'
   - condition: state
     entity_id: input_select.cover_veranda_state
     state: 'closed'
