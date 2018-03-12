@@ -231,8 +231,9 @@ weblink:
       icon: mdi:router-wireless
     - name: QNAP administration
       url: !secret qnap_admin_link
-    - name: Onkyo web interface
-      url: http://192.168.1.30
+    - name: WiFi Repeater administration
+      url: http://192.168.1.35
+      icon: mdi:access-point-network
     - name: VerandaCam administration
       url: http://192.168.1.21:8080
     - name: Printer administration
@@ -241,15 +242,16 @@ weblink:
       url: https://www.google.com/cloudprint/#printers
     - name: IOMega disk administration
       url: http://192.168.1.32
-    - name: WiFi Repeater administration
-      url: http://192.168.1.35
-      icon: mdi:access-point-network
     - name: NetAtmo station
       url: https://my.netatmo.com/app/station
     - name: WUnderground station
       url: !secret wunderground_link
+    - name: TaHoma link
+      url: https://www.tahomalink.com
     - name: OWL Intuition monitor
-      url: https://www.owlintuition.com/
+      url: https://www.owlintuition.com
+    - name: Onkyo web interface
+      url: http://192.168.1.30
 
 panel_iframe:
   dashboard:
@@ -667,6 +669,14 @@ binary_sensor:
              is_state('device_tracker.papa2', 'home')
           }}
 
+      dt_printer:
+        friendly_name: Printer
+        icon_template: mdi:printer
+        value_template: "{{ is_state('device_tracker.printer', 'home') }}"
+      dt_iomegadisk:
+        friendly_name: IOMega Disk
+        icon_template: mdi:harddisk
+        value_template: "{{ is_state('device_tracker.iomegadisk', 'home') }}"
       dt_edimaxswitch:
         friendly_name: Power Plug
         icon_template: mdi:power-plug
@@ -679,14 +689,19 @@ binary_sensor:
         friendly_name: VerandaCam
         icon_template: mdi:camera-front-variant
         value_template: "{{ is_state('device_tracker.verandacam', 'home') }}"
-      dt_printer:
-        friendly_name: Printer
-        icon_template: mdi:printer
-        value_template: "{{ is_state('device_tracker.printer', 'home') }}"
-      dt_iomegadisk:
-        friendly_name: IOMega Disk
-        icon_template: mdi:harddisk
-        value_template: "{{ is_state('device_tracker.iomegadisk', 'home') }}"
+      dt_netatmopws:
+        friendly_name: NetAtmo Weater Station
+        icon_template: mdi:weather-partlycloudy
+        value_template: "{{ is_state('device_tracker.netatmopws', 'home') }}"
+      dt_somfytahoma:
+        friendly_name: Somfy TaHoma
+        icon_template: mdi:cube-outline
+        value_template: "{{ is_state('device_tracker.somfytahoma', 'home') }}"
+      dt_owlintuition:
+        friendly_name: OWL Intuition Power Meter
+        icon_template: mdi:speedometer
+        value_template: "{{ is_state('device_tracker.owlintuition', 'home') }}"
+
       dt_sunrisetv:
         friendly_name: Sunrise TV
         icon_template: mdi:television
@@ -711,7 +726,3 @@ binary_sensor:
         friendly_name: LED Salone
         icon_template: mdi:led-strip
         value_template: "{{ is_state('device_tracker.ledcontroller', 'home') }}"
-      dt_owlintuition:
-        friendly_name: OWL Intuition Power Meter
-        icon_template: mdi:speedometer
-        value_template: "{{ is_state('device_tracker.owlintuition', 'home') }}"
