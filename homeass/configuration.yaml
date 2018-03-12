@@ -562,7 +562,7 @@ sensor:
   - platform: google_travel_time
     name: Google Travel Time to Home
     api_key: !secret google_maps_matrix_key
-    origin: device_tracker.novagiu
+    origin: zone.cern
     destination: zone.home
 
 # OWL Intuition Power Meter
