@@ -295,14 +295,13 @@ mqtt:
 # Track home devices
 device_tracker:
   - platform: nmap_tracker
-    interval_seconds: 60
+    interval_seconds: 100
     hosts:
-    - 192.168.1.0/24
-    # devices behind the WiFi repeater:
-    - 192.168.1.32    # IOMega
-    - 192.168.1.35    # WiFi repeater
-    - 192.168.1.42    # TaHoma
-    - 192.168.1.60    # OWL Intuition
+      - 192.168.1.0/24
+      # devices behind the WiFi repeater:
+      - 192.168.1.32    # IOMega
+      - 192.168.1.42    # TaHoma
+      - 192.168.1.60    # OWL Intuition
 
 # Track mobile phones' locations
   - platform: owntracks_http
@@ -565,6 +564,12 @@ sensor:
     origin: zone.cern
     destination: zone.home
 
+  - platform: google_travel_time
+    name: Google Travel Time FE
+    api_key: !secret google_maps_matrix_key
+    origin: zone.home
+    destination: zone.casa_fe
+
 # OWL Intuition Power Meter
 # fase 1 = marrone = microonde + cucina
 # fase 2 = nera = frigo + locale tecnico + salone
@@ -582,7 +587,7 @@ sensor:
   - platform: template
     sensors:
 
-# Group current, min, and max outdoor temperatures in one sensor
+# Combine current, min, and max outdoor temperatures in one sensor
       netatmo_outdoor_minmaxtemperature:
         friendly_name: Outdoor Temperature
         icon_template: mdi:thermometer
@@ -600,7 +605,7 @@ sensor:
         unit_of_measurement: GiB
         value_template: "{{ states('sensor.disk_free_mnt')|int }}"
 
-# Group QNAP SMART states
+# Combine QNAP SMART states
       naslopresti_smart_status:
         icon_template: mdi:harddisk
         friendly_name: 'QNAP Drives SMART Status'
@@ -611,7 +616,7 @@ sensor:
             {{ states.sensor.naslopresti_smart_status_drive_01 }} & {{ states.sensor.naslopresti_smart_status_drive_02 }}
           {% endif %}
 
-# Group QNAP disks temperatures
+# Combine QNAP disks temperatures
       naslopresti_drives_max_temperature:
         icon_template: mdi:thermometer
         friendly_name: 'QNAP Drives Temperature'
@@ -624,16 +629,16 @@ binary_sensor:
   - platform: template
     sensors:
 
-# presence detection. Do NOT use group.famiglia as it includes this!
+# presence detection: we can't use group.famiglia as it includes this!
       presence:
-        friendly_name: Presenza
+        friendly_name: Presenza a casa
         icon_template: mdi:home-account
         value_template: >-
           {{ is_state('device_tracker.novagiu', 'home') or
+             is_state('device_tracker.bqisa', 'home') or
              is_state('device_tracker.glplap', 'home') or
              is_state('device_tracker.isamac', 'home') or
-             is_state('device_tracker.bqisa', 'home') or
-             is_state('binary_sensor.dt_guests', 'home') or
+             is_state('binary_sensor.dt_guests', 'on') or
              states('sensor.netatmo_indoor_noise')|int >= 40
           }}
 
