@@ -35,6 +35,8 @@ while True:
     if readable:
         data, addr = sock.recvfrom(1024)
         xml = ET.fromstring(data)
+        print data
+        print "\n\n"
         etxml = ET.ElementTree(xml)
         for e in etxml.iter():
             print "%s: '%s'" % (e.tag, e.text)
