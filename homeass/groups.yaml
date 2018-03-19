@@ -15,6 +15,7 @@ default_view:
     - group.veranda_giardino
     - group.media_center
     - group.primo_piano
+    - group.elettricita
 
 meteo:
   name: 'Meteo'
@@ -42,9 +43,9 @@ famiglia:
   entities:
     - device_tracker.bqisa
     - device_tracker.novagiu
-    - device_tracker.giu_nova
     - binary_sensor.presence
     - sensor.google_travel_time_to_home
+    - sensor.google_travel_time_fe
 
 piano_terra:
   name: 'Piano Terra'
@@ -90,6 +91,14 @@ media_center:
     - weblink.qnap_administration
     - media_player.amplificatore_onkyo
     - media_player.chromecast
+
+elettricita:
+  name: 'Elettricità'
+  entities:
+    - sensor.owl_meter_power
+    - sensor.owl_meter_triphasepower
+    - sensor.owl_meter_energy_today
+
 
 meteo_general:
   name: 'General'
@@ -138,6 +147,7 @@ meteo_details:
     - sensor.netatmo_terrace_battery
     - sensor.netatmo_outdoor_battery
 
+
 network:
   name: 'Network'
   entities:
@@ -174,6 +184,7 @@ devices:
     - binary_sensor.dt_ledcontroller
     - binary_sensor.dt_owlintuition
     - weblink.owl_intuition_monitor
+    - sensor.owl_meter_battery
     - binary_sensor.dt_somfytahoma
     - weblink.tahoma_link
     - binary_sensor.dt_netatmopws
@@ -208,6 +219,7 @@ homeass:
     - sensor.ha_entities
     - sensor.ha_warnings
     - sensor.ha_errors
+    - weblink.influxdb_administration
     - automation.bad_logins_notifier
     - automation.apri_cupola_se_fa_caldo
     - automation.apri_tenda_veranda_se_fa_caldo
@@ -222,6 +234,7 @@ homeass:
     - automation.orologio_a_cucu
     - automation.verandacam_di_sera
     - automation.modo_giorno_automatico
+    - automation.modo_normalegiorno_manuale
     - automation.modo_notte_automatico
     - automation.modo_notte_manuale
     - automation.modo_festa

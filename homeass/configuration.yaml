@@ -41,8 +41,6 @@ automation:
   # Presa comandata lume
   - !include automations/lume_sera.yaml
   #- !include automations/lume_rientro_serale.yaml
-  - !include automations/lume_pioggia_on.yaml
-  - !include automations/lume_pioggia_off.yaml
   # VerandaCam night mode
   - !include automations/verandacam_night.yaml
   # Media center
@@ -123,7 +121,7 @@ conversation:
 
 # Enables events recording
 recorder:
-  purge_interval: 0
+  purge_interval: 30
   exclude:
     domains:
       - weblink
@@ -234,6 +232,8 @@ weblink:
     - name: WiFi Repeater administration
       url: http://192.168.1.35
       icon: mdi:access-point-network
+    - name: InfluxDB administration
+      url: http://192.168.1.48:3004
     - name: VerandaCam administration
       url: http://192.168.1.21:8080
     - name: Printer administration
@@ -242,6 +242,8 @@ weblink:
       url: https://www.google.com/cloudprint/#printers
     - name: IOMega disk administration
       url: http://192.168.1.32
+    - name: Onkyo web interface
+      url: http://192.168.1.30
     - name: NetAtmo station
       url: https://my.netatmo.com/app/station
     - name: WUnderground station
@@ -250,8 +252,6 @@ weblink:
       url: https://www.tahomalink.com
     - name: OWL Intuition monitor
       url: https://www.owlintuition.com
-    - name: Onkyo web interface
-      url: http://192.168.1.30
 
 panel_iframe:
   dashboard:
@@ -387,9 +387,6 @@ switch:
 tahoma:
   username: !secret somfy_user
   password: !secret somfy_password
-
-cover:
-  - platform: tahoma
 
 light:
 # LED for the home theater
@@ -574,14 +571,13 @@ sensor:
 # fase 1 = marrone = microonde + cucina
 # fase 2 = nera = frigo + locale tecnico + salone
 # fase 3 = grigia = camere + caldaia + lavanderia + lavastoviglie
-#  - platform: owlintuition
-#    name: OWL Power Meter
-#    port: 3200
-#    monitored_conditions:
-#      chan1
-#      chan2
-#      chan3
-#      battery1
+  - platform: owlintuition
+    port: 3200
+    mode: triphase
+    monitored_conditions:
+      - battery
+      - power
+      - energy_today
 
 # Templated sensors
   - platform: template
@@ -592,6 +588,12 @@ sensor:
         friendly_name: Outdoor Temperature
         icon_template: mdi:thermometer
         value_template: "{{ states.sensor.netatmo_outdoor_temperature.state }}°C ({{ states.sensor.netatmo_outdoor_min_temp.state }}°C ÷ {{ states.sensor.netatmo_outdoor_max_temp.state }}°C)"
+
+# Combine the 3 phase power meters in one sensor
+      owl_meter_triphasepower:
+        friendly_name: OWL Meter Triphase Power
+        icon_template: mdi:flash
+        value_template: "{{ states.sensor.owl_meter_power_P1.state }} W + {{ states.sensor.owl_meter_power_P2.state }} W + {{ states.sensor.owl_meter_power_P3.state }} W"
 
 # Disks free space
       naslopresti_free_space:
@@ -624,6 +626,10 @@ sensor:
         value_template: "{{ [states('sensor.naslopresti_temperature_drive_01')|int, states('sensor.naslopresti_temperature_drive_02')|int] | max }}"
 
 binary_sensor:
+
+# Workdays binary sensor
+  - platform: workday
+    country: FRA
 
 # Templated binary sensors
   - platform: template
