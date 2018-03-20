@@ -329,6 +329,11 @@ camera:
 #  - platform: mjpeg
 #    mjpeg_url: http://192.168.1.4/video.cgi
 
+# Satellite camera (credits to @CiquattroFPV)
+  - platform: generic
+    name: Satellite
+    still_image_url: http://api.sat24.com/animated/ALPS/visual/1/Romance%20Standard%20Time/6352028'%20width=400%20height=291
+
 # MotoG camera
 android_ip_webcam:
   name: VerandaCam
