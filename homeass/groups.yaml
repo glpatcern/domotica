@@ -7,7 +7,8 @@
 ################################
 
 default_view:
-  name: 'Casa'
+  name: 'Main'
+  icon: mdi:home-assistant
   view: yes
   entities:
     - group.famiglia
@@ -19,6 +20,7 @@ default_view:
 
 meteo:
   name: 'Meteo'
+  icon: mdi:weather-partlycloudy
   view: yes
   entities:
     - group.meteo_general
@@ -27,6 +29,7 @@ meteo:
 
 it:
   name: 'IT'
+  icon: mdi:access-point
   view: yes
   entities:
     - group.homeass
@@ -109,7 +112,7 @@ meteo_general:
     - sensor.moon
     - weblink.netatmo_station
     - weblink.wunderground_station
-    - history_graph.temperature
+    - camera.satellite
 
 meteo_sensors:
   name: 'Meteo Sensors'
@@ -146,6 +149,7 @@ meteo_details:
     - sensor.netatmo_terrace_strength
     - sensor.netatmo_terrace_battery
     - sensor.netatmo_outdoor_battery
+    - history_graph.temperature
 
 
 network:
