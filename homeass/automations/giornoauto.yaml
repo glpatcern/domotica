@@ -3,24 +3,25 @@
 #
 ####################################################################
 
-# Alle 8 torna in modalita' normale e metti webcam in modo giorno
+# Alle 8 o alle 9 vai in modalita' normale
 alias: 'Modo giorno automatico'
 initial_state: True
 trigger:
-# not using sunrise because homeassistant may be shut off...
   - platform: time
     hours: 08
     minutes: 00
     seconds: 00
+  - platform: time
+    hours: 09
+    minutes: 00
+    seconds: 00
 
 condition:
-  - condition: time
-    weekday:
-      - mon
-      - tue
-      - wed
-      - thu
-      - fri
+  - condition: template
+    value_template: >-
+      {{ is_state('binary_sensor.workday_sensor', 'on') and now().hour == 8 or
+         is_state('binary_sensor.workday_sensor', 'off') and now().hour == 9
+      }}
 
 action:
   - service: input_select.select_option
