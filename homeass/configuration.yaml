@@ -302,10 +302,15 @@ device_tracker:
     interval_seconds: 100
     hosts:
       - 192.168.1.0/24
-      # devices behind the WiFi repeater:
-      - 192.168.1.32    # IOMega
-      - 192.168.1.42    # TaHoma
-      - 192.168.1.60    # OWL Intuition
+
+# Devices behind the WiFi repeater are not detected by nmap
+  - platform: ping
+    interval_seconds: 100
+    hosts:
+      iomegadisk: 192.168.1.32
+      somfytahoma: 192.168.1.42
+      printer: 192.168.1.50
+      owlintuition: 192.168.1.60
 
 # Track mobile phones' locations
   - platform: owntracks_http
