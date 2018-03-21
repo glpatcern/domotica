@@ -7,14 +7,18 @@
 alias: 'Lume di sera'
 initial_state: True
 trigger:
-  platform: sun
-  event: sunset
-  offset: "-00:20:00"
+  platform: numeric_state
+  entity_id: sun.sun
+  value_template: '{{ state.attributes.elevation }}'
+  below: 4
+  above: 3.5
 
 condition:
   - condition: state
     entity_id: binary_sensor.presence
     state: 'on'
+  - condition: template
+    value_template: "{{ states.input_select.statocasa.state != 'Notte' }}"
 
 action:
   - service: homeassistant.turn_on
