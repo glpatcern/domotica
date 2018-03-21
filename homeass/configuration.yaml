@@ -121,7 +121,6 @@ conversation:
 
 # Enables events recording
 recorder:
-  purge_interval: 30
   exclude:
     domains:
       - weblink
