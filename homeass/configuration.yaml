@@ -262,6 +262,11 @@ panel_iframe:
     title: Home Assistant Web
     icon: mdi:home-assistant
     url: https://home-assistant.io
+  skycal:
+    title: Sky Calendar
+    icon: mdi:weather-night
+    url: https://in-the-sky.org/widgets/newscal.php?skin=0
+
 
 # Enable browser for local addresses
 browser:
