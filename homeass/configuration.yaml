@@ -299,13 +299,14 @@ mqtt:
 # Track home devices
 device_tracker:
   - platform: nmap_tracker
-    interval_seconds: 100
+    interval_seconds: 120
+    home_interval: 10
     hosts:
       - 192.168.1.0/24
 
 # Devices behind the WiFi repeater are not detected by nmap
   - platform: ping
-    interval_seconds: 100
+    interval_seconds: 120
     hosts:
       iomegadisk: 192.168.1.32
       somfytahoma: 192.168.1.42
