@@ -14,9 +14,8 @@ trigger:
   above: 3.5
 
 condition:
-  - condition: state
-    entity_id: binary_sensor.presence
-    state: 'on'
+  - condition: time
+    after: "12:00:00"
   - condition: template
     value_template: "{{ states.input_select.statocasa.state != 'Notte' }}"
 
