@@ -35,12 +35,13 @@ automation:
   - !include automations/notte.yaml
   - !include automations/notteauto.yaml
   - !include automations/festa.yaml
+  - !include automations/allarmeauto.yaml
   - !include automations/bad_logins.yaml
   # Cucu'
   - !include automations/cucu.yaml
   # Presa comandata lume
   - !include automations/lume_sera.yaml
-  #- !include automations/lume_rientro_serale.yaml
+  - !include automations/lume_rientro_serale.yaml
   # VerandaCam night mode
   - !include automations/verandacam_night.yaml
   # Media center
@@ -64,6 +65,7 @@ input_select:
       - Normale
       - Notte
       - Festa
+      - Allarme
     icon: mdi:home
 
   # Radio selector
@@ -660,7 +662,7 @@ binary_sensor:
              is_state('device_tracker.glplap', 'home') or
              is_state('device_tracker.isamac', 'home') or
              is_state('binary_sensor.dt_guests', 'on') or
-             states('sensor.netatmo_indoor_noise')|int >= 40
+             states('sensor.netatmo_indoor_noise')|int > 40
           }}
 
 # convert all the devices' states to online/offline

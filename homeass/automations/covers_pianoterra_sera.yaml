@@ -12,8 +12,11 @@ trigger:
   offset: "01:00:00"
 
 condition:
-  - condition: template      # we must still be in normal mode
-    value_template: "{{ states.input_select.statocasa.state == 'Normale' }}"
+  - condition: template      # we must be in normal/alarm mode
+    value_template: >-
+       {{ states.input_select.statocasa.state == 'Normale' or
+          states.input_select.statocasa.state == 'Allarme'
+       }}
 
 action:
   - service: cover.stop_cover

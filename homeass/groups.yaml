@@ -242,4 +242,5 @@ homeass:
     - automation.modo_notte_automatico
     - automation.modo_notte_manuale
     - automation.modo_festa
+    - automation.modo_allarme_automatico
     - automation.selezione_radio

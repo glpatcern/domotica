@@ -16,12 +16,16 @@ condition:
     after: sunset
 
   - condition: state
-    entity_id: switch.smartplug
-    state: 'off'
+    entity_id: input_select.statocasa
+    state: 'Allarme'
 
 action:
   - service: homeassistant.turn_on
     entity_id: switch.smartplug
+
+  - service: notify.notifyglp
+    data_template:
+      message: "Qualcuno sta rientrando a casa"
 
 # To switch it off after a delay:
 # - delay: "00:10:00"
@@ -30,4 +34,3 @@ action:
 
 # Also, check the following for automatic switch off after 20':
 # https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/automation/System/watchdog_light.yaml
-
