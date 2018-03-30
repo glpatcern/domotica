@@ -346,6 +346,11 @@ camera:
     name: Satellite
     still_image_url: http://api.sat24.com/animated/ALPS/visual/1/Romance%20Standard%20Time/6352028'%20width=400%20height=291
 
+# Seismic map from Switzerland
+  - platform: generic
+    name: Carta Sismografica
+    still_image_url: "http://www.seismo.ethz.ch/it/map-cache30s/cgi-bin/mapserv?MAP=/var/www/mapfile/sed/eventlist_ch.map&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&layers=shaded_relief_ch,rivers_white_ch,abroad_gray_ch,border_gray_ch_eu,lakes_white,eq_ch_90d_startpage_it,eq_ch_box,cities_ch,timestamp_ch&STYLES=&SRS=EPSG:9814&BBOX=456000,29258,871625,356333&WIDTH=590&HEIGHT=465&FORMAT=aggpng24"
+
 # MotoG camera
 android_ip_webcam:
   name: VerandaCam
