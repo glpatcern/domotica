@@ -7,7 +7,7 @@
 ############################
 
 homeassistant:
-  name: Casa
+  name: Casa Lo Presti - Masina
   # location required to calculate the time the sun rises and sets
   latitude: !secret ha_latitude
   longitude: !secret ha_longitude
