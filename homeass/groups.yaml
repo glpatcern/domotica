@@ -11,7 +11,8 @@ default_view:
   icon: mdi:home-assistant
   view: yes
   entities:
-    - group.famiglia
+    - group.persone
+    - group.trasporti
     - group.piano_terra
     - group.veranda_giardino
     - group.media_center
@@ -41,14 +42,20 @@ it:
 # Groups
 ################################
 
-famiglia:
-  name: 'Famiglia'
+persone:
+  name: 'Persone'
   entities:
     - device_tracker.bqisa
     - device_tracker.novagiu
     - binary_sensor.presence
-    - sensor.google_travel_time_to_home
-    - sensor.google_travel_time_fe
+
+trasporti:
+  name: 'Trasporti'
+  entities:
+    - sensor.tpg_to_cornavin
+    - sensor.tpg_to_cern
+    - sensor.gmaps_time_to_cern
+    - sensor.gmaps_time_to_fe
 
 piano_terra:
   name: 'Piano Terra'

@@ -95,7 +95,7 @@ sensor.qnap_banned_ips:
   icon: mdi:cancel
 sensor.current_version:
   icon: mdi:home-assistant
-sensor.google_travel_time_to_home:
+sensor.gmaps_time_to_cern:
   icon: mdi:car
-sensor.google_travel_time_fe:
+sensor.gmaps_time_to_fe:
   icon: mdi:car
