@@ -115,10 +115,10 @@ meteo_general:
   entities:
     - sensor.pws_weather_1d_metric
     - sensor.pws_weather_1n_metric
-    - sun.sun
-    - sensor.moon
     - weblink.netatmo_station
     - weblink.wunderground_station
+    - sun.sun
+    - sensor.moon
     - camera.satellite
 
 meteo_sensors:

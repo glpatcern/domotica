@@ -700,7 +700,7 @@ binary_sensor:
              is_state('device_tracker.glplap', 'home') or
              is_state('device_tracker.isamac', 'home') or
              is_state('binary_sensor.dt_guests', 'on') or
-             states('sensor.netatmo_indoor_noise')|int > 40
+             states('sensor.netatmo_indoor_noise')|int > 42
           }}
 
 # convert all the devices' states to online/offline
