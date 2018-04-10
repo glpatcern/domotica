@@ -36,12 +36,12 @@ automation:
   - !include automations/notteauto.yaml
   - !include automations/festa.yaml
   - !include automations/allarmeauto.yaml
+  - !include automations/rientro.yaml
   - !include automations/bad_logins.yaml
   # Cucu'
   - !include automations/cucu.yaml
   # Presa comandata lume
   - !include automations/lume_sera.yaml
-  - !include automations/lume_rientro_serale.yaml
   # VerandaCam night mode
   - !include automations/verandacam_night.yaml
   # Media center

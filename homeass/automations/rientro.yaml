@@ -1,10 +1,11 @@
 #
 # LoPresti smart home - automation configuration for Home Assistant
 #
-# Accendi il lume se qualcuno rientra la sera
+# Notifica se qualcuno rientra + accendi lume se e' sera
+# o apri serranda cucina se e' giorno
 ####################################################################
 
-alias: 'Lume rientro serale'
+alias: 'Notifica rientro'
 trigger:
   - platform: state
     entity_id: binary_sensor.presence
@@ -12,20 +13,31 @@ trigger:
     to: 'on'
 
 condition:
-  - condition: sun
-    after: sunset
-
   - condition: state
     entity_id: input_select.statocasa
     state: 'Allarme'
 
 action:
-  - service: homeassistant.turn_on
-    entity_id: switch.smartplug
-
   - service: notify.notifyglp
     data_template:
       message: "Qualcuno sta rientrando a casa"
+
+  - service: input_select.select_option
+    data_template:
+      entity_id: input_select.statocasa
+      option: >-
+        {% if now().hour >= 23 or now().hour < 8 %}
+          Notte
+        {% else %}
+          Normale
+        {% endif %}
+
+  - service: homeassistant.turn_on
+    data_template:
+      entity_id: >-
+        {% if is_state('sun.sun', 'below_horizon') %}
+          switch.smartplug
+        {% endif %}
 
 # To switch it off after a delay:
 # - delay: "00:10:00"

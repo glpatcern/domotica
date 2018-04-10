@@ -236,7 +236,6 @@ homeass:
     - automation.apri_tenda_veranda_se_fa_caldo
     - automation.chiudi_tenda_veranda_per_vento
     - automation.lume_di_sera
-    - automation.lume_rientro_serale
     - automation.accendi_lume_se_troppo_nuvoloso_o_piove
     - automation.spegni_lume_se_torna_il_sereno
     - automation.chiudi_serrande_simula_presenza
@@ -250,4 +249,6 @@ homeass:
     - automation.modo_notte_manuale
     - automation.modo_festa
     - automation.modo_allarme_automatico
+    - automation.notifica_rientro
     - automation.selezione_radio
+    - automation.irrigazione
