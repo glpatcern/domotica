@@ -130,7 +130,6 @@ recorder:
     entities:
       - sun.sun
       - sensor.moon
-      - sensor.last_boot
       - sensor.igd_received_bytes
       - sensor.igd_sent_bytes
       - sensor.ha_warnings
@@ -174,7 +173,6 @@ influxdb:
     entities:
       - sun.sun
       - sensor.moon
-      - sensor.last_boot
       - sensor.igd_received_bytes
       - sensor.igd_sent_bytes
       - sensor.ha_warnings
@@ -268,9 +266,6 @@ panel_iframe:
     icon: mdi:weather-night
     url: https://in-the-sky.org/widgets/newscal.php?skin=0
 
-
-# Enable browser for local addresses
-browser:
 
 # Custom cloud services
 #########################
@@ -700,7 +695,7 @@ binary_sensor:
              is_state('device_tracker.glplap', 'home') or
              is_state('device_tracker.isamac', 'home') or
              is_state('binary_sensor.dt_guests', 'on') or
-             states('sensor.netatmo_indoor_noise')|int > 42
+             states('sensor.netatmo_indoor_noise')|int > 41
           }}
 
 # convert all the devices' states to online/offline
