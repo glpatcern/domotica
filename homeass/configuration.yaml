@@ -653,26 +653,16 @@ sensor:
         unit_of_measurement: °C
         value_template: "{{ [states('sensor.naslopresti_temperature_drive_01')|int, states('sensor.naslopresti_temperature_drive_02')|int] | max }}"
 
-# Public transport customizations: display hh:mm and show next_on departure if next departure is only within 5 mins
+# Public transport customizations: show next + next_on departures as hh:mm
       tpg_to_cern:
         friendly_name: 'TPG to CERN'
         icon_template: mdi:tram
-        value_template: >-
-          {% if as_timestamp(states('sensor.spt_cern')) - as_timestamp(now()) > 300 %}
-            {{ as_timestamp(states('sensor.spt_cern')) | timestamp_custom('%H:%M') }}
-          {% else %}
-            {{ as_timestamp(states.sensor.spt_cern.attributes.next_on_departure) | timestamp_custom('%H:%M') }}
-          {% endif %}
+        value_template: "{{ as_timestamp(states('sensor.spt_cern')) | timestamp_custom('%H:%M') }},  {{ as_timestamp(states.sensor.spt_cern.attributes.next_on_departure) | timestamp_custom('%H:%M') }}"
 
       tpg_to_cornavin:
         friendly_name: 'TPG to Cornavin'
         icon_template: mdi:tram
-        value_template: >-
-          {% if as_timestamp(states('sensor.spt_cornavin')) - as_timestamp(now()) > 300 %}
-            {{ as_timestamp(states('sensor.spt_cornavin')) | timestamp_custom('%H:%M') }}
-          {% else %}
-            {{ as_timestamp(states.sensor.spt_cornavin.attributes.next_on_departure) | timestamp_custom('%H:%M') }}
-          {% endif %}
+        value_template: "{{ as_timestamp(states('sensor.spt_cornavin')) | timestamp_custom('%H:%M') }},  {{ as_timestamp(states.sensor.spt_cornavin.attributes.next_on_departure) | timestamp_custom('%H:%M') }}"
 
 
 binary_sensor:
