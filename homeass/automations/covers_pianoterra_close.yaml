@@ -3,21 +3,20 @@
 #
 ####################################################################
 
-# chiudi la cucina se nessuno in casa & ora ~= 11.00 in un range di 40 minuti
+# chiudi la cucina se nessuno in casa & ora ~= 11.00 in un range di 20 minuti
 alias: 'Chiudi serrande simula presenza'
 initial_state: True
 trigger:
   platform: time
   hours: 10
-  minutes: 45
+  minutes: 50
   seconds: 00
 
 condition:
-  - condition: state
-    entity_id: binary_sensor.presence
-    state: 'off'
+  - condition: template
+    value_template: "{{ states.input_select.statocasa.state == 'Allarme' }}"
 
 action:
-  - delay: '{{ "00:" ~ ((range(5, 45) | random) | int)  ~ ":00" }}'
+  - delay: '{{ "00:" ~ ((range(0, 20) | random) | int)  ~ ":00" }}'
   - service: cover.stop_cover
     entity_id: cover.cucina

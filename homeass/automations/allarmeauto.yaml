@@ -3,7 +3,7 @@
 #
 ####################################################################
 
-# vai in modalita' Allarme se non c'e' nessuno per almeno 15 minuti
+# vai in modalita' Allarme se non c'e' nessuno per almeno 20 minuti
 alias: 'Modo allarme automatico'
 initial_state: True
 trigger:
@@ -11,7 +11,7 @@ trigger:
   entity_id: binary_sensor.presence
   to: 'off'
   for:
-    minutes: 15
+    minutes: 20
 
 condition:
   - condition: template      # we must not already be in alarm mode

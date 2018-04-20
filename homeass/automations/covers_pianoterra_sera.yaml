@@ -3,13 +3,13 @@
 #
 ####################################################################
 
-# chiudi salone e cucina la sera 1h dopo il tramonto (per l'inverno)
+# chiudi salone e cucina la sera 45' dopo il tramonto (per l'inverno)
 alias: 'Chiudi serrande piano terra di sera'
 initial_state: True
 trigger:
   platform: sun
   event: sunset
-  offset: "01:00:00"
+  offset: "00:45:00"
 
 condition:
   - condition: template      # we must be in normal/alarm mode
