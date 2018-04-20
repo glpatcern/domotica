@@ -94,6 +94,7 @@ media_center:
   entities:
     - scene.cinema
     - scene.spegni_cinema
+    - script.tvcucina
     - input_select.internet_radio
     - script.stopaudio
     - light.led_salone

@@ -72,3 +72,14 @@ stopaudio:
     - alias: Spegni Amplificatore
       service: media_player.turn_off
       entity_id: media_player.amplificatore_onkyo
+
+tvcucina:
+  alias: TV cucina
+  sequence:
+    - service: media_player.turn_on
+      entity_id: media_player.amplificatore_onkyo
+    - service: media_player.select_source
+      entity_id: media_player.cable_tv
+    - delay: '00:00:05'
+    - service: media_player.turn_off
+      entity_id: media_player.amplificatore_onkyo

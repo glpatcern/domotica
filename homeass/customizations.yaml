@@ -73,6 +73,8 @@ scene.cinema:
   icon: mdi:projector
 script.stopaudio:
   icon: mdi:stop
+script.tvcucina:
+  icon: mdi:television
 switch.smartplug:
   friendly_name: 'Lume'
 sensor.ha_bad_logins:
