@@ -39,6 +39,13 @@ action:
           switch.smartplug
         {% endif %}
 
+  - service: cover.open_cover
+    data_template:
+      entity_id: >-
+        {% if is_state('sun.sun', 'above_horizon') and now().hour < 18 %}
+          cover.cucina
+        {% endif %}
+
 # To switch it off after a delay:
 # - delay: "00:10:00"
 # - service: homeassistant.turn_off
