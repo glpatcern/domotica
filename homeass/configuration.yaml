@@ -35,7 +35,7 @@ automation:
   - !include automations/notte.yaml
   - !include automations/notteauto.yaml
   - !include automations/festa.yaml
-  - !include automations/allarmeauto.yaml
+  - !include automations/assenzaauto.yaml
   - !include automations/rientro.yaml
   - !include automations/bad_logins.yaml
   # Cucu'
@@ -65,7 +65,6 @@ input_select:
       - Normale
       - Notte
       - Festa
-      - Allarme
     icon: mdi:home
 
   # Radio selector
@@ -84,6 +83,14 @@ input_select:
       - open
       - closed
     initial: closed
+
+# Presence detection: cf. allarmeauto and rientro automations
+input_boolean:
+  presence:
+    name: Presenza a casa
+    icon: mdi:home-account
+    initial: on
+
 
 # Logging levels
 logger:
@@ -702,8 +709,7 @@ binary_sensor:
 
 # presence detection: we can't use group.persone as it includes this!
       presence:
-        friendly_name: Presenza a casa
-        icon_template: mdi:home-account
+        friendly_name: Sensore presenza
         value_template: >-
           {{ is_state('device_tracker.giu_nova', 'home') or
              is_state('device_tracker.bqisa', 'home') or
@@ -712,6 +718,11 @@ binary_sensor:
              is_state('binary_sensor.dt_guests', 'on') or
              states('sensor.netatmo_indoor_noise')|int > 41
           }}
+
+      frontend_presence:
+        friendly_name: Presenza a casa
+        icon_template: mdi:home-account
+        value_template: "{{ is_state('input_boolean.presence', 'on') }}"
 
 # convert all the devices' states to online/offline
       dt_isamac:

@@ -14,23 +14,16 @@ trigger:
 
 condition:
   - condition: state
-    entity_id: input_select.statocasa
-    state: 'Allarme'
+    entity_id: input_boolean.presence
+    state: 'off'
 
 action:
   - service: notify.notifyglp
     data_template:
       message: "Qualcuno sta rientrando a casa"
 
-  - service: input_select.select_option
-    data_template:
-      entity_id: input_select.statocasa
-      option: >-
-        {% if now().hour >= 23 or now().hour < 8 %}
-          Notte
-        {% else %}
-          Normale
-        {% endif %}
+  - service: homeassistant.turn_on
+    entity_id: input_boolean.presence
 
   - service: homeassistant.turn_on
     data_template:

@@ -47,7 +47,7 @@ persone:
   entities:
     - device_tracker.bqisa
     - device_tracker.giu_nova
-    - binary_sensor.presence
+    - binary_sensor.frontend_presence
 
 trasporti:
   name: 'Trasporti'
@@ -250,7 +250,7 @@ homeass:
     - automation.modo_notte_automatico
     - automation.modo_notte_manuale
     - automation.modo_festa
-    - automation.modo_allarme_automatico
+    - automation.rileva_assenza_automatica
     - automation.notifica_rientro
     - automation.selezione_radio
     - automation.irrigazione

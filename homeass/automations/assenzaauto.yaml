@@ -1,0 +1,24 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+####################################################################
+
+# vai in modalita' assente se non c'e' nessuno per almeno 20 minuti
+alias: 'Rileva assenza automatica'
+initial_state: True
+trigger:
+  platform: state
+  entity_id: binary_sensor.presence
+  from: 'on'
+  to: 'off'
+  for:
+    minutes: 20
+
+condition:
+  - condition: state
+    entity_id: input_boolean.presence
+    state: 'on'
+
+action:
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.presence
