@@ -97,10 +97,10 @@ logger:
     homeassistant.components.switch: info
     homeassistant.components.cover: info
 
-# Enables the frontend
+# Enable the frontend
 frontend:
 
-# Enables the configuration tab
+# Enable the configuration tab
 config:
 
 # Login and SSL
@@ -114,14 +114,14 @@ http:
   trusted_networks:
     - 192.168.1.0/24
 
-# Checks for available updates and reports used components
+# Check for available updates, report used components
 updater:
   include_used_components: True
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
 
-# Enables events recording
+# Enable events recording
 recorder:
   exclude:
     domains:
@@ -147,7 +147,7 @@ recorder:
       - sensor.dt_glplap
       - sensor.netatmo_outdoor_minmaxtemperature
 
-# Displays graphs in the main frontend
+# Display graphs in the main frontend
 history_graph:
   gr_temperature:
     name: Temperature
@@ -161,7 +161,7 @@ history_graph:
     hours_to_show: 36
     refresh: 600   # 10 minutes
 
-# Enables support for tracking state changes over time -> to be replaced by grafana
+# Enable support for tracking state changes over time -> to be replaced by grafana
 history:
 
 # Enable infuxDB as the history store as opposed to SQLite
@@ -313,6 +313,7 @@ device_tracker:
 # Track mobile phones' locations
   - platform: owntracks_http
     max_gps_accuracy: 200
+    mqtt_topic: "owntracks/#"
 
 # To get router statistics
 upnp:
@@ -336,7 +337,7 @@ camera:
 #  - platform: mjpeg
 #    mjpeg_url: http://192.168.1.4/video.cgi
 
-# Satellite camera (credits to @CiquattroFPV)
+# Satellite camera (credits to CiquattroFPV@github)
   - platform: generic
     name: Satellite
     still_image_url: http://api.sat24.com/animated/ALPS/visual/1/Romance%20Standard%20Time/6352028'%20width=400%20height=291
@@ -345,6 +346,10 @@ camera:
   - platform: generic
     name: Carta Sismografica
     still_image_url: "http://www.seismo.ethz.ch/it/map-cache30s/cgi-bin/mapserv?MAP=/var/www/mapfile/sed/eventlist_ch.map&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&layers=shaded_relief_ch,rivers_white_ch,abroad_gray_ch,border_gray_ch_eu,lakes_white,eq_ch_90d_startpage_it,eq_ch_box,cities_ch,timestamp_ch&STYLES=&SRS=EPSG:9814&BBOX=456000,29258,871625,356333&WIDTH=590&HEIGHT=465&FORMAT=aggpng24"
+
+# Watcher for the DLink camera
+#folder_watcher:
+#  - folder: /config/dlinkcam
 
 # MotoG camera
 android_ip_webcam:
@@ -611,6 +616,26 @@ sensor:
   - platform: template
     sensors:
 
+# Computes the current ephemeral period of the day
+      period_of_day:
+        friendly_name: 'Period of the day'
+        value_template: >-
+          {% if (as_timestamp(states.sun.sun.attributes.next_dusk)) - (as_timestamp(states.sun.sun.attributes.next_setting)) < 0 %}
+            Dusk
+          {% elif (as_timestamp(states.sun.sun.attributes.next_rising)) - (as_timestamp(states.sun.sun.attributes.next_dawn)) < 0 %}
+            Dawn
+          {% elif (states.sun.sun.attributes.elevation) < 0 %}
+            Night
+          {% else %}
+            Day
+          {% endif %}
+        icon_template: >-
+          {% if is_state('sun.sun', 'above_horizon') %}
+            mdi:weather-sunny
+          {% else %}
+            mdi:weather-night
+          {% endif %}
+
 # Combine current, min, and max outdoor temperatures in one sensor
       netatmo_outdoor_minmaxtemperature:
         friendly_name: Outdoor Temperature
@@ -680,7 +705,7 @@ binary_sensor:
         friendly_name: Presenza a casa
         icon_template: mdi:home-account
         value_template: >-
-          {{ is_state('device_tracker.novagiu', 'home') or
+          {{ is_state('device_tracker.giu_nova', 'home') or
              is_state('device_tracker.bqisa', 'home') or
              is_state('device_tracker.glplap', 'home') or
              is_state('device_tracker.isamac', 'home') or

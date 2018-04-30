@@ -46,7 +46,7 @@ persone:
   name: 'Persone'
   entities:
     - device_tracker.bqisa
-    - device_tracker.novagiu
+    - device_tracker.giu_nova
     - binary_sensor.presence
 
 trasporti:
@@ -85,7 +85,7 @@ primo_piano:
   entities:
     - cover.stanza_da_letto
     - cover.camera_irene
-    - cover.camera
+    - cover.camera_gabriele
     - cover.cupola
 
 media_center:
@@ -119,6 +119,7 @@ meteo_general:
     - weblink.netatmo_station
     - weblink.wunderground_station
     - sun.sun
+    - sensor.period_of_day
     - sensor.moon
     - camera.satellite
 
