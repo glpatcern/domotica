@@ -99,5 +99,5 @@ sensor.current_version:
   icon: mdi:home-assistant
 sensor.gmaps_time_to_cern:
   icon: mdi:car
-sensor.gmaps_time_to_fe:
+sensor.gmaps_time_to_italy:
   icon: mdi:car

@@ -289,8 +289,8 @@ notify me:
   api_key: !secret pushbullet_api_key
 
 # IFTTT
-#ifttt:
-#  key: !secret ifttt_key
+ifttt:
+  key: !secret ifttt_key
 
 # Connected devices
 ####################
@@ -318,7 +318,7 @@ device_tracker:
       owlintuition: 192.168.1.60
 
 # Track mobile phones' locations
-  - platform: owntracks_http
+  - platform: owntracks
     max_gps_accuracy: 200
     mqtt_topic: "owntracks/#"
 
@@ -591,10 +591,10 @@ sensor:
     destination: zone.cern
 
   - platform: google_travel_time
-    name: GMaps Time to FE
+    name: GMaps Time to Italy
     api_key: !secret google_maps_matrix_key
     origin: zone.home
-    destination: zone.casa_fe
+    destination: Courmayeur, Italy
 
 # Swiss Public Transport
   - platform: swiss_public_transport

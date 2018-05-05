@@ -55,7 +55,7 @@ trasporti:
     - sensor.tpg_to_cornavin
     - sensor.tpg_to_cern
     - sensor.gmaps_time_to_cern
-    - sensor.gmaps_time_to_fe
+    - sensor.gmaps_time_to_italy
 
 piano_terra:
   name: 'Piano Terra'
