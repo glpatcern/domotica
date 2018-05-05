@@ -29,7 +29,7 @@ condition:
     above: 25
 
 action:
-  - service: cover.open_cover
+  - service: cover.close_cover
     entity_id: cover.veranda
   - service: input_select.select_option
     data:
