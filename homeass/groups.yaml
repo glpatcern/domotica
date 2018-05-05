@@ -18,6 +18,7 @@ default_view:
     - group.media_center
     - group.primo_piano
     - group.elettricita
+    - group.valute
 
 meteo:
   name: 'Meteo'
@@ -109,6 +110,12 @@ elettricita:
     - sensor.owl_meter_power
     - sensor.owl_meter_triphasepower
     - sensor.owl_meter_energy_today
+
+valute:
+  name: 'Valute'
+  entities:
+    - sensor.cambio_eurchf
+    - sensor.cambio_eurusd
 
 
 meteo_general:

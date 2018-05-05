@@ -101,3 +101,5 @@ sensor.gmaps_time_to_cern:
   icon: mdi:car
 sensor.gmaps_time_to_italy:
   icon: mdi:car
+sensor.cambio_eurchf:
+  icon: mdi:currency-eur

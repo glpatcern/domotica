@@ -607,6 +607,17 @@ sensor:
     to: !secret tpg_4
     name: SPT Cornavin
 
+# Currencies exchange
+  - platform: fixer
+    name: 'Cambio EUR/CHF'
+    base: EUR
+    target: CHF
+
+  - platform: fixer
+    name: 'Cambio EUR/USD'
+    base: EUR
+    target: USD
+
 # OWL Intuition Power Meter
 # fase 1 = marrone = microonde + cucina
 # fase 2 = nera = frigo + locale tecnico + salone
