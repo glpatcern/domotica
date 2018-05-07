@@ -1,7 +1,8 @@
 #
 # LoPresti smart home - automation configuration for Home Assistant
 #
-# Apri cupola per ventilare se temperatura interna > 25C
+# Apri cupola per ventilare se temperatura interna > 23C e siamo
+# in estate
 ####################################################################
 
 alias: 'Apri cupola se fa caldo'
@@ -16,9 +17,11 @@ condition:
   - condition: time
     after: '08:10'
     before: '23:30'
+  - condition: template
+    value_template: '{{ now().month > 4 and (now().month < 10 or (now().month == 10 and now().day < 15)) }}'
   - condition: numeric_state
     entity_id: sensor.netatmo_indoor_temperature
-    above: 25
+    above: 23
   - condition: template      # anything but 'Notte' is OK
     value_template: "{{ states.input_select.statocasa.state != 'Notte' }}"
 
