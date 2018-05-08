@@ -37,8 +37,16 @@ it:
     - group.homeass
     - group.network
     - group.devices
-    - group.qnap
     - group.portables
+
+config:
+  name: 'Config'
+  icon: mdi:settings
+  view: yes
+  entities:
+    - group.automations
+    - group.qnap
+    - group.admin_tools
 
 # Groups
 ################################
@@ -100,7 +108,6 @@ media_center:
     - script.stopaudio
     - light.led_salone
 #    - cover.schermo
-    - weblink.qnap_administration
     - media_player.amplificatore_onkyo
     - media_player.chromecast
 
@@ -163,10 +170,18 @@ meteo_details:
 #   - sensor.pws_wind_dir
     - sensor.netatmo_terrace_angle
     - sensor.netatmo_terrace_strength
-    - sensor.netatmo_terrace_battery
-    - sensor.netatmo_outdoor_battery
     - history_graph.temperature
 
+
+homeass:
+  name: 'Home Assistant'
+  control: hidden
+  entities:
+    - sensor.current_version
+    - sensor.ha_config_loc
+    - sensor.ha_entities
+    - sensor.ha_warnings
+    - sensor.ha_errors
 
 network:
   name: 'Network'
@@ -184,18 +199,10 @@ devices:
   control: hidden
   entities:
     - binary_sensor.dt_iomegadisk
-    - sensor.iomega_free_space
-    - weblink.iomega_disk_administration
     - binary_sensor.dt_printer
-    - weblink.printer_administration
-    - weblink.google_cloud_print
     - binary_sensor.dt_salonecam
     - binary_sensor.dt_verandacam
-    - switch.verandacam_night_vision
-    - switch.verandacam_focus
-    - weblink.verandacam_administration
     - binary_sensor.dt_onkyoamp
-    - weblink.onkyo_web_interface
     - binary_sensor.dt_edimaxswitch
     - binary_sensor.dt_sunrisetv
     - binary_sensor.dt_chromecast
@@ -203,23 +210,11 @@ devices:
     - binary_sensor.dt_kira
     - binary_sensor.dt_ledcontroller
     - binary_sensor.dt_owlintuition
-    - weblink.owl_intuition_monitor
     - sensor.owl_meter_battery
     - binary_sensor.dt_somfytahoma
-    - weblink.tahoma_link
     - binary_sensor.dt_netatmopws
-
-qnap:
-  name: 'QNAP'
-  entities:
-    - weblink.qnap_administration
-    - sensor.naslopresti_free_space
-    - sensor.qnap_banned_ips
-    - sensor.naslopresti_cpu_usage
-    - sensor.naslopresti_memory_usage
-    - sensor.naslopresti_smart_status
-    - sensor.naslopresti_system_temperature
-    - sensor.naslopresti_drives_max_temperature
+    - sensor.netatmo_terrace_battery
+    - sensor.netatmo_outdoor_battery
 
 portables:
   name: 'Portable Devices'
@@ -230,16 +225,10 @@ portables:
     - binary_sensor.dt_htc
     - binary_sensor.dt_guests
 
-homeass:
-  name: 'Home Assistant'
-  control: hidden
+
+automations:
+  name: 'Automations'
   entities:
-    - sensor.current_version
-    - sensor.ha_config_loc
-    - sensor.ha_entities
-    - sensor.ha_warnings
-    - sensor.ha_errors
-    - weblink.influxdb_administration
     - automation.bad_logins_notifier
     - automation.apri_cupola_se_fa_caldo
     - automation.apri_tenda_veranda_se_fa_caldo
@@ -261,3 +250,31 @@ homeass:
     - automation.notifica_rientro
     - automation.selezione_radio
     - automation.irrigazione
+
+qnap:
+  name: 'QNAP'
+  entities:
+    - weblink.qnap_administration
+    - weblink.influxdb_administration
+    - sensor.naslopresti_free_space
+    - sensor.qnap_banned_ips
+    - sensor.naslopresti_cpu_usage
+    - sensor.naslopresti_memory_usage
+    - sensor.naslopresti_smart_status
+    - sensor.naslopresti_system_temperature
+    - sensor.naslopresti_drives_max_temperature
+
+admin_tools:
+  name: 'Administration Tools'
+  control: hidden
+  entities:
+    - weblink.iomega_disk_administration
+    - sensor.iomega_free_space
+    - weblink.printer_administration
+    - weblink.google_cloud_print
+    - weblink.verandacam_administration
+    - switch.verandacam_night_vision
+    - switch.verandacam_focus
+    - weblink.onkyo_web_interface
+    - weblink.owl_intuition_monitor
+    - weblink.tahoma_link
