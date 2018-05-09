@@ -149,7 +149,6 @@ meteo_sensors:
     - sensor.netatmo_indoor_co2
     - sensor.netatmo_indoor_pressure
 #   - sensor.pws_pressure_mb
-    - sensor.pws_precip_1d
     - sensor.dark_sky_precip_probability
     - sensor.dark_sky_precip_intensity
     - sensor.dark_sky_cloud_coverage
@@ -232,7 +231,7 @@ automations:
     - automation.bad_logins_notifier
     - automation.apri_cupola_se_fa_caldo
     - automation.apri_tenda_veranda_se_fa_caldo
-    - automation.chiudi_tenda_veranda_per_vento
+    - automation.chiudi_tenda_veranda_per_ventopioggia
     - automation.lume_di_sera
     - automation.accendi_lume_se_troppo_nuvoloso_o_piove
     - automation.spegni_lume_se_torna_il_sereno
