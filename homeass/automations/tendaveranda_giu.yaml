@@ -17,8 +17,7 @@ condition:
     before: '17:00:00'
   - condition: template
     value_template: '{{ now().month > 4 and (now().month < 10 or (now().month == 10 and now().day < 15)) }}'
-  - condition:
-    condition: or
+  - condition: or
     conditions:
     - condition: state
       entity_id: binary_sensor.presence
