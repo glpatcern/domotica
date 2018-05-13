@@ -13,8 +13,9 @@ trigger:
   seconds: 00
 
 condition:
-  - condition: template
-    value_template: "{{ states.input_select.statocasa.state == 'Allarme' }}"
+  - condition: state
+    entity_id: input_boolean.presence
+    state: 'off'
 
 action:
   - delay: '{{ "00:" ~ ((range(0, 20) | random) | int)  ~ ":00" }}'

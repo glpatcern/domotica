@@ -3,20 +3,18 @@
 #
 ####################################################################
 
-# chiudi salone e cucina la sera 45' dopo il tramonto (per l'inverno)
+# chiudi salone e cucina la sera 40' dopo il tramonto (per l'inverno)
 alias: 'Chiudi serrande piano terra di sera'
 initial_state: True
 trigger:
   platform: sun
   event: sunset
-  offset: "00:45:00"
+  offset: "00:40:00"
 
 condition:
-  - condition: template      # we must be in normal/alarm mode
+  - condition: template      # we must be in normal mode
     value_template: >-
-       {{ states.input_select.statocasa.state == 'Normale' or
-          states.input_select.statocasa.state == 'Allarme'
-       }}
+       {{ states.input_select.statocasa.state == 'Normale' }}
 
 action:
   - service: cover.stop_cover
