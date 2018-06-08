@@ -75,6 +75,7 @@ piano_terra:
     - sensor.netatmo_indoor_noise
     - cover.cucina
     - cover.salone
+    - fan.dyson_purifier
     - switch.smartplug
     - camera.salonecucina
 
@@ -143,11 +144,15 @@ meteo_sensors:
   entities:
     - sensor.netatmo_outdoor_minmaxtemperature
     - sensor.netatmo_indoor_temperature
+    - sensor.dyson_purifier_temperature
     - sensor.veranda_temperature
     - sensor.pws_relative_humidity
     - sensor.netatmo_indoor_humidity
+    - sensor.dyson_purifier_humidity
     - sensor.veranda_humidity
     - sensor.netatmo_indoor_co2
+    - sensor.dyson_purifier_dust
+    - sensor.dyson_purifier_aqi
     - sensor.netatmo_indoor_pressure
 #   - sensor.pws_pressure_mb
     - sensor.dark_sky_precip_probability
@@ -202,19 +207,22 @@ devices:
     - binary_sensor.dt_printer
     - binary_sensor.dt_salonecam
     - binary_sensor.dt_verandacam
-    - binary_sensor.dt_onkyoamp
     - binary_sensor.dt_edimaxswitch
+    - binary_sensor.dt_somfytahoma
+    - binary_sensor.dt_dysonpurifier
+    - sensor.dyson_purifier_filter_life
+    - binary_sensor.dt_netatmopws
+    - sensor.netatmo_terrace_battery
+    - sensor.netatmo_outdoor_battery
+    - sensor.netatmo_indoor_last_update
+    - binary_sensor.dt_owlintuition
+    - sensor.owl_meter_battery
+    - binary_sensor.dt_onkyoamp
     - binary_sensor.dt_sunrisetv
     - binary_sensor.dt_chromecast
     - binary_sensor.dt_bddvd
     - binary_sensor.dt_kira
     - binary_sensor.dt_ledcontroller
-    - binary_sensor.dt_owlintuition
-    - sensor.owl_meter_battery
-    - binary_sensor.dt_somfytahoma
-    - binary_sensor.dt_netatmopws
-    - sensor.netatmo_terrace_battery
-    - sensor.netatmo_outdoor_battery
 
 portables:
   name: 'Portable Devices'

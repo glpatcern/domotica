@@ -428,6 +428,12 @@ light:
       192.168.1.56:
         name: LED Salone
 
+# Dyson Pure Cool
+dyson:
+  username: !secret dyson_user
+  password: !secret dyson_password
+  language: GB
+
 
 # Sensors
 ##########
@@ -792,6 +798,10 @@ binary_sensor:
         friendly_name: OWL Intuition Power Meter
         icon_template: mdi:speedometer
         value_template: "{{ is_state('device_tracker.owlintuition', 'home') }}"
+      dt_dysonpurifier:
+        friendly_name: Dyson Purifier
+        icon_template: mdi:fan
+        value_template: "{{ is_state('device_tracker.dysonpurifier', 'home') }}"
 
       dt_sunrisetv:
         friendly_name: Sunrise TV
