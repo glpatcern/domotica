@@ -322,8 +322,7 @@ device_tracker:
     password: !secret gpslogger_password
 
 # To get router statistics
-upnp:
-  port_mapping:
+#upnp:
 
 # NetAtmo weather station
 netatmo:
