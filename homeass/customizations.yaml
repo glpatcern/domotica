@@ -4,16 +4,6 @@
 ##############################################################
 
 # Covers
-cover.salone:
-  friendly_name: 'Salone'
-cover.cucina:
-  friendly_name: 'Cucina'
-cover.camera:
-  friendly_name: 'Camera'
-cover.camera_irene:
-  friendly_name: 'Camera Irene'
-cover.stanza_da_letto:
-  friendly_name: 'Stanza da letto'
 cover.cupola:
   icon: mdi:arrange-send-backward
   friendly_name: 'Cupola'
@@ -68,15 +58,13 @@ sensor.netatmo_indoor_noise:
 sensor.netatmo_indoor_pressure:
   friendly_name: 'Pressure'
 
-# misc
-scene.cinema:
-  icon: mdi:projector
-script.stopaudio:
-  icon: mdi:stop
-script.tvcucina:
-  icon: mdi:television
-switch.smartplug:
-  friendly_name: 'Lume'
+# Sensors
+sensor.geo_isa_bq:
+  friendly_name: Isa
+  entity_picture: /local/isa.png
+sensor.geo_giu_nova:
+  friendly_name: Giu
+  entity_picture: /local/giu.png
 sensor.ha_bad_logins:
   icon: mdi:account-key
 sensor.ha_config_loc:
@@ -103,3 +91,13 @@ sensor.gmaps_time_to_italy:
   icon: mdi:car
 sensor.cambio_eurchf:
   icon: mdi:currency-eur
+
+# Misc
+scene.cinema:
+  icon: mdi:projector
+script.stopaudio:
+  icon: mdi:stop
+script.tvcucina:
+  icon: mdi:television
+switch.smartplug:
+  friendly_name: 'Lume'

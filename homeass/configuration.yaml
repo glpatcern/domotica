@@ -598,6 +598,17 @@ sensor:
     origin: zone.home
     destination: Courmayeur, Italy
 
+# Google geocode
+  - platform: google_geocode
+    name: geo_giu_nova
+    origin: device_tracker.giu_nova
+    api_key: !secret google_maps_matrix_key
+
+  - platform: google_geocode
+    name: geo_isa_bq
+    origin: device_tracker.isa_bq
+    api_key: !secret google_maps_matrix_key
+
 # Swiss Public Transport
   - platform: swiss_public_transport
     from: !secret tpg_1

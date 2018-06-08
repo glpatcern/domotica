@@ -54,8 +54,8 @@ config:
 persone:
   name: 'Persone'
   entities:
-    - device_tracker.bqisa
-    - device_tracker.giu_nova
+    - sensor.geo_isa_bq
+    - sensor.geo_giu_nova
     - binary_sensor.frontend_presence
 
 trasporti:
