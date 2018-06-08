@@ -136,6 +136,7 @@ meteo_general:
     - sensor.period_of_day
     - sensor.moon
     - camera.satellite
+    - camera.ginevra
 
 meteo_sensors:
   name: 'Meteo Sensors'

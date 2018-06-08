@@ -353,6 +353,11 @@ camera:
     name: Carta Sismografica
     still_image_url: "http://www.seismo.ethz.ch/it/map-cache30s/cgi-bin/mapserv?MAP=/var/www/mapfile/sed/eventlist_ch.map&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&layers=shaded_relief_ch,rivers_white_ch,abroad_gray_ch,border_gray_ch_eu,lakes_white,eq_ch_90d_startpage_it,eq_ch_box,cities_ch,timestamp_ch&STYLES=&SRS=EPSG:9814&BBOX=456000,29258,871625,356333&WIDTH=590&HEIGHT=465&FORMAT=aggpng24"
 
+# Geneva lake webcam
+  - platform: generic
+    name: Ginevra
+    still_image_url: https://images.webcams.travel/original/1512988174.jpg?token=swisswebcams.ch:04d8be430675d4ac6c9a165ab91a4797:1527581400
+
 # Watcher for the DLink camera
 #folder_watcher:
 #  - folder: /config/dlinkcam
