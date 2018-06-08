@@ -16,7 +16,7 @@ trigger:
     below: 24
   - platform: numeric_state
     entity_id: sensor.dark_sky_precip_intensity
-    above: 0.3
+    above: 0.2
   - platform: time
     hours: 17
     minutes: 30
