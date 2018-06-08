@@ -99,7 +99,7 @@ logger:
     homeassistant.components.device_tracker: critical
     homeassistant.components.camera: info
     homeassistant.components.automation: debug
-    homeassistant.components.sensor.command_line: warning
+    homeassistant.components.sensor: warning
     homeassistant.components.scene: info
     homeassistant.components.switch: info
     homeassistant.components.cover: info
@@ -365,9 +365,9 @@ android_ip_webcam:
   password: !secret camera_password
   sensors:
     - motion
-    - light
+#   - light
   switches:
-    - focus
+#   - focus
     - torch
     - video_recording
     - night_vision
@@ -404,9 +404,9 @@ switch:
   - platform: command_line
     switches:
       kira_projector_power:
-        command_on: /usr/bin/curl -X GET http://192.168.1.31/remote2.htm\?button020
-        command_off: /usr/bin/curl -X GET http://192.168.1.31/remote2.htm\?button020
-        value_template: '{{ value == "1" }}'
+        command_on: /usr/bin/curl -X GET 'http://192.168.1.31/remote2.htm?button020'
+        command_off: /usr/bin/curl -X GET 'http://192.168.1.31/remote2.htm?button020'
+#        value_template: '{{ value == "1" }}'
         friendly_name: KIRA Sony Projector
       #kira_dvd_power:
       #kira_tvdecoder_power:
@@ -715,7 +715,7 @@ binary_sensor:
         friendly_name: Sensore presenza
         value_template: >-
           {{ is_state('device_tracker.giu_nova', 'home') or
-             is_state('device_tracker.bqisa', 'home') or
+             is_state('device_tracker.isa_bq', 'home') or
              is_state('device_tracker.glplap', 'home') or
              is_state('device_tracker.isamac', 'home') or
              is_state('binary_sensor.dt_guests', 'on') or
