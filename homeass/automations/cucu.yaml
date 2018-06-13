@@ -9,10 +9,10 @@ alias: 'Orologio a cucù'
 trigger:
   - platform: time
     minutes: 59
-    seconds: 50
+    seconds: 53
   - platform: time
     minutes: 29
-    seconds: 50
+    seconds: 53
 
 condition:
   - condition: time
@@ -43,7 +43,7 @@ action:
   - service: media_player.turn_on
     entity_id: media_player.amplificatore_onkyo
 
-  - delay: '00:00:10'
+  - delay: '00:00:07'
 
   - service: media_player.play_media
     data_template:
