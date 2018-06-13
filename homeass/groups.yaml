@@ -94,8 +94,8 @@ primo_piano:
   name: 'Primo Piano'
   entities:
     - cover.stanza_da_letto
-    - cover.camera_irene
-    - cover.camera_gabriele
+    - cover.camera_bimbi
+    - cover.camera_giochi
     - cover.cupola
 
 media_center:
