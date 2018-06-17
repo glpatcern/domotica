@@ -258,6 +258,8 @@ weblink:
       url: https://www.tahomalink.com
     - name: OWL Intuition monitor
       url: https://www.owlintuition.com
+    - name: Google API Dashboard
+      url: https://console.developers.google.com/apis/dashboard?project=lopresti-homeassistant
 
 panel_iframe:
   dashboard:
@@ -352,10 +354,15 @@ camera:
     name: Carta Sismografica
     still_image_url: "http://www.seismo.ethz.ch/it/map-cache30s/cgi-bin/mapserv?MAP=/var/www/mapfile/sed/eventlist_ch.map&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&layers=shaded_relief_ch,rivers_white_ch,abroad_gray_ch,border_gray_ch_eu,lakes_white,eq_ch_90d_startpage_it,eq_ch_box,cities_ch,timestamp_ch&STYLES=&SRS=EPSG:9814&BBOX=456000,29258,871625,356333&WIDTH=590&HEIGHT=465&FORMAT=aggpng24"
 
-# Geneva lake webcam
+# Public webcams
   - platform: generic
-    name: Ginevra
+    name: Genève
     still_image_url: https://images.webcams.travel/original/1512988174.jpg?token=swisswebcams.ch:04d8be430675d4ac6c9a165ab91a4797:1527581400
+
+  - platform: generic
+    name: Ferrara
+    still_image_url: http://ww3.comune.fe.it/webcam/torre_della_vittoria.jpg
+
 
 # Watcher for the DLink camera
 #folder_watcher:

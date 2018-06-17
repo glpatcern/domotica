@@ -137,7 +137,8 @@ meteo_general:
     - sensor.period_of_day
     - sensor.moon
     - camera.satellite
-    - camera.ginevra
+    - camera.geneve
+    - camera.ferrara
 
 meteo_sensors:
   name: 'Meteo Sensors'
@@ -286,3 +287,5 @@ admin_tools:
     - weblink.onkyo_web_interface
     - weblink.owl_intuition_monitor
     - weblink.tahoma_link
+    - weblink.google_api_dashboard
+
