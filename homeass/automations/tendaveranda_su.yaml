@@ -10,7 +10,7 @@ initial_state: True
 trigger:
   - platform: numeric_state
     entity_id: sensor.netatmo_terrace_gust_strength
-    above: 25
+    above: 28
   - platform: numeric_state
     entity_id: sensor.veranda_temperature
     below: 24
