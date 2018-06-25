@@ -29,6 +29,15 @@ meteo:
     - group.meteo_sensors
     - group.meteo_details
 
+cameras:
+  name: 'Webcams'
+  icon: mdi:cctv
+  view: yes
+  entities:
+    - camera.geneve
+    - camera.ferrara
+    - camera.palermo
+
 it:
   name: 'IT'
   icon: mdi:access-point
@@ -137,8 +146,6 @@ meteo_general:
     - sensor.period_of_day
     - sensor.moon
     - camera.satellite
-    - camera.geneve
-    - camera.ferrara
 
 meteo_sensors:
   name: 'Meteo Sensors'
