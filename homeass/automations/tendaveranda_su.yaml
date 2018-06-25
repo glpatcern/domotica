@@ -1,7 +1,7 @@
 #
 # LoPresti smart home - automation configuration for Home Assistant
 #
-# alza tenda se vento > 25 km/h o temperatura < 24C o se piove
+# alza tenda se vento > 28 km/h o temperatura < 24C o se piove
 # o se sono le 17.30; in ogni caso invia notifica
 ####################################################################
 
@@ -14,9 +14,10 @@ trigger:
   - platform: numeric_state
     entity_id: sensor.veranda_temperature
     below: 24
-  - platform: numeric_state
-    entity_id: sensor.dark_sky_precip_intensity
-    above: 0.2
+  - platform: state
+    entity_id: binary_sensor.rain
+    from: 'off'
+    to: 'on'
   - platform: time
     hours: 17
     minutes: 30
