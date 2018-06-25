@@ -19,6 +19,8 @@ condition:
     before: '23:00'
   - condition: template
     value_template: '{{ now().month > 4 and (now().month < 10 or (now().month == 10 and now().day < 15)) }}'
+  - condition: template
+    value_template: '{{ states.cover.cupola.attributes.current_position < 100 }}'
   - condition: numeric_state
     entity_id: sensor.netatmo_indoor_temperature
     above: 24
