@@ -761,6 +761,18 @@ binary_sensor:
         icon_template: mdi:home-account
         value_template: "{{ is_state('input_boolean.presence', 'on') }}"
 
+# heuristic rain sensor based on the cupola IO cover and DarkSky (cf. automations/cupola.yaml)
+      rain:
+        friendly_name: Rain
+        icon_template: mdi:weather-rainy
+        value_template: >-
+          {% if states.sensor.netatmo_indoor_temperature.state|int > 24 and
+                states.input_select.statocasa.state != 'Notte' -%}
+             {{ states.cover.cupola.attributes.current_position < 100 }}
+          {%- else -%}
+             {{ sensor.dark_sky_precip_intensity > 0.2 }}
+          {%- endif %}
+
 # convert all the devices' states to online/offline
       dt_isamac:
         friendly_name: Mac Isa
