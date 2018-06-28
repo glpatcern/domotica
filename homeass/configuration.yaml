@@ -766,7 +766,7 @@ binary_sensor:
         friendly_name: Rain
         icon_template: mdi:weather-rainy
         value_template: >-
-          {% if states.sensor.netatmo_indoor_temperature.state|int > 24 and
+          {% if states.sensor.netatmo_indoor_temperature.state|int > 25 - (now().month > 4 and now().month < 10)|int and
                 states.input_select.statocasa.state != 'Notte' -%}
              {{ states.cover.cupola.attributes.current_position < 100 }}
           {%- else -%}

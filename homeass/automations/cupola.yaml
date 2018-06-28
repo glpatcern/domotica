@@ -1,8 +1,10 @@
 #
 # LoPresti smart home - automation configuration for Home Assistant
 #
-# Apri cupola per ventilare se temperatura interna > 24C,
-# non piove e siamo in estate
+# Apri cupola per ventilare se non piove e temp. interna > 24C
+# in estate, o > 25C il resto dell'anno
+# la cupola si chiude autonomamente se inizia a piovere: questo
+# e' usato dal sensore 'rain' nella configurazione principale
 ####################################################################
 
 alias: 'Apri cupola se fa caldo'
@@ -11,24 +13,18 @@ trigger:
   # check every 15 minutes
   platform: time
   minutes: '/15'
-  seconds: 00
+  seconds: 30
 
 condition:
-  - condition: time
-    after: '08:10'
-    before: '23:00'
-  - condition: template
-    value_template: '{{ now().month > 4 and (now().month < 10 or (now().month == 10 and now().day < 15)) }}'
+  - condition: template      #  this to adapt the temperature threshold to the summer time
+    value_template: '{{ states.sensor.netatmo_indoor_temperature.state|int > 25 - (now().month > 4 and now().month < 10)|int }}'
+  - condition: template      # anything but 'Notte' is OK
+    value_template: "{{ states.input_select.statocasa.state != 'Notte' }}"
   - condition: template
     value_template: '{{ states.cover.cupola.attributes.current_position < 100 }}'
   - condition: numeric_state
-    entity_id: sensor.netatmo_indoor_temperature
-    above: 24
-  - condition: numeric_state
     entity_id: sensor.dark_sky_precip_intensity
     below: 0.2
-  - condition: template      # anything but 'Notte' is OK
-    value_template: "{{ states.input_select.statocasa.state != 'Notte' }}"
 
 action:
   - service: cover.open_cover
