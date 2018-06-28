@@ -19,8 +19,8 @@ condition:
     after: '08:20:00'
     before: '22:10:00'
   - condition: state
-    entity_id: binary_sensor.presence
-    state: 'on'
+    entity_id: device_tracker.giu_nova
+    state: 'home'
   - condition: template      # check the amplifier, the TV decoder, and the BD/DVD
     value_template: >-
         {{ is_state('media_player.amplificatore_onkyo', 'off') and
