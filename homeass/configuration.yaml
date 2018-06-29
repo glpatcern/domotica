@@ -49,7 +49,8 @@ automation:
   - !include automations/radio.yaml
   # Covers
   - !include automations/tendaveranda_giu.yaml
-  - !include automations/tendaveranda_su.yaml
+  - !include automations/tendaveranda_su_vento.yaml
+  - !include automations/tendaveranda_su_pioggia.yaml
   - !include automations/covers_pianoterra_chiudi.yaml
   - !include automations/covers_pianoterra_sera.yaml
   - !include automations/cupola.yaml

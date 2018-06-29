@@ -249,7 +249,8 @@ automations:
     - automation.bad_logins_notifier
     - automation.apri_cupola_se_fa_caldo
     - automation.apri_tenda_veranda_se_fa_caldo
-    - automation.chiudi_tenda_veranda_per_ventopioggia
+    - automation.chiudi_tenda_veranda_per_pioggia
+    - automation.chiudi_tenda_veranda_per_vento
     - automation.lume_di_sera
     - automation.accendi_lume_se_troppo_nuvoloso_o_piove
     - automation.spegni_lume_se_torna_il_sereno
