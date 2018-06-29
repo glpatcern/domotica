@@ -771,7 +771,7 @@ binary_sensor:
                 states.input_select.statocasa.state != 'Notte' -%}
              {{ states.cover.cupola.attributes.current_position < 100 }}
           {%- else -%}
-             {{ sensor.dark_sky_precip_intensity > 0.2 }}
+             {{ states.sensor.dark_sky_precip_intensity.state|float > 0.2 }}
           {%- endif %}
 
 # convert all the devices' states to online/offline
