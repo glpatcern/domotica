@@ -223,7 +223,7 @@ devices:
     - binary_sensor.dt_netatmopws
     - sensor.netatmo_terrace_battery
     - sensor.netatmo_outdoor_battery
-    - sensor.netatmo_indoor_last_update
+    - sensor.netatmo_indoor_last_updated
     - binary_sensor.dt_owlintuition
     - sensor.owl_meter_battery
     - binary_sensor.dt_onkyoamp
