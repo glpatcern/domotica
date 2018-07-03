@@ -3,7 +3,7 @@
 import socket
 import sys
 import select
-from xml.etree import ElementTree as ET
+#from xml.etree import ElementTree as ET
 
 #sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 #sock.sendto('VERSION,EBE23F9E', ('192.168.1.56', 5100))
@@ -34,12 +34,12 @@ while True:
     readable, _, _ = select.select([sock], [], [], 5)
     if readable:
         data, addr = sock.recvfrom(1024)
-        xml = ET.fromstring(data)
+#       xml = ET.fromstring(data)
         print data
         print "\n\n"
-        etxml = ET.ElementTree(xml)
-        for e in etxml.iter():
-            print "%s: '%s'" % (e.tag, e.text)
+#       etxml = ET.ElementTree(xml)
+#       for e in etxml.iter():
+#           print "%s: '%s'" % (e.tag, e.text)
 #        curr1 = (xml.find(".//curr/..[@id='0']"))[0].text
 #        curr2 = (xml.find(".//curr/..[@id='1']"))[0].text
 #        curr3 = (xml.find(".//curr/..[@id='2']"))[0].text
