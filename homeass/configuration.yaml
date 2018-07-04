@@ -734,7 +734,8 @@ binary_sensor:
 
 # Workdays binary sensor
   - platform: workday
-    country: FRA
+    country: CH
+    province: GE
 
 # Templated binary sensors
   - platform: template
