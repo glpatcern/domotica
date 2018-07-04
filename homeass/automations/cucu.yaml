@@ -16,11 +16,14 @@ trigger:
 
 condition:
   - condition: time
-    after: '08:20:00'
+    after: '08:10:00'
     before: '22:10:00'
-  - condition: state
-    entity_id: device_tracker.giu_nova
-    state: 'home'
+  - condition: template      # context: not during night, only if Giu is home
+    value_template: >-
+        {{ not is_state('input_select.statocasa', 'Notte') and
+             (is_state('device_tracker.giu_nova', 'home') or
+              is_state('sensor.geo_giu_nova', 'Home'))
+        }}
   - condition: template      # check the amplifier, the TV decoder, and the BD/DVD
     value_template: >-
         {{ is_state('media_player.amplificatore_onkyo', 'off') and
@@ -28,8 +31,6 @@ condition:
            is_state('binary_sensor.dt_sunrisetv', 'off') and
            is_state('binary_sensor.dt_bddvd', 'off')
         }}
-  - condition: template      # anything but 'Notte' is OK
-    value_template: "{{ states.input_select.statocasa.state != 'Notte' }}"
 
 action:
   - service: media_player.turn_on
