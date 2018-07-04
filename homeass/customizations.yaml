@@ -101,3 +101,13 @@ script.tvcucina:
   icon: mdi:television
 switch.smartplug:
   friendly_name: 'Lume'
+
+# Views order
+group.camgeneve:
+  order: 1
+group.camferrara:
+  order: 2
+group.campalermo:
+  order: 3
+group.camchamonix:
+  order: 4
