@@ -368,6 +368,10 @@ camera:
     name: Palermo
     still_image_url: https://images.lookr-cdn.com/full/1426189579-Teatro-Massimo.jpg?token=lookr.com:15d4651ca941525039ea530307b81724:1529794510
 
+  - platform: generic
+    name: Chamonix
+    still_image_url: http://www.compagniedumontblanc.fr/webcam/AiguilleHD.jpg
+
 # Watcher for the DLink camera
 #folder_watcher:
 #  - folder: /config/dlinkcam
