@@ -154,6 +154,7 @@ recorder:
       - sensor.dt_isamac
       - sensor.dt_glplap
       - sensor.netatmo_outdoor_minmaxtemperature
+      - sensor.owl_meter_triphasepower
 
 # Display graphs in the main frontend
 history_graph:
@@ -169,10 +170,11 @@ history_graph:
     hours_to_show: 36
     refresh: 600   # 10 minutes
 
-# Enable support for tracking state changes over time -> to be replaced by grafana
+# Enable support for tracking state changes over time
+# Keep only last 10 days (default)
 history:
 
-# Enable infuxDB as the history store as opposed to SQLite
+# Enable infuxDB as the long-term history store
 influxdb:
   exclude:
     domains:
@@ -196,6 +198,8 @@ influxdb:
       - sensor.dt_htc
       - sensor.dt_isamac
       - sensor.dt_glplap
+      - sensor.netatmo_outdoor_minmaxtemperature
+      - sensor.owl_meter_triphasepower
 
 # View all events in a logbook
 logbook:
