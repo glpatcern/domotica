@@ -40,7 +40,7 @@ cameras:
 
 it:
   name: 'IT'
-  icon: mdi:access-point
+  icon: mdi:server-network
   view: yes
   entities:
     - group.homeass
@@ -266,6 +266,7 @@ automations:
     - automation.apri_tenda_veranda_se_fa_caldo
     - automation.chiudi_tenda_veranda_per_pioggia
     - automation.chiudi_tenda_veranda_per_vento
+    - input_select.cover_veranda_state
     - automation.lume_di_sera
     - automation.accendi_lume_se_troppo_nuvoloso_o_piove
     - automation.spegni_lume_se_torna_il_sereno
