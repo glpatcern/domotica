@@ -726,13 +726,22 @@ sensor:
       tpg_to_cern:
         friendly_name: 'TPG to CERN'
         icon_template: mdi:tram
-        value_template: "{{ as_timestamp(states('sensor.spt_cern')) | timestamp_custom('%H:%M') }},  {{ as_timestamp(states.sensor.spt_cern.attributes.next_on_departure) | timestamp_custom('%H:%M') }}"
+        value_template: >-
+          {% if states.sensor.spt_cern == None %}
+            Awaiting Update
+          {% else %}
+            {{ as_timestamp(states('sensor.spt_cern')) | timestamp_custom('%H:%M') }},  {{ as_timestamp(states.sensor.spt_cern.attributes.next_on_departure) | timestamp_custom('%H:%M') }}
+          {% endif %}
 
       tpg_to_cornavin:
         friendly_name: 'TPG to Cornavin'
         icon_template: mdi:tram
-        value_template: "{{ as_timestamp(states('sensor.spt_cornavin')) | timestamp_custom('%H:%M') }},  {{ as_timestamp(states.sensor.spt_cornavin.attributes.next_on_departure) | timestamp_custom('%H:%M') }}"
-
+        value_template: >-
+          {% if states.sensor.spt_cornavin == None %}
+            Awaiting Update
+          {% else %}
+            {{ as_timestamp(states('sensor.spt_cornavin')) | timestamp_custom('%H:%M') }},  {{ as_timestamp(states.sensor.spt_cornavin.attributes.next_on_departure) | timestamp_custom('%H:%M') }}
+          {% endif %}
 
 binary_sensor:
 
