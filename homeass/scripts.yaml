@@ -15,6 +15,7 @@ nightmode:
       entity_id: scene.notte
 
 # this is executed either automatically or as response to statocasa changed to 'Normale'
+# the last step depends on the condition to be true - cf. also cupola.yaml
 normalmode:
   alias: Modo normale
   sequence:
@@ -27,6 +28,10 @@ normalmode:
     - alias: Somfy scenario mattina
       service: scene.turn_on
       entity_id: scene.mattina
+    - condition: template
+      value_template: '{{ states.sensor.netatmo_indoor_temperature.state|int >= 25 - (now().month > 4 and now().month < 10)|int }}'
+    - service: cover.open_cover
+      entity_id: cover.cupola
 
 # this is executed in response to statocasa changed to 'Festa'
 partymode:

@@ -13,7 +13,6 @@ trigger:
   # check every 15 minutes
   platform: time
   minutes: '/15'
-  seconds: 30
 
 condition:
   - condition: template      #  this to adapt the temperature threshold to the summer time
