@@ -598,6 +598,11 @@ sensor:
       - precip_intensity_max
       - cloud_cover
 
+# Illuminance custom sensor
+#  - platform: illuminance
+#    api_key: !secret wunderground_key
+#    query: 'pws:<wunderground_station_name>'
+
 # Google Maps
   - platform: google_travel_time
     name: GMaps Time to CERN

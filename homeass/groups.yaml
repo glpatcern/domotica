@@ -136,6 +136,7 @@ meteo_general:
     - sensor.pws_weather_1n_metric
     - weblink.netatmo_station
     - weblink.wunderground_station
+#   - sensor.illuminance
     - sun.sun
     - sensor.period_of_day
     - sensor.moon
