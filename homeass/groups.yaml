@@ -136,10 +136,12 @@ meteo_general:
     - sensor.pws_weather_1n_metric
     - weblink.netatmo_station
     - weblink.wunderground_station
+    - weblink.meteoblue_forecast
 #   - sensor.illuminance
     - sun.sun
     - sensor.period_of_day
     - sensor.moon
+    - weblink.sky_calendar
     - camera.satellite
 
 meteo_sensors:

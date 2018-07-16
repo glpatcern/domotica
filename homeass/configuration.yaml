@@ -255,6 +255,10 @@ weblink:
       url: https://my.netatmo.com/app/station
     - name: WUnderground station
       url: !secret wunderground_link
+    - name: Meteoblue forecast
+      url: https://www.meteoblue.com/en/weather/forecast/14-days/geneva_switzerland_2660646
+    - name: Sky Calendar
+      url: https://in-the-sky.org/widgets/newscal.php?skin=0
     - name: TaHoma link
       url: https://www.tahomalink.com
     - name: OWL Intuition monitor
@@ -271,10 +275,6 @@ panel_iframe:
     title: Home Assistant Web
     icon: mdi:home-assistant
     url: https://home-assistant.io
-  skycal:
-    title: Sky Calendar
-    icon: mdi:weather-night
-    url: https://in-the-sky.org/widgets/newscal.php?skin=0
 
 
 # Custom cloud services
