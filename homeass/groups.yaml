@@ -17,6 +17,7 @@ default_view:
     - group.veranda_giardino
     - group.media_center
     - group.primo_piano
+    - group.impianti
     - group.valute
 
 meteo:
@@ -56,7 +57,6 @@ config:
     - group.automations
     - group.qnap
     - group.admin_tools
-    - group.impianti
 
 # Groups
 ################################
@@ -121,6 +121,13 @@ media_center:
 #    - cover.schermo
     - media_player.amplificatore_onkyo
     - media_player.chromecast
+
+impianti:
+  name: 'Impianti'
+  entities:
+    - sensor.owl_meter_power
+    - sensor.owl_meter_triphasepower
+    - sensor.owl_meter_energy_today
 
 valute:
   name: 'Valute'
@@ -241,7 +248,6 @@ devices:
     - binary_sensor.dt_netatmopws
     - sensor.netatmo_terrace_battery
     - sensor.netatmo_outdoor_battery
-    - sensor.netatmo_indoor_last_updated
     - binary_sensor.dt_owlintuition
     - sensor.owl_meter_battery
     - binary_sensor.dt_onkyoamp
@@ -316,10 +322,3 @@ admin_tools:
     - weblink.owl_intuition_monitor
     - weblink.tahoma_link
     - weblink.google_api_dashboard
-
-impianti:
-  name: 'Impianti'
-  entities:
-    - sensor.owl_meter_power
-    - sensor.owl_meter_triphasepower
-    - sensor.owl_meter_energy_today

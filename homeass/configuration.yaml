@@ -548,7 +548,6 @@ sensor:
         - pressure
         - co2
         - noise
-        - lastupdated
       Outdoor:
         - temperature
         - humidity
