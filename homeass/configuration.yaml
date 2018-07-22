@@ -643,11 +643,13 @@ sensor:
 # Currencies exchange
   - platform: fixer
     name: 'Cambio EUR/CHF'
+    api_key: !secret fixer_api_key
     base: EUR
     target: CHF
 
   - platform: fixer
     name: 'Cambio EUR/USD'
+    api_key: !secret fixer_api_key
     base: EUR
     target: USD
 
