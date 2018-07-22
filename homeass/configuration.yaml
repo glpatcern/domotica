@@ -457,6 +457,9 @@ sensor:
 # The current Home Assistant version, to track upgrades history
   - platform: version
 
+  - platform: uptime
+    unit_of_measurement: hours
+
 # HA-specific sensors
   - platform: command_line
     name: HA Config LoC

@@ -217,6 +217,7 @@ homeass:
   control: hidden
   entities:
     - sensor.current_version
+    - sensor.uptime
     - sensor.ha_config_loc
     - sensor.ha_entities
     - sensor.ha_warnings
