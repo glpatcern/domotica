@@ -301,6 +301,10 @@ qnap:
     - weblink.qnap_administration
     - weblink.influxdb_administration
     - sensor.naslopresti_free_space
+    - sensor.qnap_multimedia_size
+    - sensor.qnap_homes_size
+    - sensor.qnap_container_size
+    - sensor.qnap_backups_size
     - sensor.qnap_banned_ips
     - sensor.naslopresti_cpu_usage
     - sensor.naslopresti_memory_usage

@@ -493,7 +493,8 @@ sensor:
       - memory_percent_used
       - drive_smart_status
       - drive_temp
-#     - volume_size_free
+      - network_rx
+      - network_tx
 
 # Count of banned IPs because of failed login attempts
   - platform: command_line
@@ -510,6 +511,17 @@ sensor:
         arg: /config
       - type: disk_free
         arg: /mnt
+
+# Occupied space per share, by parsing the summary file
+  - platform: qnapshare
+    # /media is actually a mount of /mnt/HDA_ROOT!
+    path: /media/.config/volumeStatus.conf
+    resources:
+      - Backup
+      - TMBackup
+      - Multimedia
+      - homes
+      - Container
 
 # Internet speed test
   - platform: speedtest
@@ -731,6 +743,13 @@ sensor:
         icon_template: mdi:thermometer
         unit_of_measurement: °C
         value_template: "{{ [states('sensor.naslopresti_temperature_drive_01')|int, states('sensor.naslopresti_temperature_drive_02')|int] | max }}"
+
+# Combine QNAP backups
+      qnap_backups_size:
+        friendly_name: 'QNAP Backups Size'
+        icon_template: mdi:chart-pie
+        unit_of_measurement: GiB
+        value_template: "{{ states('sensor.qnap_backup_size')|float + states('sensor.qnap_tmbackup_size')|float }}"
 
 # Public transport customizations: show next + next_on departures as hh:mm
       tpg_to_cern:
