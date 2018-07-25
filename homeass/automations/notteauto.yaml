@@ -8,7 +8,7 @@ alias: 'Modo notte automatico'
 trigger:
   - platform: time
     hours: 22
-    minutes: 30
+    minutes: 35
     seconds: 00
 
 condition:
@@ -26,3 +26,7 @@ action:
     data:
       entity_id: input_select.statocasa
       option: 'Notte'
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.cover_veranda_state
+      option: 'closed'
