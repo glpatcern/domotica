@@ -498,8 +498,9 @@ sensor:
 # Count of banned IPs because of failed login attempts
   - platform: command_line
     name: QNAP Banned IPs
-    # /media is actually a mount of /mnt/HDA_ROOT/.logs!
-    command: "grep -ac ban /media/notice.log"
+    # /media is actually a mount of /mnt/HDA_ROOT!
+    # this grep is approximative, notice.log is a sqlite DB
+    command: "grep -ac ban /media/.logs/notice.log"
     scan_interval: 600
 
 # Free space (in GiB) from QNAP itself and the IOMega disk mounted on /mnt
