@@ -274,13 +274,14 @@ automations:
     - automation.bad_logins_notifier
     - automation.apri_cupola_se_fa_caldo
     - automation.apri_tenda_veranda_se_fa_caldo
-    - automation.chiudi_tenda_veranda_per_pioggia
+    - automation.chiudi_tenda_veranda_per_pioggia_o_fresco
     - automation.chiudi_tenda_veranda_per_vento
     - input_select.cover_veranda_state
     - automation.lume_di_sera
     - automation.accendi_lume_se_troppo_nuvoloso_o_piove
     - automation.spegni_lume_se_torna_il_sereno
     - automation.chiudi_serrande_simula_presenza
+    - automation.chiudi_tenda_e_serrande_di_pomeriggio
     - automation.chiudi_serrande_piano_terra_di_sera
     - automation.lume_simula_presenza_off
     - automation.orologio_a_cucu

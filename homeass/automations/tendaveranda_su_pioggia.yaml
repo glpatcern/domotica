@@ -1,16 +1,19 @@
 #
 # LoPresti smart home - automation configuration for Home Assistant
 #
-# alza tenda se piove + invia notifica
+# alza tenda se piove o fa fresco + invia notifica
 ####################################################################
 
-alias: 'Chiudi tenda veranda per pioggia'
+alias: 'Chiudi tenda veranda per pioggia o fresco'
 initial_state: True
 trigger:
   - platform: state
     entity_id: binary_sensor.rain
     from: 'off'
     to: 'on'
+  - platform: numeric_state
+    entity_id: sensor.veranda_temperature
+    below: 24
 
 condition:
   - condition: state

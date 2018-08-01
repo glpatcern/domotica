@@ -19,6 +19,9 @@ condition:
       {% else %}
         true
       {% endif %}
+  - condition: numeric_state    # se c'e' caldo lascia tutto aperto
+    entity_id: sensor.netatmo_indoor_temperature
+    below: 27
 
 action:
   - delay: '{{ "00:" ~ ((range(1, 10) | random) | int)  ~ ":00" }}'   # aggiunge un ritardo random

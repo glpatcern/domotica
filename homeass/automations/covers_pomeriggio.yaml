@@ -1,0 +1,30 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+# alle 17.45 alza tenda e se c'e' molto caldo chiudi finestre a NO
+####################################################################
+
+alias: 'Chiudi tenda e serrande di pomeriggio'
+initial_state: True
+trigger:
+  - platform: time
+    hours: 17
+    minutes: 45
+    seconds: 00
+
+action:
+  - service: cover.open_cover
+    entity_id: cover.veranda
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.cover_veranda_state
+      option: 'closed'
+  - condition: numeric_state
+    entity_id: sensor.netatmo_indoor_temperature
+    above: 27
+  - service: cover.stop_cover
+    entity_id: cover.cucina
+  - service: cover.stop_cover
+    entity_id: cover.camera_bimbi
+  - service: cover.stop_cover
+    entity_id: cover.camera_giochi

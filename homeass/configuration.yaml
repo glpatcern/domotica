@@ -53,6 +53,7 @@ automation:
   - !include automations/tendaveranda_su_pioggia.yaml
   - !include automations/covers_pianoterra_chiudi.yaml
   - !include automations/covers_pianoterra_sera.yaml
+  - !include automations/covers_pomeriggio.yaml
   - !include automations/cupola.yaml
   # Irrigazione
 #  - !include automations/irrigazione.yaml

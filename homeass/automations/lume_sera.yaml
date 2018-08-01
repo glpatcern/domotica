@@ -5,7 +5,7 @@
 
 # accendi lume al tramonto
 alias: 'Lume di sera'
-initial_state: True
+
 trigger:
   platform: numeric_state
   entity_id: sun.sun
