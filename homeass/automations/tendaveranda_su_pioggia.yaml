@@ -11,6 +11,8 @@ trigger:
     entity_id: binary_sensor.rain
     from: 'off'
     to: 'on'
+    for:
+      seconds: 30     # per evitare il trigger nella transizione Notte-Normale
   - platform: numeric_state
     entity_id: sensor.veranda_temperature
     below: 24

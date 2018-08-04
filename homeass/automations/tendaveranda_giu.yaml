@@ -2,7 +2,7 @@
 # LoPresti smart home - automation configuration for Home Assistant
 #
 # abbassa la tenda d'estate durante il giorno, se c'e' qualcuno
-# o c'e' stato qualcuno fino a 1h fa, con temperatura > 26C
+# o c'e' stato qualcuno fino a 1h fa, con temperatura > 25C
 # e senza vento ne' pioggia
 ####################################################################
 
@@ -32,7 +32,7 @@ condition:
     below: 25
   - condition: numeric_state
     entity_id: sensor.veranda_temperature
-    above: 26
+    above: 25
   - condition: state
     entity_id: binary_sensor.rain
     state: 'off'
