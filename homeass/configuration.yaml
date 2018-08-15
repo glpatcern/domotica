@@ -809,7 +809,8 @@ binary_sensor:
         icon_template: mdi:weather-rainy
         value_template: >-
           {% if states.sensor.netatmo_indoor_temperature.state|int >= 25 - (now().month > 4 and now().month < 10)|int and
-                states.input_select.statocasa.state != 'Notte' -%}
+                states.input_select.statocasa.state != 'Notte' and
+                (as_timestamp(now()) - as_timestamp(states.input_select.statocasa.last_changed) > 30) -%}
              {{ states.cover.cupola.attributes.current_position < 100 }}
           {%- else -%}
              {{ states.sensor.dark_sky_precip_intensity.state|float > 0.2 }}

@@ -13,7 +13,7 @@ trigger:
 
 condition:
   - condition: time
-    after: '08:10:00'
+    after: '07:45:00'
     before: '17:00:00'
   - condition: template
     value_template: '{{ now().month > 4 and (now().month < 10 or (now().month == 10 and now().day < 15)) }}'
@@ -29,7 +29,7 @@ condition:
     state: 'closed'
   - condition: numeric_state
     entity_id: sensor.netatmo_terrace_gust_strength
-    below: 25
+    below: 20
   - condition: numeric_state
     entity_id: sensor.veranda_temperature
     above: 25
