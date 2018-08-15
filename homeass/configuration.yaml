@@ -266,6 +266,8 @@ weblink:
       url: https://www.owlintuition.com
     - name: Google API Dashboard
       url: https://console.developers.google.com/apis/dashboard?project=lopresti-homeassistant
+    - name: Traffico TMB
+      url: https://www.atmb.com/it/info-traffico/previsione-traffico/traforo-monte-bianco
 
 panel_iframe:
   dashboard:

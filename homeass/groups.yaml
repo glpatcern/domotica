@@ -75,6 +75,7 @@ trasporti:
     - sensor.tpg_to_cern
     - sensor.gmaps_time_to_cern
     - sensor.gmaps_time_to_italy
+    - weblink.traffico_tmb
 
 piano_terra:
   name: 'Piano Terra'
