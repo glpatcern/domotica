@@ -382,7 +382,7 @@ camera:
 # MotoG camera
 android_ip_webcam:
   name: VerandaCam
-  host: 192.168.1.21
+  host: 192.168.1.66
   username: admin
   password: !secret camera_password
   switches:
