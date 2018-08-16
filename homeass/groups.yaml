@@ -232,6 +232,9 @@ network:
     - sensor.speedtest_download
     - sensor.speedtest_upload
     - sensor.speedtest_ping
+    - sensor.qnap_last_7d_banned_ips
+    - sensor.qnap_network_rx
+    - sensor.qnap_network_tx
 #   - sensor.igd_received_bytes
 #   - sensor.igd_sent_bytes
 
@@ -307,7 +310,6 @@ qnap:
     - sensor.qnap_homes_size
     - sensor.qnap_container_size
     - sensor.qnap_backups_size
-    - sensor.qnap_banned_ips
     - sensor.naslopresti_cpu_usage
     - sensor.naslopresti_memory_usage
     - sensor.naslopresti_smart_status

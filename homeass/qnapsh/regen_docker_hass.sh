@@ -20,6 +20,5 @@ docker rm $currcont
 echo === Starting a new container with the new image ===
 docker run -d -p 8123:8123/tcp -p 3200:3200/udp --name="home-assistant" --privileged \
        -v /share/Container/homeass-config:/config \
-       -v /mnt/RTRR_CIFS/iomega/admin/backup:/mnt \
-       -v /mnt/HDA_ROOT:/media \
+       -v /mnt/HDA_ROOT:/mnt \
        --net=host --restart=always homeassistant/home-assistant

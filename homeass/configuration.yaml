@@ -496,29 +496,40 @@ sensor:
       - memory_percent_used
       - drive_smart_status
       - drive_temp
-      - network_rx
-      - network_tx
 
-# Count of banned IPs because of failed login attempts
+# Count of failed login attempts in the last 7 days
   - platform: command_line
-    name: QNAP Banned IPs
-    # /media is actually a mount of /mnt/HDA_ROOT!
-    # this grep is approximative, notice.log is a sqlite DB
-    command: "grep -ac ban /media/.logs/notice.log"
-    scan_interval: 600
+    name: QNAP Last 7d Banned IPs
+    command: ssh admin@naslopresti qnap/qnap_banned_ips.sh 7
+    scan_interval: 18000     # every 5h = 4 times/day
 
-# Free space (in GiB) from QNAP itself and the IOMega disk mounted on /mnt
+# Total network traffic seen by QNAP
+  - platform: command_line
+    name: QNAP Network RX
+    command: ifconfig eth0 | grep RX | grep bytes | sed "s/(/ /g" | awk '{print $6 }'
+    unit_of_measurement: MiB
+
+  - platform: command_line
+    name: QNAP Network TX
+    command: ifconfig eth0 | grep TX | grep bytes | sed "s/(/ /g" | awk '{print $6 }'
+    unit_of_measurement: MiB
+
+# Free space (in GiB) on QNAP
   - platform: systemmonitor
     resources:
       - type: disk_free
         arg: /config
-      - type: disk_free
-        arg: /mnt
+
+# Free space (in GiB) on the remote IOMega disk
+  - platform: command_line
+    name: IOMega Free Space
+    command: ssh admin@naslopresti qnap/qnap_iomega_free.sh
+    unit_of_measurement: GiB
 
 # Occupied space per share, by parsing the summary file
   - platform: qnapshare
-    # /media is actually a mount of /mnt/HDA_ROOT!
-    path: /media/.config/volumeStatus.conf
+    # /mnt is actually a mount of /mnt/HDA_ROOT!
+    path: /mnt/.config/volumeStatus.conf
     resources:
       - Backup
       - TMBackup
@@ -717,17 +728,12 @@ sensor:
         icon_template: mdi:flash
         value_template: "{{ states.sensor.owl_meter_power_P1.state }} W + {{ states.sensor.owl_meter_power_P2.state }} W + {{ states.sensor.owl_meter_power_P3.state }} W"
 
-# Disks free space
+# QNAP free space
       naslopresti_free_space:
         friendly_name: QNAP Free Space
         icon_template: mdi:chart-pie
         unit_of_measurement: GiB
         value_template: "{{ states('sensor.disk_free_config')|int }}"
-      iomega_free_space:
-        friendly_name: IOMega Free Space
-        icon_template: mdi:chart-pie
-        unit_of_measurement: GiB
-        value_template: "{{ states('sensor.disk_free_mnt')|int }}"
 
 # Combine QNAP SMART states
       naslopresti_smart_status:

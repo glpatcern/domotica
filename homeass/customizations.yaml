@@ -81,8 +81,14 @@ sensor.naslopresti_memory_usage:
   friendly_name: 'QNAP RAM usage'
 sensor.naslopresti_system_temperature:
   friendly_name: 'QNAP System Temperature'
-sensor.qnap_banned_ips:
+sensor.qnap_last_7d_banned_ips:
   icon: mdi:cancel
+sensor.qnap_network_rx:
+  icon: mdi:download-network
+sensor.qnap_network_tx:
+  icon: mdi:upload-network
+sensor.iomega_free_space:
+  icon: mdi:chart-pie
 sensor.current_version:
   icon: mdi:home-assistant
 sensor.gmaps_time_to_cern:
