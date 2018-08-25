@@ -85,7 +85,7 @@ input_select:
       - open
       - closed
 
-# Presence detection: cf. allarmeauto and rientro automations
+# Presence detection: cf. automations
 input_boolean:
   presence:
     name: Presenza a casa
@@ -497,6 +497,13 @@ sensor:
       - drive_smart_status
       - drive_temp
 
+# QNAP version
+  - platform: command_line
+    name: QNAP Firmware Version
+    # /mnt is a mount of /mnt/HDA_ROOT
+    command: echo `grep ^Version /mnt/.config/uLinux.conf | head -1 | awk '{ print $NF }'`, Build `grep Build.Num /mnt/.config/uLinux.conf | awk '{ print $NF}'`
+    scan_interval: 80000     # once a day
+
 # Count of failed login attempts in the last 7 days
   - platform: command_line
     name: QNAP Last 7d Banned IPs
@@ -506,17 +513,21 @@ sensor:
 # Total network traffic seen by QNAP
   - platform: command_line
     name: QNAP Network RX
-    command: ifconfig eth0 | grep RX | grep bytes | sed "s/(/ /g" | awk '{print $6 }'
+    command: ifconfig eth0 | grep RX | grep bytes | sed "s/(/ /g" | awk '{ print $6 }'
     unit_of_measurement: MiB
 
   - platform: command_line
     name: QNAP Network TX
-    command: ifconfig eth0 | grep TX | grep bytes | sed "s/(/ /g" | awk '{print $6 }'
+    command: ifconfig eth0 | grep TX | grep bytes | sed "s/(/ /g" | awk '{ print $6 }'
     unit_of_measurement: MiB
 
 # Free space (in GiB) on QNAP
   - platform: systemmonitor
     resources:
+      # /data is a mount of /share/CACHEDEV1_DATA
+      - type: disk_free
+        arg: /data
+      # /config is hosted in the containers path on the SSD
       - type: disk_free
         arg: /config
 
@@ -528,7 +539,7 @@ sensor:
 
 # Occupied space per share, by parsing the summary file
   - platform: qnapshare
-    # /mnt is actually a mount of /mnt/HDA_ROOT!
+    # /mnt is a mount of /mnt/HDA_ROOT
     path: /mnt/.config/volumeStatus.conf
     resources:
       - Backup
@@ -729,15 +740,21 @@ sensor:
         value_template: "{{ states.sensor.owl_meter_power_P1.state }} W + {{ states.sensor.owl_meter_power_P2.state }} W + {{ states.sensor.owl_meter_power_P3.state }} W"
 
 # QNAP free space
-      naslopresti_free_space:
-        friendly_name: QNAP Free Space
+      naslopresti_hdd_free_space:
+        friendly_name: Data Drive Free Space
+        icon_template: mdi:chart-pie
+        unit_of_measurement: GiB
+        value_template: "{{ states('sensor.disk_free_data')|int }}"
+
+      naslopresti_ssd_free_space:
+        friendly_name: SSD Free Space
         icon_template: mdi:chart-pie
         unit_of_measurement: GiB
         value_template: "{{ states('sensor.disk_free_config')|int }}"
 
 # Combine QNAP SMART states
       naslopresti_smart_status:
-        friendly_name: 'QNAP Drives SMART Status'
+        friendly_name: 'Drives SMART Status'
         icon_template: mdi:harddisk
         value_template: >-
           {% if is_state('sensor.naslopresti_smart_status_drive_01', 'OK') and is_state('sensor.naslopresti_smart_status_drive_02', 'OK') %}

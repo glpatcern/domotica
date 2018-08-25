@@ -87,6 +87,8 @@ sensor.qnap_network_rx:
   icon: mdi:download-network
 sensor.qnap_network_tx:
   icon: mdi:upload-network
+sensor.qnap_firmware_version:
+  icon: mdi:nas
 sensor.iomega_free_space:
   icon: mdi:chart-pie
 sensor.current_version:

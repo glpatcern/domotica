@@ -298,14 +298,16 @@ automations:
     - automation.rileva_assenza_automatica
     - automation.notifica_rientro
     - automation.selezione_radio
-    - automation.irrigazione
+#    - automation.irrigazione
 
 qnap:
   name: 'QNAP'
   entities:
     - weblink.qnap_administration
     - weblink.influxdb_administration
-    - sensor.naslopresti_free_space
+    - sensor.qnap_firmware_version
+    - sensor.naslopresti_hdd_free_space
+    - sensor.naslopresti_ssd_free_space
     - sensor.qnap_multimedia_size
     - sensor.qnap_homes_size
     - sensor.qnap_container_size

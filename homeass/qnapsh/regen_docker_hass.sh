@@ -21,4 +21,5 @@ echo === Starting a new container with the new image ===
 docker run -d -p 8123:8123/tcp -p 3200:3200/udp --name="home-assistant" --privileged \
        -v /share/Container/homeass-config:/config \
        -v /mnt/HDA_ROOT:/mnt \
+       -v /share/CACHEDEV1_DATA:/data \
        --net=host --restart=always homeassistant/home-assistant
