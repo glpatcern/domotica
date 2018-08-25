@@ -3,7 +3,7 @@
 #
 ####################################################################
 
-# accendi lume al tramonto
+# accendi lume al tramonto, ma non quando fa caldo (le finestre sono aperte)
 alias: 'Lume di sera'
 
 trigger:
@@ -16,8 +16,9 @@ trigger:
 condition:
   - condition: time
     after: "12:00:00"
-  - condition: time
-    before: "20:00:00"
+  - condition: numeric_state
+    entity_id: sensor.netatmo_indoor_temperature
+    below: 24
 
 action:
   - service: homeassistant.turn_on
