@@ -58,6 +58,14 @@ config:
     - group.qnap
     - group.admin_tools
 
+security:
+  name: 'Security'
+  icon: mdi:security
+  view: yes
+  entities:
+    - group.lastmotion
+
+
 # Groups
 ################################
 
@@ -88,7 +96,7 @@ piano_terra:
     - cover.salone
     - fan.dyson_purifier
     - switch.smartplug
-    - camera.salonecucina
+    - camera.salonecucinacam
 
 veranda_giardino:
   name: 'Veranda/Giardino'
@@ -333,3 +341,10 @@ admin_tools:
     - weblink.owl_intuition_monitor
     - weblink.tahoma_link
     - weblink.google_api_dashboard
+
+
+lastmotion:
+  name: 'Last Motion'
+  entities:
+    - sensor.last_motion_detection
+    - camera.salonelastmotion

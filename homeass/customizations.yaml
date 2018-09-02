@@ -99,6 +99,8 @@ sensor.gmaps_time_to_italy:
   icon: mdi:car
 sensor.cambio_eurchf:
   icon: mdi:currency-eur
+sensor.last_motion_detection:
+  icon: mdi:transition
 
 # Misc
 scene.cinema:

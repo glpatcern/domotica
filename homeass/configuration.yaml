@@ -17,6 +17,8 @@ homeassistant:
   time_zone: Europe/Zurich
   # custom icons and friendly names go there
   customize: !include customizations.yaml
+  whitelist_external_dirs:
+    - /config
 
 # include all layout/grouping
 group: !include groups.yaml
@@ -340,12 +342,17 @@ netatmo:
 camera:
 # DLink camera
   - platform: generic
-    name: Salone-Cucina
+    name: SaloneCucinaCam
     still_image_url: http://192.168.1.4/image.jpg
     username: admin
     password: !secret camera_password
 #  - platform: mjpeg
 #    mjpeg_url: http://192.168.1.4/video.cgi
+
+# Last motion detected screenshot
+  - platform: local_file
+    name: Salone-Last-Motion
+    file_path: /config/dlinkcam/cam_latest.jpg
 
 # Satellite camera (credits to CiquattroFPV@github)
   - platform: generic
@@ -701,6 +708,12 @@ sensor:
       - battery
       - power
       - energy_today
+
+# Reports the last motion detection by cameras, based on a script running on the NAS
+  - platform: file
+    name: Last Motion Detection
+    file_path: /config/motionevents.log
+    value_template: "{{ value_json.timestamp | int | timestamp_custom('%d/%m %H:%M') }}"
 
 # Templated sensors
   - platform: template
