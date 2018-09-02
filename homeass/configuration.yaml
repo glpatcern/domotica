@@ -90,7 +90,6 @@ input_boolean:
   presence:
     name: Presenza a casa
     icon: mdi:home-account
-    initial: on
 
 
 # Logging levels
@@ -443,10 +442,10 @@ light:
         name: LED Salone
 
 # Dyson Pure Cool
-dyson:
-  username: !secret dyson_user
-  password: !secret dyson_password
-  language: GB
+#dyson:
+#  username: !secret dyson_user
+#  password: !secret dyson_password
+#  language: GB
 
 
 # Sensors
