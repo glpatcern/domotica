@@ -334,6 +334,7 @@ admin_tools:
     - sensor.iomega_free_space
     - weblink.printer_administration
     - weblink.google_cloud_print
+    - weblink.salonecam_administration
     - weblink.verandacam_administration
     - switch.verandacam_night_vision
     - switch.verandacam_focus

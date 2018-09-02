@@ -243,8 +243,10 @@ weblink:
       icon: mdi:access-point-network
     - name: InfluxDB administration
       url: http://192.168.1.48:3004
+    - name: SaloneCam administration
+      url: https://it.mydlink.com
     - name: VerandaCam administration
-      url: http://192.168.1.21:8080
+      url: http://192.168.1.66:8080
     - name: Printer administration
       url: http://192.168.1.50
     - name: Google Cloud Print
