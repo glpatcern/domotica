@@ -512,10 +512,15 @@ sensor:
     command: echo `grep ^Version /mnt/.config/uLinux.conf | head -1 | awk '{ print $NF }'`, Build `grep Build.Num /mnt/.config/uLinux.conf | awk '{ print $NF}'`
     scan_interval: 80000     # once a day
 
-# Count of failed login attempts in the last 7 days
+# Failed login attempts to QNAP
   - platform: command_line
     name: QNAP Last 7d Banned IPs
     command: ssh admin@naslopresti qnap/qnap_banned_ips.sh 7
+    scan_interval: 18000     # every 5h = 4 times/day
+
+  - platform: command_line
+    name: QNAP Last Banned Host
+    command: ssh admin@naslopresti qnap/qnap_last_banned_host.sh
     scan_interval: 18000     # every 5h = 4 times/day
 
 # Total network traffic seen by QNAP

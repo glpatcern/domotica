@@ -64,6 +64,7 @@ security:
   view: yes
   entities:
     - group.lastmotion
+    - group.network_accesses
 
 
 # Groups
@@ -240,7 +241,6 @@ network:
     - sensor.speedtest_download
     - sensor.speedtest_upload
     - sensor.speedtest_ping
-    - sensor.qnap_last_7d_banned_ips
     - sensor.qnap_network_rx
     - sensor.qnap_network_tx
 #   - sensor.igd_received_bytes
@@ -349,3 +349,9 @@ lastmotion:
   entities:
     - sensor.last_motion_detection
     - camera.salonelastmotion
+
+network_accesses:
+  name: 'Network Access Attempts'
+  entities:
+    - sensor.qnap_last_7d_banned_ips
+    - sensor.qnap_last_banned_host

@@ -83,6 +83,8 @@ sensor.naslopresti_system_temperature:
   friendly_name: 'QNAP System Temperature'
 sensor.qnap_last_7d_banned_ips:
   icon: mdi:cancel
+sensor.qnap_last_banned_host:
+  icon: mdi:cancel
 sensor.qnap_network_rx:
   icon: mdi:download-network
 sensor.qnap_network_tx:
