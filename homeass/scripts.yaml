@@ -13,6 +13,11 @@ nightmode:
     - alias: Somfy scenario notte
       service: scene.turn_on
       entity_id: scene.notte
+    - condition: template
+      value_template: "{{ states.sensor.netatmo_indoor_temperature.state|int >= 25 - (now().month > 4 and now().month < 10)|int and
+                          states.input_boolean.presence.state == 'off' }}"
+    - service: cover.open_cover
+      entity_id: cover.cupola
 
 # this is executed either automatically or as response to statocasa changed to 'Normale'
 # the last step depends on the condition to be true - cf. also cupola.yaml
