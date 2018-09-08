@@ -615,6 +615,14 @@ sensor:
         - guststrength
         - battery_vp
 
+# Processed Noise sensor to cut out spikes
+  - platform: filter
+    name: Filtered Noise
+    entity_id: sensor.netatmo_indoor_noise
+    filters:
+      - filter: outlier
+        window_size: 2
+
 # WUnderground on top of NetAtmo
   - platform: wunderground
     api_key: !secret wunderground_key
@@ -839,7 +847,7 @@ binary_sensor:
              is_state('device_tracker.glplap', 'home') or
              is_state('device_tracker.isamac', 'home') or
              is_state('binary_sensor.dt_guests', 'on') or
-             states('sensor.netatmo_indoor_noise')|int > 43
+             states('sensor.filtered_noise')|int > 41
           }}
 
       frontend_presence:
