@@ -57,6 +57,9 @@ sensor.netatmo_indoor_noise:
   friendly_name: 'Noise'
 sensor.netatmo_indoor_pressure:
   friendly_name: 'Pressure'
+binary_sensor.netatmo_co2_rising_trend:
+  friendly_name: 'Indoor CO₂ Rising'
+  icon: mdi:cloud-upload
 
 # Sensors
 sensor.geo_isa_bq:
