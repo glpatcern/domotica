@@ -540,8 +540,11 @@ sensor:
       # /data is a mount of /share/CACHEDEV1_DATA
       - type: disk_free
         arg: /data
-      # /config is hosted in the containers path on the SSD
+      # /extusb is a mount of /share/ExtBackup (SSD)
       - type: disk_free
+        arg: /extusb
+      # /config is in the Containers mount on the SSD
+      - type: disk_use
         arg: /config
 
 # Free space (in GiB) on the remote IOMega disk
@@ -549,6 +552,7 @@ sensor:
     name: IOMega Free Space
     command: ssh admin@naslopresti qnap/qnap_iomega_free.sh
     unit_of_measurement: GiB
+    scan_interval: 36000     # every 10h = 2 times/day
 
 # Occupied space per share, by parsing the summary file
   - platform: qnapshare
@@ -559,7 +563,6 @@ sensor:
       - TMBackup
       - Multimedia
       - homes
-      - Container
 
 # Internet speed test
   - platform: speedtest
@@ -777,7 +780,13 @@ sensor:
         friendly_name: SSD Free Space
         icon_template: mdi:chart-pie
         unit_of_measurement: GiB
-        value_template: "{{ states('sensor.disk_free_config')|int }}"
+        value_template: "{{ states('sensor.disk_free_extusb')|int }}"
+
+      naslopresti_containers_size:
+        friendly_name: QNAP Containers Size
+        icon_template: mdi:chart-pie
+        unit_of_measurement: GiB
+        value_template: "{{ (states('sensor.disk_use_config')|float - 10)|round(1) }}"   # 10 GiB is the swap
 
 # Combine QNAP SMART states
       naslopresti_smart_status:

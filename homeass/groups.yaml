@@ -317,10 +317,10 @@ qnap:
     - sensor.qnap_firmware_version
     - sensor.naslopresti_hdd_free_space
     - sensor.naslopresti_ssd_free_space
-    - sensor.qnap_multimedia_size
     - sensor.qnap_homes_size
-    - sensor.qnap_container_size
+    - sensor.qnap_multimedia_size
     - sensor.qnap_backups_size
+    - sensor.naslopresti_containers_size
     - sensor.naslopresti_cpu_usage
     - sensor.naslopresti_memory_usage
     - sensor.naslopresti_smart_status

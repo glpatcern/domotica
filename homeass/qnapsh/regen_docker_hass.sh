@@ -22,4 +22,5 @@ docker run -d -p 8123:8123/tcp -p 3200:3200/udp --name="home-assistant" --privil
        -v /share/Container/homeass-config:/config \
        -v /mnt/HDA_ROOT:/mnt \
        -v /share/CACHEDEV1_DATA:/data \
+       -v /share/ExtBackup:/extusb \
        --net=host --restart=always homeassistant/home-assistant
