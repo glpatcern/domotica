@@ -3,14 +3,18 @@
 #
 ####################################################################
 
-# chiudi la cucina se nessuno in casa & ora ~= 11.00 in un range di 20 minuti
+# chiudi la cucina se nessuno in casa & ora ~= 11 o 14.30 in un range di 20 minuti
 alias: 'Chiudi serrande simula presenza'
 initial_state: True
 trigger:
-  platform: time
-  hours: 10
-  minutes: 50
-  seconds: 00
+  - platform: time
+    hours: 10
+    minutes: 50
+    seconds: 00
+  - platform: time
+    hours: 14
+    minutes: 20
+    seconds: 00
 
 condition:
   - condition: state
