@@ -98,13 +98,13 @@ input_boolean:
 logger:
   default: warning
   logs:
-    homeassistant.components.device_tracker: critical
+    homeassistant.components.device_tracker: warning
     homeassistant.components.camera: info
-    homeassistant.components.automation: debug
-    homeassistant.components.sensor: warning
+    homeassistant.components.automation: info
     homeassistant.components.scene: info
-    homeassistant.components.switch: info
-    homeassistant.components.cover: info
+    homeassistant.components.sensor: info
+    homeassistant.components.switch: warning
+    homeassistant.components.cover: warning
 
 # Enable the frontend
 frontend:
