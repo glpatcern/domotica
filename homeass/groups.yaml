@@ -193,6 +193,7 @@ meteo_details:
     - sensor.pws_temp_high_1d_c
     - sensor.pws_temp_low_1d_c
     - sensor.pws_temp_low_record_c
+    - binary_sensor.netatmo_co2_rising_trend
     - sensor.pws_pressure_trend
 #   - sensor.pws_wind_kph
 #   - sensor.pws_wind_dir
@@ -316,10 +317,10 @@ qnap:
     - sensor.qnap_firmware_version
     - sensor.naslopresti_hdd_free_space
     - sensor.naslopresti_ssd_free_space
-    - sensor.qnap_multimedia_size
     - sensor.qnap_homes_size
-    - sensor.qnap_container_size
+    - sensor.qnap_multimedia_size
     - sensor.qnap_backups_size
+    - sensor.naslopresti_containers_size
     - sensor.naslopresti_cpu_usage
     - sensor.naslopresti_memory_usage
     - sensor.naslopresti_smart_status

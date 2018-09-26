@@ -540,8 +540,11 @@ sensor:
       # /data is a mount of /share/CACHEDEV1_DATA
       - type: disk_free
         arg: /data
-      # /config is hosted in the containers path on the SSD
+      # /extusb is a mount of /share/ExtBackup (SSD)
       - type: disk_free
+        arg: /extusb
+      # /config is in the Containers mount on the SSD
+      - type: disk_use
         arg: /config
 
 # Free space (in GiB) on the remote IOMega disk
@@ -549,6 +552,7 @@ sensor:
     name: IOMega Free Space
     command: ssh admin@naslopresti qnap/qnap_iomega_free.sh
     unit_of_measurement: GiB
+    scan_interval: 36000     # every 10h = 2 times/day
 
 # Occupied space per share, by parsing the summary file
   - platform: qnapshare
@@ -559,7 +563,6 @@ sensor:
       - TMBackup
       - Multimedia
       - homes
-      - Container
 
 # Internet speed test
   - platform: speedtest
@@ -614,6 +617,14 @@ sensor:
         - gustangle
         - guststrength
         - battery_vp
+
+# Processed Noise sensor to cut out spikes
+  - platform: filter
+    name: Filtered Noise
+    entity_id: sensor.netatmo_indoor_noise
+    filters:
+      - filter: outlier
+        window_size: 2
 
 # WUnderground on top of NetAtmo
   - platform: wunderground
@@ -769,7 +780,13 @@ sensor:
         friendly_name: SSD Free Space
         icon_template: mdi:chart-pie
         unit_of_measurement: GiB
-        value_template: "{{ states('sensor.disk_free_config')|int }}"
+        value_template: "{{ states('sensor.disk_free_extusb')|int }}"
+
+      naslopresti_containers_size:
+        friendly_name: QNAP Containers Size
+        icon_template: mdi:chart-pie
+        unit_of_measurement: GiB
+        value_template: "{{ (states('sensor.disk_use_config')|float - 10)|round(1) }}"   # 10 GiB is the swap
 
 # Combine QNAP SMART states
       naslopresti_smart_status:
@@ -824,6 +841,16 @@ binary_sensor:
     country: CH
     province: GE
 
+# Trends
+  - platform: trend
+    sensors:
+
+# co2 positive trend over 20 minutes: this is an indirect presence detector (cf. presence)
+      netatmo_co2_rising_trend:
+        entity_id: sensor.netatmo_indoor_co2
+        sample_duration: 1200
+        min_gradient: 0.012     # ~15 ppm in 20 mins
+
 # Templated binary sensors
   - platform: template
     sensors:
@@ -839,7 +866,8 @@ binary_sensor:
              is_state('device_tracker.glplap', 'home') or
              is_state('device_tracker.isamac', 'home') or
              is_state('binary_sensor.dt_guests', 'on') or
-             states('sensor.netatmo_indoor_noise')|int > 43
+             states('sensor.filtered_noise')|int > 41 or
+             is_state('binary_sensor.netatmo_co2_rising_trend', 'true')
           }}
 
       frontend_presence:

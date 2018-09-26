@@ -17,7 +17,7 @@ condition:
        {{ states.input_select.statocasa.state == 'Normale' }}
   - condition: numeric_state     # se c'e' caldo lascia aperto
     entity_id: sensor.netatmo_indoor_temperature
-    below: 26
+    below: 27
 
 action:
   - service: cover.stop_cover
