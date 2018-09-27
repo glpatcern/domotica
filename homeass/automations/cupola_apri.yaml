@@ -16,7 +16,7 @@ trigger:
 
 condition:
   - condition: template      #  this to adapt the temperature threshold to the summer time
-    value_template: '{{ states.sensor.netatmo_indoor_temperature.state|int >= 25 - (now().month > 4 and now().month < 10)|int }}'
+    value_template: '{{ states.sensor.netatmo_indoor_temperature.state|float > 25.5 - (now().month > 4 and now().month < 10)|int }}'
   - condition: template      # anything but 'Notte' is OK
     value_template: "{{ states.input_select.statocasa.state != 'Notte' }}"
   - condition: template

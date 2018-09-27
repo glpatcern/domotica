@@ -286,6 +286,7 @@ automations:
   entities:
     - automation.bad_logins_notifier
     - automation.apri_cupola_se_fa_caldo
+    - automation.chiudi_cupola_se_fa_freddo
     - automation.apri_tenda_veranda_se_fa_caldo
     - automation.chiudi_tenda_veranda_per_pioggia_o_fresco
     - automation.chiudi_tenda_veranda_per_vento

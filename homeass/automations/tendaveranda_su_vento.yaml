@@ -9,7 +9,7 @@ initial_state: True
 trigger:
   - platform: numeric_state
     entity_id: sensor.netatmo_terrace_gust_strength
-    above: 28
+    above: 20
 
 condition:
   - condition: state

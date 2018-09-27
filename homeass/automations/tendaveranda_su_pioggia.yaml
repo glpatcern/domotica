@@ -29,4 +29,4 @@ action:
       option: 'closed'
   - service: notify.notifyglp
     data_template:
-      message: "Tenda veranda chiusa, {{ states.sensor.dark_sky_precip_intensity.state }} mm di pioggia"
+      message: "Tenda veranda chiusa, {{ states.sensor.dark_sky_precip_intensity.state }} mm di pioggia / {{ states.sensor.veranda_temperature.state }}C"

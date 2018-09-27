@@ -56,7 +56,8 @@ automation:
   - !include automations/covers_pianoterra_chiudi.yaml
   - !include automations/covers_pianoterra_sera.yaml
   - !include automations/covers_pomeriggio.yaml
-  - !include automations/cupola.yaml
+  - !include automations/cupola_apri.yaml
+  - !include automations/cupola_chiudi.yaml
   # Irrigazione
 #  - !include automations/irrigazione.yaml
 
@@ -875,12 +876,12 @@ binary_sensor:
         icon_template: mdi:home-account
         value_template: "{{ is_state('input_boolean.presence', 'on') }}"
 
-# heuristic rain sensor based on the cupola IO cover and DarkSky (cf. automations/cupola.yaml)
+# heuristic rain sensor based on the cupola IO cover and DarkSky (cf. automations/cupola_apri.yaml)
       rain:
         friendly_name: Rain
         icon_template: mdi:weather-rainy
         value_template: >-
-          {% if states.sensor.netatmo_indoor_temperature.state|int >= 25 - (now().month > 4 and now().month < 10)|int and
+          {% if states.sensor.netatmo_indoor_temperature.state|float >= 25.5 - (now().month > 4 and now().month < 10)|int and
                 states.input_select.statocasa.state != 'Notte' and
                 (as_timestamp(now()) - as_timestamp(states.input_select.statocasa.last_changed) > 30) -%}
              {{ states.cover.cupola.attributes.current_position < 100 }}

@@ -29,7 +29,7 @@ condition:
     state: 'closed'
   - condition: numeric_state
     entity_id: sensor.netatmo_terrace_gust_strength
-    below: 20
+    below: 18
   - condition: numeric_state
     entity_id: sensor.veranda_temperature
     above: 25

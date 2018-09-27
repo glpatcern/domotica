@@ -1,0 +1,26 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+# Chiudi cupola se temp. interna < 24C e non siamo in estate
+####################################################################
+
+alias: 'Chiudi cupola se fa freddo'
+
+trigger:
+  # check hourly
+  platform: time
+  hours: '/1'
+
+condition:
+  - condition: template      # in summer time deactivate this automation
+    value_template: '{{ now().month <= 5 or now().month >= 9 }}'
+  - condition: numeric_state
+    entity_id: sensor.netatmo_indoor_temperature
+    below: 24
+  - condition: template      # state was open for at least 30 minutes
+    value_template: '{{ states.cover.cupola.attributes.current_position == 100 and
+                        (as_timestamp(now()) - as_timestamp(states.cover.cupola.last_changed) > 30*60) }}'
+
+action:
+  - service: cover.close_cover
+    entity_id: cover.cupola
