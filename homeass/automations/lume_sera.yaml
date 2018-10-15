@@ -11,7 +11,7 @@ trigger:
   entity_id: sun.sun
   value_template: '{{ state.attributes.elevation }}'
   below: 4
-  above: 3.5
+  above: 3
 
 condition:
   - condition: time
