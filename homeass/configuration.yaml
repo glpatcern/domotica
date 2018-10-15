@@ -378,14 +378,30 @@ camera:
     still_image_url: https://images.lookr-cdn.com/full/1426189579-Teatro-Massimo.jpg?token=lookr.com:15d4651ca941525039ea530307b81724:1529794510
 
   - platform: generic
+    name: Marseille
+    still_image_url: https://images.webcams.travel/original/1521755532-marseille-06-marseille-panorama-marseille.jpg?token=webcams.travel:147667c6f949ce76b3ea71fcb3e150c0:1538947149
+
+  - platform: generic
     name: Chamonix
     still_image_url: http://www.compagniedumontblanc.fr/webcam/AiguilleHD.jpg
 
-# Watcher for the DLink camera
-#folder_watcher:
-#  - folder: /config/dlinkcam
+  - platform: generic
+    name: Monts Jura full
+    still_image_url: http://www.trinum.com/ibox/ftpcam/mont-jura_tc-crozet.jpg    # mega_mont-jura_tc-crozet.jpg @ full res
 
-# MotoG camera
+  - platform: generic
+    name: Longyearbyen
+    still_image_url: https://images.lookr-cdn.com/full/1448542688-Longyearbyen.jpg?token=lookr.com:adcb20df041abf9fff65b7c5c90a9cc0:1538946868
+
+  - platform: proxy
+    name: Monts Jura
+    entity_id: camera.monts_jura_full
+    image_left: 800
+    image_top: 0
+    max_image_width: 1100
+    max_image_height: 600
+
+# Android camera
 android_ip_webcam:
   name: VerandaCam
   host: 192.168.1.66

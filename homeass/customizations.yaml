@@ -124,5 +124,11 @@ group.camferrara:
   order: 2
 group.campalermo:
   order: 3
-group.camchamonix:
+group.cammarseille:
   order: 4
+group.camchamonix:
+  order: 5
+group.cammontsjura:
+  order: 6
+group.camlongyearbyen:
+  order: 7

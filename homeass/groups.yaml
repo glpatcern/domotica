@@ -37,7 +37,10 @@ cameras:
     - group.camgeneve
     - group.camferrara
     - group.campalermo
+    - group.cammarseille
     - group.camchamonix
+    - group.cammontsjura
+    - group.camlongyearbyen
 
 it:
   name: 'IT'
@@ -217,11 +220,25 @@ campalermo:
   entities:
     - camera.palermo
 
+cammarseille:
+  name: 'Marseille'
+  entities:
+    - camera.marseille
+
 camchamonix:
   name: 'Chamonix'
   entities:
     - camera.chamonix
 
+cammontsjura:
+  name: 'Monts Jura'
+  entities:
+    - camera.monts_jura
+
+camlongyearbyen:
+  name: 'Longyearbyen'
+  entities:
+    - camera.longyearbyen
 
 homeass:
   name: 'Home Assistant'
