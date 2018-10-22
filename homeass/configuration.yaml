@@ -240,7 +240,7 @@ weblink:
       url: http://192.168.1.35
       icon: mdi:access-point-network
     - name: InfluxDB administration
-      url: http://192.168.1.48:3004
+      url: http://naslopresti:3004
     - name: SaloneCam administration
       url: https://it.mydlink.com
     - name: VerandaCam administration
@@ -304,7 +304,7 @@ ifttt:
 
 # MQTT broker (mosquitto) running on the QNAP
 mqtt:
-  broker: 192.168.1.48
+  broker: naslopresti
   client_id: homeass
 
 # Track home devices
@@ -454,14 +454,14 @@ switch:
 
 # Control dockers in QNAP
   - platform: rest
-    resource: http://127.0.0.1:8126/container/influxdb-grafana
+    resource: http://naslopresti:8126/container/influxdb-grafana
     name: InfluxDB/Grafana
     body_on: '{"state": "start"}'
     body_off: '{"state": "stop"}'
     is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
 
   - platform: rest
-    resource: http://127.0.0.1:8126/container/home-assistant
+    resource: http://naslopresti:8126/container/home-assistant
     name: Home Assistant
     body_on: '{"state": "start"}'
     body_off: '{"state": "stop"}'
@@ -523,7 +523,7 @@ sensor:
 
 # QNAP
   - platform: qnap
-    host: 192.168.1.48
+    host: naslopresti
     username: admin
     password: !secret qnap_password
     verify_ssl: true
