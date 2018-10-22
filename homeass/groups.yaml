@@ -49,6 +49,7 @@ it:
   entities:
     - group.homeass
     - group.network
+    - group.qnap
     - group.devices
     - group.portables
 
@@ -58,7 +59,6 @@ config:
   view: yes
   entities:
     - group.automations
-    - group.qnap
     - group.admin_tools
 
 security:
@@ -269,6 +269,7 @@ devices:
   control: hidden
   entities:
     - binary_sensor.dt_iomegadisk
+    - sensor.iomega_free_space
     - binary_sensor.dt_printer
     - binary_sensor.dt_salonecam
     - binary_sensor.dt_verandacam
@@ -350,7 +351,6 @@ admin_tools:
   control: hidden
   entities:
     - weblink.iomega_disk_administration
-    - sensor.iomega_free_space
     - weblink.printer_administration
     - weblink.google_cloud_print
     - weblink.salonecam_administration
