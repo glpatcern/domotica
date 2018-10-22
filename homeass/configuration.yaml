@@ -750,12 +750,11 @@ sensor:
 # fase 2 = nera = frigo + locale tecnico + salone
 # fase 3 = grigia = camere + caldaia + lavanderia + lavastoviglie
   - platform: owlintuition
+    name: OWL Meter
     port: 3200
     mode: triphase
-    monitored_conditions:
-      - battery
-      - power
-      - energy_today
+#    monitored_conditions:
+#      - electricity
 
 # Reports the last motion detection by cameras, based on a script running on the NAS
   - platform: file
@@ -797,7 +796,7 @@ sensor:
       owl_meter_triphasepower:
         friendly_name: OWL Meter Triphase Power
         icon_template: mdi:flash
-        value_template: "{{ states.sensor.owl_meter_power_P1.state }} W + {{ states.sensor.owl_meter_power_P2.state }} W + {{ states.sensor.owl_meter_power_P3.state }} W"
+        value_template: "{{ states.sensor.owl_meter_electricity_power_P1.state }} W + {{ states.sensor.owl_meter_electricity_power_P2.state }} W + {{ states.sensor.owl_meter_electricity_power_P3.state }} W"
 
 # QNAP free space
       naslopresti_hdd_free_space:

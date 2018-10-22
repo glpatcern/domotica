@@ -138,9 +138,9 @@ media_center:
 impianti:
   name: 'Impianti'
   entities:
-    - sensor.owl_meter_power
+    - sensor.owl_meter_electricity_power
     - sensor.owl_meter_triphasepower
-    - sensor.owl_meter_energy_today
+    - sensor.owl_meter_electricity_today
 
 valute:
   name: 'Valute'
@@ -280,7 +280,7 @@ devices:
     - sensor.netatmo_terrace_battery
     - sensor.netatmo_outdoor_battery
     - binary_sensor.dt_owlintuition
-    - sensor.owl_meter_battery
+    - sensor.owl_meter_electricity_battery
     - binary_sensor.dt_onkyoamp
     - binary_sensor.dt_sunrisetv
     - binary_sensor.dt_chromecast
