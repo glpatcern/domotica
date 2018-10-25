@@ -1,0 +1,27 @@
+#
+# LoPresti smart home - docker files for Home Assistant
+#
+##############################################################
+
+version: "2.3"
+
+services:
+  # Home Assistant server
+  hass:
+    build:
+     context:
+     dockerfile: homeass.Dockerfile
+    image: homeass:glp
+    container_name: homeass
+    hostname: homeass
+    stdin_open: true
+    tty: true
+    restart: always
+    ports:
+      - 8123:8123
+      - 3200:3200
+    volumes:
+      - hassconfig:/config
+
+volumes:
+  hassconfig:
