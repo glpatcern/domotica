@@ -6,22 +6,15 @@
 version: "2.3"
 
 services:
-  # Home Assistant server
-  hass:
+  # InfluxDB/Grafana server
+  influxdb-grafana:
     build:
-     context:
-     dockerfile: homeass.Dockerfile
-    image: homeass:glp
-    container_name: homeass
-    hostname: homeass
+     context: .
+     dockerfile: grafana.Dockerfile
+    image: influxdb-grafana:glp
+    container_name: influxdb-grafana
+    hostname: influxdb-grafana
     stdin_open: true
     tty: true
     restart: always
-    ports:
-      - 8123:8123
-      - 3200:3200
-    volumes:
-      - hassconfig:/config
 
-volumes:
-  hassconfig:

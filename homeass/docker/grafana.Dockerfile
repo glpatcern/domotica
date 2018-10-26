@@ -8,7 +8,10 @@ FROM philhawthorne/docker-influxdb-grafana
 MAINTAINER Giuseppe Lo Presti @glpatcern
 
 # Change config file to point to external volume
-RUN mv  /etc/grafana/grafana.ini /etc/grafana/grafana.ini.orig && \
-    ln -s  /var/lib/grafana/grafana.ini /etc/grafana
+RUN cp /etc/grafana/grafana.ini /etc_grafana.ini.orig && \
+    rm /etc/grafana/grafana.ini && \
+    ln -s /var/lib/grafana/grafana.ini /etc/grafana/
 
-CMD
+# Execute original entrypoint command
+CMD ["/usr/bin/supervisord"]
+
