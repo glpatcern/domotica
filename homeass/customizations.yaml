@@ -116,6 +116,12 @@ script.tvcucina:
   icon: mdi:television
 switch.smartplug:
   friendly_name: 'Lume'
+switch.home_assistant:
+  icon: mdi:home-assistant
+switch.influxdbgrafana:
+  icon: mdi:view-dashboard
+switch.syncthing:
+  icon: mdi:cloud-sync
 
 # Views order
 group.camgeneve:
@@ -132,3 +138,5 @@ group.cammontsjura:
   order: 6
 group.camlongyearbyen:
   order: 7
+group.portables:
+  order: 6

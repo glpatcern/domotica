@@ -47,10 +47,11 @@ it:
   icon: mdi:server-network
   view: yes
   entities:
+    - group.devices
     - group.homeass
     - group.network
+    - group.qnap_services
     - group.qnap
-    - group.devices
     - group.portables
 
 config:
@@ -240,29 +241,6 @@ camlongyearbyen:
   entities:
     - camera.longyearbyen
 
-homeass:
-  name: 'Home Assistant'
-  control: hidden
-  entities:
-    - sensor.current_version
-    - sensor.uptime
-    - sensor.ha_config_loc
-    - sensor.ha_entities
-    - sensor.ha_warnings
-    - sensor.ha_errors
-
-network:
-  name: 'Network'
-  entities:
-    - weblink.router_administration
-    - weblink.wifi_repeater_administration
-    - sensor.speedtest_download
-    - sensor.speedtest_upload
-    - sensor.speedtest_ping
-    - sensor.qnap_network_rx
-    - sensor.qnap_network_tx
-#   - sensor.igd_received_bytes
-#   - sensor.igd_sent_bytes
 
 devices:
   name: 'Home Devices'
@@ -298,6 +276,56 @@ portables:
     - binary_sensor.dt_htc
     - binary_sensor.dt_guests
 
+network:
+  name: 'Network'
+  entities:
+    - weblink.router_administration
+    - weblink.wifi_repeater_administration
+    - sensor.speedtest_download
+    - sensor.speedtest_upload
+    - sensor.speedtest_ping
+    - sensor.qnap_network_rx
+    - sensor.qnap_network_tx
+#   - sensor.igd_received_bytes
+#   - sensor.igd_sent_bytes
+
+homeass:
+  name: 'Home Assistant'
+  control: hidden
+  entities:
+    - switch.home_assistant
+    - sensor.current_version
+    - sensor.uptime
+    - sensor.ha_config_loc
+    - sensor.ha_entities
+    - sensor.ha_warnings
+    - sensor.ha_errors
+
+qnap:
+  name: 'QNAP'
+  entities:
+    - sensor.naslopresti_hdd_free_space
+    - sensor.naslopresti_ssd_free_space
+    - sensor.qnap_homes_size
+    - sensor.qnap_multimedia_size
+    - sensor.qnap_backups_size
+    - sensor.naslopresti_containers_size
+    - sensor.naslopresti_cpu_usage
+    - sensor.naslopresti_memory_usage
+    - sensor.naslopresti_smart_status
+    - sensor.naslopresti_system_temperature
+    - sensor.naslopresti_drives_max_temperature
+
+qnap_services:
+  name: 'QNAP Services'
+  control: hidden
+  entities:
+    - weblink.qnap_administration
+    - sensor.qnap_firmware_version
+    - switch.syncthing
+    - switch.influxdbgrafana
+    - weblink.influxdb_administration
+
 
 automations:
   name: 'Automations'
@@ -327,24 +355,6 @@ automations:
     - automation.notifica_rientro
     - automation.selezione_radio
 #    - automation.irrigazione
-
-qnap:
-  name: 'QNAP'
-  entities:
-    - weblink.qnap_administration
-    - weblink.influxdb_administration
-    - sensor.qnap_firmware_version
-    - sensor.naslopresti_hdd_free_space
-    - sensor.naslopresti_ssd_free_space
-    - sensor.qnap_homes_size
-    - sensor.qnap_multimedia_size
-    - sensor.qnap_backups_size
-    - sensor.naslopresti_containers_size
-    - sensor.naslopresti_cpu_usage
-    - sensor.naslopresti_memory_usage
-    - sensor.naslopresti_smart_status
-    - sensor.naslopresti_system_temperature
-    - sensor.naslopresti_drives_max_temperature
 
 admin_tools:
   name: 'Administration Tools'
