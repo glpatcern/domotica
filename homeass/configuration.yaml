@@ -354,7 +354,7 @@ camera:
     name: Salone-Last-Motion
     file_path: /config/dlinkcam/cam_latest.jpg
 
-# Satellite camera (credits to CiquattroFPV@github)
+# Satellite camera (credits to CiquattroFPV@github for the idea)
   - platform: generic
     name: Satellite
     still_image_url: http://api.sat24.com/animated/ALPS/visual/1/Romance%20Standard%20Time/6352028'%20width=400%20height=291
@@ -396,10 +396,9 @@ camera:
   - platform: proxy
     name: Monts Jura
     entity_id: camera.monts_jura_full
+    mode: crop
     image_left: 800
-    image_top: 0
     max_image_width: 1100
-    max_image_height: 600
 
 # Android camera
 android_ip_webcam:
