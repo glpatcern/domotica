@@ -241,6 +241,8 @@ weblink:
       icon: mdi:access-point-network
     - name: InfluxDB administration
       url: http://naslopresti:3004
+    - name: Syncthing administration
+      url: !secret syncthing_link
     - name: SaloneCam administration
       url: https://it.mydlink.com
     - name: VerandaCam administration

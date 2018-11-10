@@ -320,9 +320,10 @@ qnap_services:
   name: 'QNAP Services'
   control: hidden
   entities:
-    - weblink.qnap_administration
     - sensor.qnap_firmware_version
+    - weblink.qnap_administration
     - switch.syncthing
+    - weblink.syncthing_administration
     - switch.influxdbgrafana
     - weblink.influxdb_administration
 
