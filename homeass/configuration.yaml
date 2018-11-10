@@ -796,12 +796,20 @@ sensor:
       netatmo_outdoor_minmaxtemperature:
         friendly_name: Outdoor Temperature
         icon_template: mdi:thermometer
+        entity_id:
+          - sensor.netatmo_outdoor_temperature
+          - sensor.netatmo_outdoor_min_temp
+          - sensor.netatmo_outdoor_max_temp
         value_template: "{{ states.sensor.netatmo_outdoor_temperature.state }}°C ({{ states.sensor.netatmo_outdoor_min_temp.state }}°C ÷ {{ states.sensor.netatmo_outdoor_max_temp.state }}°C)"
 
 # Combine the 3 phase power meters in one sensor
       owl_meter_triphasepower:
         friendly_name: OWL Meter Triphase Power
         icon_template: mdi:flash
+        entity_id:
+          - sensor.owl_meter_electricity_power_P1
+          - sensor.owl_meter_electricity_power_P2
+          - sensor.owl_meter_electricity_power_P3
         value_template: "{{ states.sensor.owl_meter_electricity_power_P1.state }} W + {{ states.sensor.owl_meter_electricity_power_P2.state }} W + {{ states.sensor.owl_meter_electricity_power_P3.state }} W"
 
 # QNAP free space
@@ -809,24 +817,33 @@ sensor:
         friendly_name: Data Drive Free Space
         icon_template: mdi:chart-pie
         unit_of_measurement: GiB
+        entity_id:
+          - sensor.disk_free_data
         value_template: "{{ states('sensor.disk_free_data')|int }}"
 
       naslopresti_ssd_free_space:
         friendly_name: SSD Free Space
         icon_template: mdi:chart-pie
         unit_of_measurement: GiB
+        entity_id:
+          - sensor.disk_free_extusb
         value_template: "{{ states('sensor.disk_free_extusb')|int }}"
 
       naslopresti_containers_size:
         friendly_name: QNAP Containers Size
         icon_template: mdi:chart-pie
         unit_of_measurement: GiB
+        entity_id:
+          - sensor.disk_use_config
         value_template: "{{ (states('sensor.disk_use_config')|float - 10)|round(1) }}"   # 10 GiB is the swap
 
 # Combine QNAP SMART states
       naslopresti_smart_status:
         friendly_name: 'Drives SMART Status'
         icon_template: mdi:harddisk
+        entity_id:
+          - sensor.naslopresti_smart_status_drive_01
+          - sensor.naslopresti_smart_status_drive_02
         value_template: >-
           {% if is_state('sensor.naslopresti_smart_status_drive_01', 'OK') and is_state('sensor.naslopresti_smart_status_drive_02', 'OK') %}
             OK
@@ -839,6 +856,9 @@ sensor:
         friendly_name: 'QNAP Drives Temperature'
         icon_template: mdi:thermometer
         unit_of_measurement: °C
+        entity_id:
+          - sensor.naslopresti_temperature_drive_01
+          - sensor.naslopresti_temperature_drive_02
         value_template: "{{ [states('sensor.naslopresti_temperature_drive_01')|int, states('sensor.naslopresti_temperature_drive_02')|int] | max }}"
 
 # Combine QNAP backups
@@ -846,12 +866,17 @@ sensor:
         friendly_name: 'QNAP Backups Size'
         icon_template: mdi:chart-pie
         unit_of_measurement: GiB
+        entity_id:
+          - sensor.qnap_backup_size
+          - sensor.qnap_tmbackup_size
         value_template: "{{ states('sensor.qnap_backup_size')|float + states('sensor.qnap_tmbackup_size')|float }}"
 
 # Public transport customizations: show next + next_on departures as hh:mm
       tpg_to_cern:
         friendly_name: 'TPG to CERN'
         icon_template: mdi:tram
+        entity_id:
+          - sensor.spt_cern
         value_template: >-
           {% if states.sensor.spt_cern == None %}
             Awaiting Update
@@ -862,6 +887,8 @@ sensor:
       tpg_to_cornavin:
         friendly_name: 'TPG to Cornavin'
         icon_template: mdi:tram
+        entity_id:
+          - sensor.spt_cornavin
         value_template: >-
           {% if states.sensor.spt_cornavin == None %}
             Awaiting Update
