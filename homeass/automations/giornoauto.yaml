@@ -3,24 +3,24 @@
 #
 ####################################################################
 
-# Alle 8 o alle 9 vai in modalita' normale
+# Di prima mattina vai in modalita' normale
 alias: 'Modo giorno automatico'
 initial_state: True
 trigger:
   - platform: time
-    hours: 08
-    minutes: 00
+    hours: 07
+    minutes: 50
     seconds: 00
   - platform: time
-    hours: 09
-    minutes: 00
+    hours: 08
+    minutes: 30
     seconds: 00
 
 condition:
   - condition: template
     value_template: >-
-      {{ is_state('binary_sensor.workday_sensor', 'on') and now().hour == 8 or
-         is_state('binary_sensor.workday_sensor', 'off') and now().hour == 9
+      {{ is_state('binary_sensor.workday_sensor', 'on') and now().hour == 7 or
+         is_state('binary_sensor.workday_sensor', 'off') and now().hour == 8
       }}
 
 action:

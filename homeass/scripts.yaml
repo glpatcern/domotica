@@ -45,10 +45,8 @@ partymode:
     - service: light.turn_on
       data:
         entity_id: light.led_salone
-    - service: tts.google_say
-      entity_id: media_player.chromecast
-      data_template:
-        message: "Party time"
+    - service: media_player.turn_on
+      entity_id: media_player.amplificatore_onkyo
 
 # this is executed by the 'Spegni cinema' scene: either switch on light or open cover
 lucesalone:
