@@ -122,6 +122,8 @@ switch.influxdbgrafana:
   icon: mdi:view-dashboard
 switch.syncthing:
   icon: mdi:cloud-sync
+switch.qnap_shutdown:
+  icon: mdi:nas
 
 # Views order
 group.camgeneve:

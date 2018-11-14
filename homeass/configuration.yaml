@@ -455,6 +455,13 @@ switch:
       #kira_dvd_power:
       #kira_tvdecoder_power:
 
+# Turn off the entire QNAP
+      qnap_shutdown:
+        command_off: ssh admin@naslopresti poweroff
+        command_on: echo
+        command_state: echo    # this switch is always on by construction
+        friendly_name: QNAP Power
+
 # Control dockers in QNAP
   - platform: rest
     resource: http://naslopresti:8126/container/homeassistant

@@ -305,6 +305,7 @@ homeass:
 qnap:
   name: 'QNAP'
   entities:
+    - switch.qnap_shutdown
     - sensor.naslopresti_hdd_free_space
     - sensor.naslopresti_ssd_free_space
     - sensor.qnap_homes_size
