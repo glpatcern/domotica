@@ -348,8 +348,6 @@ camera:
     still_image_url: http://192.168.1.4/image.jpg
     username: admin
     password: !secret camera_password
-#  - platform: mjpeg
-#    mjpeg_url: http://192.168.1.4/video.cgi
 
 # Last motion detected screenshot
   - platform: local_file
@@ -524,11 +522,13 @@ sensor:
     name: HA Warnings
     command: "grep WARN /config/home-assistant.log | grep -cv grep"
     scan_interval: 600
+    value_template: '{{ value | int }}'
 
   - platform: command_line
     name: HA Errors
     command: "grep ERROR /config/home-assistant.log | grep -cv grep"
     scan_interval: 600
+    value_template: '{{ value | int }}'
 
 # QNAP
   - platform: qnap
@@ -555,6 +555,7 @@ sensor:
     name: QNAP Last 7d Banned IPs
     command: ssh admin@naslopresti qnap/qnap_banned_ips.sh 7
     scan_interval: 18000     # every 5h = 4 times/day
+    value_template: '{{ value | int }}'
 
   - platform: command_line
     name: QNAP Last Banned Host

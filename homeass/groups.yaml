@@ -18,7 +18,7 @@ default_view:
     - group.media_center
     - group.primo_piano
     - group.impianti
-    - group.valute
+    - group.finanza
 
 meteo:
   name: 'Meteo'
@@ -143,8 +143,8 @@ impianti:
     - sensor.owl_meter_triphasepower
     - sensor.owl_meter_electricity_today
 
-valute:
-  name: 'Valute'
+finanza:
+  name: 'Finanza'
   entities:
     - sensor.cambio_eurchf
     - sensor.cambio_eurusd
