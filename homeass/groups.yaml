@@ -108,8 +108,9 @@ veranda_giardino:
   control: hidden
   entities:
     - sensor.netatmo_terrace_gust_strength
-    - sensor.veranda_brightness
     - cover.veranda
+    - sensor.veranda_brightness
+    - sensor.verandacam_light_level
     - switch.verandacam_torch
     - switch.verandacam_video_recording
     - camera.verandacam
@@ -377,6 +378,8 @@ admin_tools:
 lastmotion:
   name: 'Last Motion'
   entities:
+    - sensor.verandacam_motion
+    - sensor.verandacam_proximity
     - sensor.last_motion_detection
     - camera.salonelastmotion
 

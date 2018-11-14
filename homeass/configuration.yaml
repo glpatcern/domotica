@@ -406,8 +406,11 @@ android_ip_webcam:
   host: 192.168.1.66
   username: admin
   password: !secret camera_password
+  sensors:
+    - light
+    - motion
+    - proximity
   switches:
-#   - focus
     - torch
     - video_recording
     - night_vision
