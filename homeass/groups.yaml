@@ -113,6 +113,7 @@ veranda_giardino:
     - sensor.verandacam_light_level
     - switch.verandacam_torch
     - switch.verandacam_video_recording
+    - switch.verandacam_frontfacing_camera
     - camera.verandacam
 
 primo_piano:
@@ -249,6 +250,7 @@ devices:
   entities:
     - binary_sensor.dt_iomegadisk
     - sensor.iomega_free_space
+    - weblink.iomega_disk_administration
     - binary_sensor.dt_printer
     - binary_sensor.dt_salonecam
     - binary_sensor.dt_verandacam
@@ -363,7 +365,6 @@ admin_tools:
   name: 'Administration Tools'
   control: hidden
   entities:
-    - weblink.iomega_disk_administration
     - weblink.printer_administration
     - weblink.google_cloud_print
     - weblink.salonecam_administration

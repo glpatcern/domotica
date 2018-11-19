@@ -414,6 +414,7 @@ android_ip_webcam:
     - torch
     - video_recording
     - night_vision
+    - ffc
 
 # Onkyo amplifier
 media_player:
@@ -987,6 +988,7 @@ binary_sensor:
           {{ is_state('device_tracker.angio1', 'home') or
              is_state('device_tracker.angio2', 'home') or
              is_state('device_tracker.angio3', 'home') or
+             is_state('device_tracker.angio4', 'home') or
              is_state('device_tracker.papa1', 'home') or
              is_state('device_tracker.papa2', 'home') or
              is_state('device_tracker.papa3', 'home')
