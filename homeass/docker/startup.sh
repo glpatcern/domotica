@@ -10,9 +10,14 @@ while ! wget -q http://localhost:3004 -O /dev/null; do
   sleep 10
 done
 
-# make sure the IOMega disk is mounted
+# make sure the IOMega disk is mounted, but give up after 5 mins
+n=0
 while ! ssh admin@naslopresti 'df | grep iomega' > /dev/null; do
-  sleep 10
+  sleep 5
+  let "n=n+1"
+  if [ "$n" -eq 60 ]; then
+    break
+  fi
 done
 
 # standard Home Assistant startup
