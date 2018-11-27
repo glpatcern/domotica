@@ -16,8 +16,8 @@ trigger:
 
 condition:
   - condition: time
-    after: '08:10:00'
-    before: '22:10:00'
+    after: '07:50:00'
+    before: '21:50:00'
   - condition: template      # context: not during night, only if Giu is home
     value_template: >-
         {{ not is_state('input_select.statocasa', 'Notte') and
