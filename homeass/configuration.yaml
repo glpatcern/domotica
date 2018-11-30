@@ -773,8 +773,7 @@ sensor:
     name: OWL Meter
     port: 3200
     mode: triphase
-#    monitored_conditions:
-#      - electricity
+    cost_unit_of_measurement: 'CHF'
 
 # Reports the last motion detection by cameras, based on a script running on the NAS
   - platform: file

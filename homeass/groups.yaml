@@ -144,6 +144,7 @@ impianti:
     - sensor.owl_meter_electricity_power
     - sensor.owl_meter_triphasepower
     - sensor.owl_meter_electricity_today
+    - sensor.owl_meter_cost_today
 
 finanza:
   name: 'Finanza'
