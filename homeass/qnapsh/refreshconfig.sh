@@ -15,10 +15,12 @@ while true; do
   cp ~glp/QSync/dev/DOMOTICA/homeass/*yaml /share/Container/homeass-config
   cp ~glp/QSync/dev/DOMOTICA/homeass/automations/* /share/Container/homeass-config/automations
   # also refresh the SSL certificate for HA and Grafana
-  cp /mnt/HDA_ROOT/.config/QcloudSSLCertificate/cert/cert /share/Container/homeass-config/sslcert.crt
-  cp /mnt/HDA_ROOT/.config/QcloudSSLCertificate/cert/key /share/Container/homeass-config/sslkey.key
-  cp /mnt/HDA_ROOT/.config/QcloudSSLCertificate/cert/cert /share/Container/grafana-storage/sslcert.crt
-  cp /mnt/HDA_ROOT/.config/QcloudSSLCertificate/cert/key /share/Container/grafana-storage/sslkey.key
+  pushd /mnt/HDA_ROOT/.config/QcloudSSLCertificate/cert
+  cat cert chain > /share/Container/homeass-config/sslcert.crt
+  cp key /share/Container/homeass-config/sslkey.key
+  cat cert chain > /share/Container/grafana-storage/sslcert.crt
+  cp key /share/Container/grafana-storage/sslkey.key
+  popd
   # if running, restart the container to reflect the change
   id=`docker ps | grep homeass | awk '{print $1}'` && \
     docker restart $id
