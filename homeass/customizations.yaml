@@ -142,3 +142,19 @@ group.camlongyearbyen:
   order: 7
 group.portables:
   order: 6
+group.location:
+  order: 1
+group.piano_terra:
+  order: 2
+group.veranda_giardino:
+  order: 3
+group.trasporti:
+  order: 4
+group.primo_piano:
+  order: 5
+group.impianti:
+  order: 6
+group.media_center:
+  order: 7
+group.finanza:
+  order: 8

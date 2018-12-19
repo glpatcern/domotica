@@ -773,7 +773,7 @@ sensor:
     name: OWL Meter
     port: 3200
     mode: triphase
-    cost_unit_of_measurement: 'CHF'
+    cost_unit_of_measurement: CHF
 
 # Reports the last motion detection by cameras, based on a script running on the NAS
   - platform: file
@@ -1044,7 +1044,7 @@ binary_sensor:
         value_template: "{{ is_state('device_tracker.chromecast', 'home') }}"
       dt_bddvd:
         friendly_name: BD/DVD
-        icon_template: mdi:disk
+        icon_template: mdi:album
         value_template: "{{ is_state('device_tracker.bddvd', 'home') }}"
       dt_kira:
         friendly_name: KIRA

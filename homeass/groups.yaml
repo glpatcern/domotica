@@ -11,7 +11,7 @@ default_view:
   icon: mdi:home-assistant
   view: yes
   entities:
-    - group.persone
+    - group.location
     - group.trasporti
     - group.piano_terra
     - group.veranda_giardino
@@ -74,8 +74,8 @@ security:
 # Groups
 ################################
 
-persone:
-  name: 'Persone'
+location:
+  name: 'Location'
   entities:
     - sensor.geo_isa_bq
     - sensor.geo_giu_nova
