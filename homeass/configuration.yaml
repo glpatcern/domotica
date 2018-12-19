@@ -716,6 +716,17 @@ sensor:
         - guststrength
         - battery_vp
 
+# NetAtmo data from other weather stations
+  - platform: netatmo_public
+    areas:
+      - lat_ne: 46.23
+        lon_ne: 6.076
+        lat_sw: 46.22
+        lon_sw: 6.063
+        monitored_conditions:
+          - rain
+          - temperature
+
 # Processed Noise sensor to cut out spikes
   - platform: filter
     name: Filtered Noise
@@ -998,7 +1009,7 @@ binary_sensor:
         icon_template: mdi:home-account
         value_template: "{{ is_state('input_boolean.presence', 'on') }}"
 
-# heuristic rain sensor based on the cupola IO cover and DarkSky (cf. automations/cupola_apri.yaml)
+# heuristic rain sensor based on the cupola IO cover and DarkSky/NetAtmo (cf. automations/cupola_apri.yaml)
       rain:
         friendly_name: Rain
         icon_template: mdi:weather-rainy
@@ -1008,7 +1019,7 @@ binary_sensor:
                 (as_timestamp(now()) - as_timestamp(states.input_select.statocasa.last_changed) > 30) -%}
              {{ states.cover.cupola.attributes.current_position < 100 }}
           {%- else -%}
-             {{ states.sensor.dark_sky_precip_intensity.state|float > 0.2 }}
+             {{ states.sensor.public_data_rain.state|float > 0 or states.sensor.dark_sky_precip_intensity.state|float > 0.3 }}
           {%- endif %}
 
 # convert all the devices' states to online/offline

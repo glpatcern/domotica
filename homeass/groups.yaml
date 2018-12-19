@@ -192,11 +192,12 @@ meteo_sensors:
     - sensor.dyson_purifier_aqi
     - sensor.netatmo_indoor_pressure
 #   - sensor.pws_pressure_mb
+    - sensor.dark_sky_cloud_coverage
     - sensor.dark_sky_precip_probability
     - sensor.dark_sky_precip_intensity
-    - sensor.dark_sky_cloud_coverage
-    - sensor.dark_sky_summary
+    - sensor.netatmo_public_data_rain
     - binary_sensor.rain
+    - sensor.dark_sky_summary
     - camera.carta_sismografica
 
 meteo_details:
