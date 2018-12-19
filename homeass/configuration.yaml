@@ -325,6 +325,7 @@ device_tracker:
       somfytahoma: 192.168.1.42
       printer: 192.168.1.50
       owlintuition: 192.168.1.60
+      wolf: 192.168.1.72
 
 # Track mobile phones' locations
   - platform: gpslogger
@@ -485,6 +486,13 @@ switch:
     body_off: '{"state": "stop"}'
     is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
 
+  - platform: rest
+    resource: http://naslopresti:8126/container/ebusd
+    name: eBusd
+    body_on: '{"state": "start"}'
+    body_off: '{"state": "stop"}'
+    is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
+
 # Somfy Tahoma for shutters/roof/store
 tahoma:
   username: !secret somfy_user
@@ -503,6 +511,46 @@ light:
 #  password: !secret dyson_password
 #  language: GB
 
+# eBusd for the Wolf heating system
+ebus:
+  - platform: ebusd
+    name: Caldaia Wolf
+    host: naslopresti
+    port: 8888
+    circuit: 700
+    monitored_conditions:
+      - MaxFlowTemperatureDesired
+      - MinFlowTemperatureDesired
+      - WaterPressure
+      - PumpStatus
+      - HWTemperatureDesired
+      - HWTimerMonday
+      - HWTimerTuesday
+      - HWTimerWednesday
+      - HWTimerThursday
+      - HWTimerFriday
+      - HWTimerSaturday
+      - HWTimerSunday
+      - Zone1NightTemperature
+      - Zone1DayTemperature
+      - Zone1RoomTemperature
+      - Zone1ActualRoomTemperatureDesired
+      - Zone1TimerMonday
+      - Zone1TimerTuesday
+      - Zone1TimerWednesday
+      - Zone1TimerThursday
+      - Zone1TimerFriday
+      - Zone1TimerSaturday
+      - Zone1TimerSunday
+      - Zone1OperativeMode
+      - PowerEnergyConsumptionThisMonth
+
+# BMW
+bmw_connected_drive:
+  bmw:
+    username: !secret bmw_user
+    password: !secret bmw_password
+    region: "rest_of_world"
 
 # Sensors
 ##########
@@ -1029,6 +1077,10 @@ binary_sensor:
         friendly_name: Dyson Purifier
         icon_template: mdi:fan
         value_template: "{{ is_state('device_tracker.dysonpurifier', 'home') }}"
+      dt_wolf:
+        friendly_name: Caldaia Wolf
+        icon_template: mdi:oil-temperature
+        value_template: "{{ is_state('device_tracker.wolf', 'home') }}"
 
       dt_sunrisetv:
         friendly_name: Sunrise TV

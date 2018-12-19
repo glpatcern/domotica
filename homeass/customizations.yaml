@@ -107,6 +107,33 @@ sensor.cambio_eurchf:
 sensor.last_motion_detection:
   icon: mdi:run
 
+# Car
+device_tracker.220i:
+  friendly_name: 'BMW'
+binary_sensor.220i_check_control_messages:
+  friendly_name: 'Messaggi di controllo'
+binary_sensor.220i_condition_based_services:
+  friendly_name: 'Manutenzione'
+binary_sensor.220i_door_lock_state:
+  friendly_name: 'Stato Serratura'
+lock.220i_lock:
+  friendly_name: 'Serratura'
+binary_sensor.220i_lids:
+  friendly_name: 'Porte'
+binary_sensor.220i_lights_parking:
+  friendly_name: 'Luci parcheggio'
+binary_sensor.220i_windows:
+  friendly_name: 'Finestrini'
+sensor.220i_mileage:
+  friendly_name: 'Chilometraggio'
+sensor.220i_remaining_fuel:
+  friendly_name: 'Carburante'
+sensor.220i_remaining_range_fuel:
+  friendly_name: 'Chilometri restanti'
+sensor.220i_remaining_range_total:
+  friendly_name: 'Chilometri totali restanti'
+
+
 # Misc
 scene.cinema:
   icon: mdi:projector
@@ -122,6 +149,8 @@ switch.influxdbgrafana:
   icon: mdi:view-dashboard
 switch.syncthing:
   icon: mdi:cloud-sync
+switch.ebusd:
+  icon: mdi:oil-temperature
 switch.qnap_shutdown:
   icon: mdi:nas
 
