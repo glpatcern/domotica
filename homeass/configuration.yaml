@@ -459,7 +459,7 @@ switch:
 
 # Turn off the entire QNAP
       qnap_shutdown:
-        command_off: ssh admin@naslopresti poweroff
+        command_off: ssh hass@naslopresti poweroff
         command_on: echo
         command_state: echo    # this switch is always on by construction
         friendly_name: QNAP Power
@@ -612,13 +612,13 @@ sensor:
 # Failed login attempts to QNAP
   - platform: command_line
     name: QNAP Last 7d Banned IPs
-    command: ssh admin@naslopresti qnap/qnap_banned_ips.sh 7
+    command: ssh hass@naslopresti ./qnap_banned_ips.sh 7
     scan_interval: 18000     # every 5h = 4 times/day
     value_template: '{{ value | int }}'
 
   - platform: command_line
     name: QNAP Last Banned Host
-    command: ssh admin@naslopresti qnap/qnap_last_banned_host.sh
+    command: ssh hass@naslopresti ./qnap_last_banned_host.sh
     scan_interval: 18000     # every 5h = 4 times/day
 
 # Total network traffic seen by QNAP
@@ -648,7 +648,7 @@ sensor:
 # Free space (in GiB) on the remote IOMega disk
   - platform: command_line
     name: IOMega Free Space
-    command: ssh admin@naslopresti qnap/qnap_iomega_free.sh
+    command: ssh hass@naslopresti ./qnap_iomega_free.sh
     unit_of_measurement: GiB
     scan_interval: 36000     # every 10h = 2 times/day
 

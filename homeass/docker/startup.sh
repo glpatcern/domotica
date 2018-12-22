@@ -12,7 +12,7 @@ done
 
 # make sure the IOMega disk is mounted, but give up after 5 mins
 n=0
-while ! ssh admin@naslopresti 'df | grep iomega' > /dev/null; do
+while ! ssh hass@naslopresti 'df | grep iomega' > /dev/null; do
   sleep 5
   let "n=n+1"
   if [ "$n" -eq 60 ]; then
