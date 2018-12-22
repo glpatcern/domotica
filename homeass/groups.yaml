@@ -224,6 +224,8 @@ bmw:
     - sensor.220i_remaining_fuel
     - sensor.220i_remaining_range_fuel
     - sensor.220i_remaining_range_total
+    - sensor.data_cambio_pneumatici
+    - sensor.mileage_since_tyres_change
     - lock.220i_lock
     - binary_sensor.220i_door_lock_state
     - binary_sensor.220i_lids

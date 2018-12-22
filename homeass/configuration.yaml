@@ -840,6 +840,17 @@ sensor:
     file_path: /config/motionevents.log
     value_template: "{{ value_json.timestamp | int | timestamp_custom('%d/%m %H:%M') }}"
 
+# Reports the last tyres change date/mileage
+  - platform: file
+    name: Chilometraggio Cambio Pneumatici
+    file_path: /config/cambio_pneumatici_auto.json
+    value_template: "{{ value_json.mileage | int }}"
+
+  - platform: file
+    name: Data Cambio Pneumatici
+    file_path: /config/cambio_pneumatici_auto.json
+    value_template: "{{ value_json.date }}"
+
 # Templated sensors
   - platform: template
     sensors:
@@ -967,6 +978,16 @@ sensor:
           {% else %}
             {{ as_timestamp(states('sensor.spt_cornavin')) | timestamp_custom('%H:%M') }},  {{ as_timestamp(states.sensor.spt_cornavin.attributes.next_on_departure) | timestamp_custom('%H:%M') }}
           {% endif %}
+
+# Km percorsi dall'ultimo cambio pneumatici
+      mileage_since_tyres_change:
+        friendly_name: Chilometraggio dal Cambio Pneumatici
+        icon_template: mdi:circle-outline
+        unit_of_measurement: Km
+        entity_id:
+          - sensor.220i_mileage
+          - sensor.chilometraggio_cambio_pneumatici
+        value_template: "{{ states('sensor.220i_mileage')|int - states('sensor.chilometraggio_cambio_pneumatici')|int }}"
 
 binary_sensor:
 

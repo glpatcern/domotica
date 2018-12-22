@@ -132,7 +132,10 @@ sensor.220i_remaining_range_fuel:
   friendly_name: 'Chilometri restanti'
 sensor.220i_remaining_range_total:
   friendly_name: 'Chilometri totali restanti'
-
+sensor.chilometraggio_cambio_pneumatici:
+  icon: mdi:circle-outline
+sensor.data_cambio_pneumatici:
+  icon: mdi:calendar
 
 # Misc
 scene.cinema:
