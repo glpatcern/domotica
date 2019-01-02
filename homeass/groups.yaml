@@ -331,10 +331,21 @@ homeass:
     - sensor.ha_warnings
     - sensor.ha_errors
 
-qnap:
-  name: 'QNAP'
+qnap_services:
+  name: 'QNAP Services'
+  control: hidden
   entities:
+    - sensor.qnap_firmware_version
     - switch.qnap_shutdown
+    - weblink.qnap_administration
+    - switch.syncthing
+    - weblink.syncthing_administration
+    - switch.influxdbgrafana
+    - weblink.influxdb_administration
+
+qnap:
+  name: 'QNAP Sensors'
+  entities:
     - sensor.naslopresti_hdd_free_space
     - sensor.naslopresti_ssd_free_space
     - sensor.qnap_homes_size
@@ -346,18 +357,6 @@ qnap:
     - sensor.naslopresti_smart_status
     - sensor.naslopresti_system_temperature
     - sensor.naslopresti_drives_max_temperature
-
-qnap_services:
-  name: 'QNAP Services'
-  control: hidden
-  entities:
-    - sensor.qnap_firmware_version
-    - weblink.qnap_administration
-    - switch.syncthing
-    - weblink.syncthing_administration
-    - switch.influxdbgrafana
-    - weblink.influxdb_administration
-    - switch.ebusd
 
 
 automations:

@@ -487,8 +487,8 @@ switch:
     is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
 
   - platform: rest
-    resource: http://naslopresti:8126/container/ebusd
-    name: eBusd
+    resource: http://naslopresti:8126/container/iobroker
+    name: IOBroker
     body_on: '{"state": "start"}'
     body_off: '{"state": "stop"}'
     is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
@@ -510,40 +510,6 @@ light:
 #  username: !secret dyson_user
 #  password: !secret dyson_password
 #  language: GB
-
-# eBusd for the Wolf heating system
-ebus:
-  - platform: ebusd
-    name: Caldaia Wolf
-    host: naslopresti
-    port: 8888
-    circuit: 700
-    monitored_conditions:
-      - MaxFlowTemperatureDesired
-      - MinFlowTemperatureDesired
-      - WaterPressure
-      - PumpStatus
-      - HWTemperatureDesired
-      - HWTimerMonday
-      - HWTimerTuesday
-      - HWTimerWednesday
-      - HWTimerThursday
-      - HWTimerFriday
-      - HWTimerSaturday
-      - HWTimerSunday
-      - Zone1NightTemperature
-      - Zone1DayTemperature
-      - Zone1RoomTemperature
-      - Zone1ActualRoomTemperatureDesired
-      - Zone1TimerMonday
-      - Zone1TimerTuesday
-      - Zone1TimerWednesday
-      - Zone1TimerThursday
-      - Zone1TimerFriday
-      - Zone1TimerSaturday
-      - Zone1TimerSunday
-      - Zone1OperativeMode
-      - PowerEnergyConsumptionThisMonth
 
 # BMW
 bmw_connected_drive:
