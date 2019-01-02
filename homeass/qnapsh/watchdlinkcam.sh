@@ -3,7 +3,7 @@
 # watchdlinkcam.sh
 #
 # monitors the dlink camera folder for new files
-# coming from motion detection and regenerates a simbolic
+# coming from motion detection and regenerates a symbolic
 # link to the latest available picture + updates a log file
 #
 # Giuseppe Lo Presti, September 2018

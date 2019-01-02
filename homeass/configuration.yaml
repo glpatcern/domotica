@@ -970,7 +970,7 @@ binary_sensor:
       netatmo_co2_rising_trend:
         entity_id: sensor.netatmo_indoor_co2
         sample_duration: 1200
-        min_gradient: 0.012     # ~15 ppm in 20 mins
+        min_gradient: 0.01     # ~12 ppm in 20 mins
 
 # Templated binary sensors
   - platform: template
@@ -987,7 +987,7 @@ binary_sensor:
              is_state('device_tracker.glplap', 'home') or
              is_state('device_tracker.isamac', 'home') or
              is_state('binary_sensor.dt_guests', 'on') or
-             states('sensor.filtered_noise')|int > 41 or
+             states('sensor.filtered_noise')|int > 42 or
              is_state('binary_sensor.netatmo_co2_rising_trend', 'true')
           }}
 

@@ -22,3 +22,6 @@ condition:
 action:
   - service: homeassistant.turn_off
     entity_id: input_boolean.presence
+
+  - service: homeassistant.turn_off
+    entity_id: light.led_salone

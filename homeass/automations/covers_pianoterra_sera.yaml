@@ -4,6 +4,7 @@
 ####################################################################
 
 # chiudi salone e cucina la sera 40' dopo il tramonto (per l'inverno)
+# e se c'e' qualcuno accendi i LED
 alias: 'Chiudi serrande piano terra di sera'
 initial_state: True
 trigger:
@@ -24,3 +25,9 @@ action:
     entity_id: cover.cucina
   - service: cover.close_cover
     entity_id: cover.salone
+  - service: homeassistant.turn_on
+    data_template:
+      entity_id: >-
+        {% if is_state('input_boolean.presence', 'on') %}
+          light.led_salone
+        {% endif %}

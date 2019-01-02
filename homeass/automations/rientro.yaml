@@ -32,6 +32,13 @@ action:
           switch.smartplug
         {% endif %}
 
+  - service: homeassistant.turn_on
+    data_template:
+      entity_id: >-
+        {% if is_state('sun.sun', 'below_horizon') and now().hour < 23 %}
+          light.led_salone
+        {% endif %}
+
   - service: cover.open_cover
     data_template:
       entity_id: >-
