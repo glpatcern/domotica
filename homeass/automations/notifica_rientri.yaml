@@ -1,0 +1,33 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+# Notifica se qualcuno rientra, evitando notifiche ridondanti
+####################################################################
+
+alias: 'Notifica rientri'
+trigger:
+  - platform: state
+    entity_id: device_tracker.isa_bq
+    to: 'home'
+  - platform: state
+    entity_id: device_tracker.isa_bq
+    to: 'Casa Fe'
+  - platform: state
+    entity_id: binary_sensor.presence
+    from: 'off'
+    to: 'on'
+
+condition:
+  - condition: or
+    conditions:
+      - condition: state
+        entity_id: device_tracker.isa_bq
+        state: 'Casa Fe'
+      - condition: state
+        entity_id: device_tracker.giu_nova
+        state: 'not_home'
+
+action:
+  - service: notify.notifyglp
+    data_template:
+      message: "Qualcuno sta rientrando a casa"

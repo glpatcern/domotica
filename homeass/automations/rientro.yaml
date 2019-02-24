@@ -1,11 +1,11 @@
 #
 # LoPresti smart home - automation configuration for Home Assistant
 #
-# Notifica se qualcuno rientra + accendi lume se e' sera
+# Quando qualcuno rientra accendi lume se e' sera
 # o apri serranda cucina se e' giorno
 ####################################################################
 
-alias: 'Notifica rientro'
+alias: 'Bentornati a casa'
 trigger:
   - platform: state
     entity_id: binary_sensor.presence
@@ -18,10 +18,6 @@ condition:
     state: 'off'
 
 action:
-  - service: notify.notifyglp
-    data_template:
-      message: "Qualcuno sta rientrando a casa"
-
   - service: homeassistant.turn_on
     entity_id: input_boolean.presence
 
