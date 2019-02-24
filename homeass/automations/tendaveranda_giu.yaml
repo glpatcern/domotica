@@ -8,7 +8,7 @@
 
 alias: 'Apri tenda veranda se fa caldo'
 trigger:
-  platform: time
+  platform: time_pattern
   minutes: '/15'    # check every 15' to avoid fast loops in case of critical wind conditions
 
 condition:

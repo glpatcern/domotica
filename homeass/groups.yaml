@@ -120,8 +120,7 @@ veranda_giardino:
     - sensor.veranda_brightness
     - sensor.verandacam_light_level
     - switch.verandacam_torch
-    - switch.verandacam_video_recording
-    - switch.verandacam_frontfacing_camera
+    - switch.verandacam_front_facing_camera
     - camera.verandacam
 
 primo_piano:
@@ -339,7 +338,7 @@ qnap_services:
     - weblink.qnap_administration
     - switch.syncthing
     - weblink.syncthing_administration
-    - switch.influxdbgrafana
+    - switch.influxdb_grafana
     - weblink.influxdb_administration
 
 qnap:
@@ -369,21 +368,19 @@ automations:
     - automation.chiudi_tenda_veranda_per_vento
     - input_select.cover_veranda_state
     - automation.lume_di_sera
-    - automation.accendi_lume_se_troppo_nuvoloso_o_piove
-    - automation.spegni_lume_se_torna_il_sereno
     - automation.chiudi_serrande_simula_presenza
     - automation.chiudi_tenda_e_serrande_di_pomeriggio
     - automation.chiudi_serrande_piano_terra_di_sera
-    - automation.lume_simula_presenza_off
     - automation.orologio_a_cucu
     - automation.verandacam_di_sera
     - automation.modo_giorno_automatico
-    - automation.modo_normalegiorno_manuale
+    - automation.modo_normale_giorno_manuale
     - automation.modo_notte_automatico
     - automation.modo_notte_manuale
     - automation.modo_festa
     - automation.rileva_assenza_automatica
-    - automation.notifica_rientro
+    - automation.notifica_rientri
+    - automation.bentornati_a_casa
     - automation.selezione_radio
 #    - automation.irrigazione
 
@@ -396,7 +393,7 @@ admin_tools:
     - weblink.salonecam_administration
     - weblink.verandacam_administration
     - switch.verandacam_night_vision
-    - switch.verandacam_focus
+    - switch.verandacam_video_recording
     - weblink.onkyo_web_interface
     - weblink.owl_intuition_monitor
     - weblink.tahoma_link

@@ -11,7 +11,7 @@ alias: 'Apri cupola se fa caldo'
 
 trigger:
   # check every 15 minutes
-  platform: time
+  platform: time_pattern
   minutes: '/15'
 
 condition:

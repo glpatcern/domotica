@@ -8,7 +8,7 @@ alias: 'Chiudi cupola se fa freddo'
 
 trigger:
   # check hourly
-  platform: time
+  platform: time_pattern
   hours: '/1'
 
 condition:

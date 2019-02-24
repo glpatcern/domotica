@@ -8,9 +8,7 @@ alias: 'Chiudi tenda e serrande di pomeriggio'
 initial_state: True
 trigger:
   - platform: time
-    hours: 17
-    minutes: 45
-    seconds: 00
+    at: "17:45:00"
 
 action:
   - service: cover.open_cover

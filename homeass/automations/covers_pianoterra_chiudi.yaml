@@ -8,13 +8,9 @@ alias: 'Chiudi serrande simula presenza'
 initial_state: True
 trigger:
   - platform: time
-    hours: 10
-    minutes: 50
-    seconds: 00
+    at: '10:50:00'
   - platform: time
-    hours: 14
-    minutes: 20
-    seconds: 00
+    at: '14:15:00'
 
 condition:
   - condition: state

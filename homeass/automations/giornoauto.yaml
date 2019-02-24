@@ -8,13 +8,9 @@ alias: 'Modo giorno automatico'
 initial_state: True
 trigger:
   - platform: time
-    hours: 07
-    minutes: 50
-    seconds: 00
+    at: "07:50:00"
   - platform: time
-    hours: 08
-    minutes: 30
-    seconds: 00
+    at: "08:30:00"
 
 condition:
   - condition: template

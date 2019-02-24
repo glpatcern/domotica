@@ -20,6 +20,12 @@ homeassistant:
   whitelist_external_dirs:
     - /config
 
+# enable self-check
+system_health:
+
+# enable configuration panel
+config:
+
 # include all layout/grouping
 group: !include groups.yaml
 
@@ -39,6 +45,7 @@ automation:
   - !include automations/festa.yaml
   - !include automations/assenzaauto.yaml
   - !include automations/rientro.yaml
+  - !include automations/notifica_rientri.yaml
   - !include automations/bad_logins.yaml
   # Cucu'
   - !include automations/cucu.yaml

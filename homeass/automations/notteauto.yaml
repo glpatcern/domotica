@@ -7,9 +7,7 @@
 alias: 'Modo notte automatico'
 trigger:
   - platform: time
-    hours: 22
-    minutes: 15
-    seconds: 00
+    at: "22:15:00"
 
 condition:
   - condition: template      # this is to express that anything but 'Festa' is OK

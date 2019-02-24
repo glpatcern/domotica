@@ -7,10 +7,10 @@
 
 alias: 'Orologio a cucù'
 trigger:
-  - platform: time
+  - platform: time_pattern
     minutes: 59
     seconds: 53
-  - platform: time
+  - platform: time_pattern
     minutes: 29
     seconds: 53
 
