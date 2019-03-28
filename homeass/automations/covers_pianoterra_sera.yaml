@@ -3,14 +3,16 @@
 #
 ####################################################################
 
-# chiudi salone e cucina la sera 40' dopo il tramonto (per l'inverno)
+# chiudi salone e cucina la sera dopo il tramonto (per l'inverno)
 # e se c'e' qualcuno accendi i LED
 alias: 'Chiudi serrande piano terra di sera'
 initial_state: True
+
 trigger:
-  platform: sun
-  event: sunset
-  offset: "00:40:00"
+  platform: numeric_state
+  entity_id: sun.sun
+  value_template: "{{ state.attributes.elevation }}"
+  below: -4.5
 
 condition:
   - condition: template          # we must be in normal mode
