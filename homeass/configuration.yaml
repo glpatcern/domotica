@@ -1118,7 +1118,7 @@ binary_sensor:
       dt_bddvd:
         friendly_name: BD/DVD
         icon_template: mdi:album
-        value_template: "{{ is_state('device_tracker.bddvd', 'home') }}"
+        value_template: "{{ states.device_tracker.bddvd.attributes.ip != null }}"
       dt_kira:
         friendly_name: KIRA
         icon_template: mdi:remote
