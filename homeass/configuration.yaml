@@ -26,6 +26,23 @@ system_health:
 # enable configuration panel
 config:
 
+# Enable the frontend
+frontend:
+
+# Check for available updates, report used components
+updater:
+  include_used_components: True
+
+# View all events in a logbook
+logbook:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Describe HA persons and corresponding users
+person:
+
+
 # include all layout/grouping
 group: !include groups.yaml
 
@@ -111,9 +128,6 @@ logger:
     homeassistant.components.sensor: info
     homeassistant.components.sensor.command_line: warning
 
-# Enable the frontend
-frontend:
-
 # Login and SSL
 http:
   api_password: !secret http_password
@@ -124,13 +138,6 @@ http:
   login_attempts_threshold: 5
   trusted_networks:
     - 192.168.1.0/24
-
-# Check for available updates, report used components
-updater:
-  include_used_components: True
-
-# Allows you to issue voice commands from the frontend in enabled browsers
-conversation:
 
 # Enable events recording
 recorder:
@@ -186,8 +193,6 @@ influxdb:
     entities:
       - sun.sun
       - sensor.moon
-      - sensor.igd_received_bytes
-      - sensor.igd_sent_bytes
       - sensor.ha_warnings
       - sensor.ha_errors
       - sensor.dt_salonecam
@@ -197,15 +202,13 @@ influxdb:
       - sensor.dt_sunrisetv
       - sensor.dt_chromecast
       - sensor.dt_ledcontroller
+      - sensor.dt_onkyoamp
       - sensor.dt_ipad
       - sensor.dt_htc
       - sensor.dt_isamac
       - sensor.dt_glplap
       - sensor.netatmo_outdoor_minmaxtemperature
       - sensor.owl_meter_triphasepower
-
-# View all events in a logbook
-logbook:
 
 # Zones
 zone 1:
@@ -308,6 +311,7 @@ notify me:
 ifttt:
   key: !secret ifttt_key
 
+
 # Connected devices
 ####################
 
@@ -320,7 +324,7 @@ mqtt:
 device_tracker:
   - platform: nmap_tracker
     interval_seconds: 120
-    home_interval: 10
+    home_interval: 2
     hosts:
       - 192.168.1.0/24
 
@@ -336,7 +340,15 @@ device_tracker:
 
 # Track mobile phones' locations
   - platform: gpslogger
-    password: !secret gpslogger_password
+
+# Internet speed test
+speedtestdotnet:
+  monitored_conditions:
+    - ping
+    - download
+    - upload
+  scan_interval:
+    hours: 5
 
 # To get router statistics
 #upnp:
@@ -635,19 +647,6 @@ sensor:
       - Multimedia
       - homes
 
-# Internet speed test
-  - platform: speedtest
-    monitored_conditions:
-      - ping
-      - download
-      - upload
-    hour:
-      - 7
-      - 15
-      - 23
-    minute:
-      - 15
-
 # Particle photon Veranda
   - platform: mqtt
     name: Veranda Temperature
@@ -784,17 +783,34 @@ sensor:
     to: !secret tpg_4
     name: SPT Cornavin
 
+# Stocks and currencies
+#  - platform: alpha_vantage
+#    api_key: !secret alphavantage_api_key
+#    symbols:
+#      - symbol: GOOGL
+#        name: Google
+#      - symbol: AAPL
+#        name: Apple
+#    foreign_exchange:
+#      - name: 'Cambio EUR/CHF'
+#        from: EUR
+#        to: CHF
+#      - name: 'Cambio EUR/USD'
+#        from: EUR
+#        to: USD
+#      - name: 'BitCoin'
+#        from: BTC
+#        to: USD
+
 # Currencies exchange
   - platform: fixer
     name: 'Cambio EUR/CHF'
     api_key: !secret fixer_api_key
-    base: EUR
     target: CHF
 
   - platform: fixer
     name: 'Cambio EUR/USD'
     api_key: !secret fixer_api_key
-    base: EUR
     target: USD
 
 # OWL Intuition Power Meter
@@ -898,13 +914,13 @@ sensor:
         friendly_name: 'Drives SMART Status'
         icon_template: mdi:harddisk
         entity_id:
-          - sensor.naslopresti_smart_status_drive_01
-          - sensor.naslopresti_smart_status_drive_02
+          - sensor.naslopresti_smart_status_drive_0_1
+          - sensor.naslopresti_smart_status_drive_0_2
         value_template: >-
-          {% if is_state('sensor.naslopresti_smart_status_drive_01', 'OK') and is_state('sensor.naslopresti_smart_status_drive_02', 'OK') %}
+          {% if is_state('sensor.naslopresti_smart_status_drive_0_1', 'OK') and is_state('sensor.naslopresti_smart_status_drive_0_2', 'OK') %}
             OK
           {% else %}
-            {{ states.sensor.naslopresti_smart_status_drive_01 }} & {{ states.sensor.naslopresti_smart_status_drive_02 }}
+            {{ states.sensor.naslopresti_smart_status_drive_0_1 }} & {{ states.sensor.naslopresti_smart_status_drive_0_2 }}
           {% endif %}
 
 # Combine QNAP disks temperatures

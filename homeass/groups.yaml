@@ -151,13 +151,15 @@ impianti:
     - sensor.owl_meter_electricity_power
     - sensor.owl_meter_triphasepower
     - sensor.owl_meter_electricity_today
-    - sensor.owl_meter_cost_today
 
 finanza:
   name: 'Finanza'
   entities:
     - sensor.cambio_eurchf
     - sensor.cambio_eurusd
+#    - sensor.googl
+#    - sensor.aapl
+#    - sensor.bitcoin
 
 
 meteo_general:

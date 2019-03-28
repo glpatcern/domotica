@@ -102,7 +102,7 @@ sensor.gmaps_time_to_cern:
   icon: mdi:car
 sensor.gmaps_time_to_italy:
   icon: mdi:car
-sensor.cambio_eurchf:
+sensor.cambio_eur_chf:
   icon: mdi:currency-eur
 sensor.last_motion_detection:
   icon: mdi:run
@@ -154,37 +154,3 @@ switch.syncthing:
   icon: mdi:cloud-sync
 switch.qnap_shutdown:
   icon: mdi:nas
-
-# Views order
-group.camgeneve:
-  order: 1
-group.camferrara:
-  order: 2
-group.campalermo:
-  order: 3
-group.cammarseille:
-  order: 4
-group.camchamonix:
-  order: 5
-group.cammontsjura:
-  order: 6
-group.camlongyearbyen:
-  order: 7
-group.portables:
-  order: 6
-group.location:
-  order: 1
-group.piano_terra:
-  order: 2
-group.veranda_giardino:
-  order: 3
-group.trasporti:
-  order: 4
-group.primo_piano:
-  order: 5
-group.impianti:
-  order: 6
-group.media_center:
-  order: 7
-group.finanza:
-  order: 8
