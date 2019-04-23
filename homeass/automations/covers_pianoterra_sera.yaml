@@ -23,10 +23,8 @@ condition:
     below: 27
 
 action:
-  - service: cover.stop_cover
-    entity_id: cover.cucina
-  - service: cover.close_cover
-    entity_id: cover.salone
+  - service: scene.turn_on
+    entity_id: scene.sera
   - service: homeassistant.turn_on
     data_template:
       entity_id: >-

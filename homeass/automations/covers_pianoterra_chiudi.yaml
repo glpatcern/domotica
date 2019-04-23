@@ -19,5 +19,5 @@ condition:
 
 action:
   - delay: '{{ "00:" ~ ((range(0, 20) | random) | int)  ~ ":00" }}'
-  - service: cover.stop_cover
-    entity_id: cover.cucina
+  - service: scene.turn_on
+    entity_id: scene.mattina_assenza

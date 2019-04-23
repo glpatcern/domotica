@@ -43,33 +43,31 @@ normalmode:
     - alias: Somfy scenario sveglia
       service: scene.turn_on
       entity_id: scene.sveglia
-    - service: cover.open_cover
-      entity_id: cover.cucina
     - service: script.turn_on
-      entity_id: script.opensalone_summer
+      entity_id: script.open_summer
     - service: script.turn_on
-      entity_id: script.opensalone_winter
+      entity_id: script.open_winter
     - condition: template
       value_template: '{{ states.sensor.netatmo_indoor_temperature.state|int >= 24 - (now().month > 4 and now().month < 10)|int }}'
     - service: cover.open_cover
       entity_id: cover.cupola
 
-# "sub-scripts" for opening cover.salone
-opensalone_summer:
-  alias: Apri serranda salone di mattina in estate
+# "sub-scripts" for opening covers
+open_summer:
+  alias: Apri serrande di mattina in estate
   sequence:
     - condition: template
       value_template: '{{ (now().month >= 4 and now().month <= 10) }}'
-    - service: cover.stop_cover
-      entity_id: cover.salone
+    - service: scene.turn_on
+      entity_id: scene.mattina_estate
 
 opensalone_winter:
   alias: Apri serranda salone di mattina in inverno
   sequence:
     - condition: template
       value_template: '{{ (now().month < 4 or now().month > 10) }}'
-    - service: cover.open_cover
-      entity_id: cover.salone
+    - service: scene.turn_on
+      entity_id: scene.mattina_inverno
 
 # this is executed in response to statocasa changed to 'Festa'
 partymode:
