@@ -298,7 +298,7 @@ panel_iframe:
 
 # Text to speech
 tts:
-  platform: google
+  platform: google_translate
   language: 'it'
 
 # Pushbullet
@@ -516,6 +516,9 @@ switch:
 tahoma:
   username: !secret somfy_user
   password: !secret somfy_password
+#somfy:
+#  client_id: !secret somfy_consumer_key
+#  client_secret: !secret somfy_consumer_secret
 
 light:
 # LED for the home theater
@@ -525,10 +528,13 @@ light:
         name: LED Salone
 
 # Dyson Pure Cool
-#dyson:
-#  username: !secret dyson_user
-#  password: !secret dyson_password
-#  language: GB
+dyson:
+  username: !secret dyson_user
+  password: !secret dyson_password
+  language: GB
+  devices:
+    - device_id: NN4-CH-KCA1504A
+    - device_ip: 192.168.1.65
 
 # BMW
 bmw_connected_drive:
