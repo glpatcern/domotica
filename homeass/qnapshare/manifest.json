@@ -1,0 +1,8 @@
+{
+        "domain": "qnapshare",
+        "name": "QNAP shares info",
+        "documentation": "https://github.com/glpatcern/DOMOTICA/homeass/code",
+        "requirements": [],
+        "dependencies": [],
+        "codeowners": ["@glpatcern"]
+}
