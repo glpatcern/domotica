@@ -328,7 +328,7 @@ device_tracker:
     hosts:
       - 192.168.1.0/24
 
-# Devices behind the WiFi repeater are not detected by nmap
+# Devices behind the WiFi repeaters are not detected by nmap
   - platform: ping
     interval_seconds: 120
     hosts:
@@ -1062,6 +1062,10 @@ binary_sensor:
              is_state('device_tracker.papa3', 'home')
           }}
 
+      dt_devolo_repeater:
+        friendly_name: Devolo Repeater
+        icon_template: mdi:access-point-network
+        value_template: "{{ is_state('device_tracker.devolo_repeater', 'home') }}"
       dt_printer:
         friendly_name: Printer
         icon_template: mdi:printer
@@ -1102,6 +1106,10 @@ binary_sensor:
         friendly_name: Caldaia Wolf
         icon_template: mdi:oil-temperature
         value_template: "{{ is_state('device_tracker.wolf', 'home') }}"
+      dt_netro_sprinkler:
+        friendly_name: Netro Sprinkler
+        icon_template: mdi:water-pump
+        value_template: "{{ is_state('device_tracker.netro_sprinkler', 'home') }}"
 
       dt_sunrisetv:
         friendly_name: Sunrise TV

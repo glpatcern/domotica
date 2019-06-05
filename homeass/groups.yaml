@@ -290,6 +290,7 @@ devices:
     - sensor.netatmo_outdoor_battery
     - binary_sensor.dt_owlintuition
     - sensor.owl_meter_electricity_battery
+    - binary_sensor.dt_netro_sprinkler
     - binary_sensor.dt_onkyoamp
     - binary_sensor.dt_sunrisetv
     - binary_sensor.dt_chromecast
@@ -311,6 +312,7 @@ network:
   entities:
     - weblink.router_administration
     - weblink.wifi_repeater_administration
+    - binary_sensor.dt_devolo_repeater
     - sensor.speedtest_download
     - sensor.speedtest_upload
     - sensor.speedtest_ping
