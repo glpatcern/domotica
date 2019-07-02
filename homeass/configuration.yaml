@@ -760,23 +760,27 @@ sensor:
     api_key: !secret google_maps_matrix_key
     origin: zone.home
     destination: zone.cern
+    scan_interval: 600
 
   - platform: google_travel_time
     name: GMaps Time to Italy
     api_key: !secret google_maps_matrix_key
     origin: zone.home
     destination: Courmayeur, Italy
+    scan_interval: 900
 
 # Google geocode
   - platform: google_geocode
     name: geo_giu_nova
     origin: device_tracker.giu_nova
     api_key: !secret google_maps_matrix_key
+    scan_interval: 300
 
   - platform: google_geocode
     name: geo_isa_bq
     origin: device_tracker.isa_bq
     api_key: !secret google_maps_matrix_key
+    scan_interval: 300
 
 # Swiss Public Transport
   - platform: swiss_public_transport
