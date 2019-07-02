@@ -885,10 +885,10 @@ sensor:
         friendly_name: OWL Meter Triphase Power
         icon_template: mdi:flash
         entity_id:
-          - sensor.owl_meter_electricity_power_P1
-          - sensor.owl_meter_electricity_power_P2
-          - sensor.owl_meter_electricity_power_P3
-        value_template: "{{ states.sensor.owl_meter_electricity_power_P1.state }} W + {{ states.sensor.owl_meter_electricity_power_P2.state }} W + {{ states.sensor.owl_meter_electricity_power_P3.state }} W"
+          - sensor.owl_meter_electricity_power_p1
+          - sensor.owl_meter_electricity_power_p2
+          - sensor.owl_meter_electricity_power_p3
+        value_template: "{{ states.sensor.owl_meter_electricity_power_p1.state }} W + {{ states.sensor.owl_meter_electricity_power_p2.state }} W + {{ states.sensor.owl_meter_electricity_power_p3.state }} W"
 
 # QNAP free space
       naslopresti_hdd_free_space:
