@@ -1020,7 +1020,7 @@ binary_sensor:
              is_state('device_tracker.glplap', 'home') or
              is_state('device_tracker.isamac', 'home') or
              is_state('binary_sensor.dt_guests', 'on') or
-             states('sensor.filtered_noise')|int > 42 or
+             states('sensor.filtered_noise')|int > 43 - 3*(states.cover.cupola.attributes.current_position == 0)|int or
              is_state('binary_sensor.netatmo_co2_rising_trend', 'true')
           }}
 
