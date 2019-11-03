@@ -8,21 +8,18 @@
   entities:
     media_player.amplificatore_onkyo:
       state: 'on'
+#    switch.broadlink:
     cover.salone:
       state: 'closed'
     switch.smartplug:
       state: 'off'
-    switch.kira_projector_power:
-      state: 'on'
     light.led_salone:
       state: 'on'
-# TODO: open screen via KIRA
 
 # Turn everything off and switch on the light in the evening
 - name: Spegni cinema
   entities:
-    switch.kira_projector_power:
-      state: 'off'
+#    switch.broadlink:
     script.stopaudio: 'on'
     script.lucesalone: 'on'
     light.led_salone:

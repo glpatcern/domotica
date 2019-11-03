@@ -295,7 +295,7 @@ devices:
     - binary_sensor.dt_sunrisetv
     - binary_sensor.dt_chromecast
     - binary_sensor.dt_bddvd
-    - binary_sensor.dt_kira
+    - binary_sensor.dt_broadcom_ur
     - binary_sensor.dt_ledcontroller
 
 portables:
