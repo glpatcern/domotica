@@ -44,18 +44,22 @@ action:
   - service: media_player.turn_on
     entity_id: media_player.amplificatore_onkyo
 
-  - delay: '00:00:07'
+  - delay: '00:00:08'
 
   - service: media_player.play_media
     data_template:
       entity_id: media_player.chromecast
       media_content_id: >
         {% if now().strftime("%M")|int == 30 %}
-        https://raw.githubusercontent.com/glpatcern/domotica/master/homeass/resources/cuckoo-clock-01.wav
+          https://raw.githubusercontent.com/glpatcern/domotica/master/homeass/resources/cuckoo-clock-01.wav
         {% else %}
-        https://raw.githubusercontent.com/glpatcern/domotica/master/homeass/resources/cuckoo-clock-{{now().strftime("%I")}}.wav
+          https://raw.githubusercontent.com/glpatcern/domotica/master/homeass/resources/cuckoo-clock-{{now().strftime('%I')}}.wav
         {% endif %}
       media_content_type: audio/mp4
+
+  - service: notify.loginfo
+    data_template:
+      message: "Cucu time: {{ now().strftime('%I') }}"
 
   - delay: '00:00:15'
 

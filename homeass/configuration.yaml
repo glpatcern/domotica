@@ -305,6 +305,9 @@ notify:
     platform: pushbullet
     api_key: !secret pushbullet_api_key
 
+  - name: loginfo
+    platform: syslog
+
 # IFTTT
 ifttt:
   key: !secret ifttt_key
