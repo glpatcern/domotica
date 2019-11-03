@@ -8,15 +8,15 @@ alias: 'Modo giorno automatico'
 initial_state: True
 trigger:
   - platform: time
-    at: "07:40:00"
+    at: "06:55:00"
   - platform: time
-    at: "08:00:00"
+    at: "07:30:00"
 
 condition:
   - condition: template
     value_template: >-
-      {{ is_state('binary_sensor.workday_sensor', 'on') and now().hour == 7 or
-         is_state('binary_sensor.workday_sensor', 'off') and now().hour == 8
+      {{ is_state('binary_sensor.workday_sensor', 'on') and now().hour == 6 or
+         is_state('binary_sensor.workday_sensor', 'off') and now().hour == 7
       }}
 
 action:
