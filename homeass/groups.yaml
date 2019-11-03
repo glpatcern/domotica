@@ -84,8 +84,8 @@ security:
 location:
   name: 'Location'
   entities:
-    - sensor.geo_isa_bq
-    - sensor.geo_giu_nova
+    - sensor.geo_isa_mobile
+    - sensor.geo_giu_mobile
     - binary_sensor.frontend_presence
     - device_tracker.220i
 

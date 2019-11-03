@@ -7,10 +7,10 @@
 alias: 'Notifica rientri'
 trigger:
   - platform: state
-    entity_id: device_tracker.isa_bq
+    entity_id: device_tracker.isa_mobile
     to: 'home'
   - platform: state
-    entity_id: device_tracker.isa_bq
+    entity_id: device_tracker.isa_mobile
     to: 'Casa Fe'
   - platform: state
     entity_id: binary_sensor.presence
@@ -21,10 +21,10 @@ condition:
   - condition: or
     conditions:
       - condition: state
-        entity_id: device_tracker.isa_bq
+        entity_id: device_tracker.isa_mobile
         state: 'Casa Fe'
       - condition: state
-        entity_id: device_tracker.giu_nova
+        entity_id: device_tracker.giu_mobile
         state: 'not_home'
 
 action:

@@ -771,14 +771,14 @@ sensor:
 
 # Google geocode
   - platform: google_geocode
-    name: geo_giu_nova
-    origin: device_tracker.giu_nova
+    name: geo_giu_mobile
+    origin: device_tracker.giu_mobile
     api_key: !secret google_maps_matrix_key
     scan_interval: 300
 
   - platform: google_geocode
-    name: geo_isa_bq
-    origin: device_tracker.isa_bq
+    name: geo_isa_mobile
+    origin: device_tracker.isa_mobile
     api_key: !secret google_maps_matrix_key
     scan_interval: 300
 
@@ -1013,10 +1013,10 @@ binary_sensor:
       presence:
         friendly_name: Sensore presenza
         value_template: >-
-          {{ is_state('device_tracker.giu_nova', 'home') or
-             is_state('sensor.geo_giu_nova', 'Home') or
-             is_state('device_tracker.isa_bq', 'home') or
-             is_state('sensor.geo_isa_bq', 'Home') or
+          {{ is_state('device_tracker.giu_mobile', 'home') or
+             is_state('sensor.geo_giu_mobile', 'Home') or
+             is_state('device_tracker.isa_mobile', 'home') or
+             is_state('sensor.geo_isa_mobile', 'Home') or
              is_state('device_tracker.glplap', 'home') or
              is_state('device_tracker.isamac', 'home') or
              is_state('binary_sensor.dt_guests', 'on') or

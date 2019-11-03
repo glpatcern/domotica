@@ -21,8 +21,8 @@ condition:
   - condition: template      # context: not during night, only if Giu is home
     value_template: >-
         {{ not is_state('input_select.statocasa', 'Notte') and
-             (is_state('device_tracker.giu_nova', 'home') or
-              is_state('sensor.geo_giu_nova', 'Home'))
+             (is_state('device_tracker.giu_mobile', 'home') or
+              is_state('sensor.geo_giu_mobile', 'Home'))
         }}
   - condition: template      # check the amplifier, the TV decoder, and the BD/DVD
     value_template: >-

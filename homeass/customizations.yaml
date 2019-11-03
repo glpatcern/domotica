@@ -62,10 +62,10 @@ binary_sensor.netatmo_co2_rising_trend:
   icon: mdi:cloud-upload
 
 # Sensors
-sensor.geo_isa_bq:
+sensor.geo_isa_mobile:
   friendly_name: Isa
   entity_picture: /local/isa.png
-sensor.geo_giu_nova:
+sensor.geo_giu_mobile:
   friendly_name: Giu
   entity_picture: /local/giu.png
 sensor.ha_bad_logins:
