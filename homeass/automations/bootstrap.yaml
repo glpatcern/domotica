@@ -1,0 +1,19 @@
+#
+# LoPresti smart home - automation configuration for Home Assistant
+#
+####################################################################
+
+# Avvio di Home Assistant la mattina
+alias: 'Bootstrap'
+trigger:
+  platform: homeassistant
+  event: start
+
+condition:
+  - condition: template
+    value_template: '{{ now().hour < 8 }}'
+
+action:
+  - service: utility_meter.reset
+    data:
+      entity_id: sensor.netatmo_daily_acc_noise
