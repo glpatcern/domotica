@@ -283,6 +283,7 @@ weblink:
     - name: Traffico TMB
       url: https://www.atmb.com/it/info-traffico/previsione-traffico/traforo-monte-bianco
 
+# Left panes
 panel_iframe:
   dashboard:
     title: Grafana Dashboard
@@ -293,20 +294,16 @@ panel_iframe:
     icon: mdi:home-assistant
     url: https://home-assistant.io
 
-
-# Custom cloud services
-#########################
-
 # Text to speech
 tts:
   platform: google_translate
   language: 'it'
 
-# Pushbullet
-notify me:
-  platform: pushbullet
-  name: notifyglp
-  api_key: !secret pushbullet_api_key
+# Notifications
+notify:
+  - name: notifyglp
+    platform: pushbullet
+    api_key: !secret pushbullet_api_key
 
 # IFTTT
 ifttt:

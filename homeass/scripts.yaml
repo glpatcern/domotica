@@ -61,8 +61,8 @@ open_summer:
     - service: scene.turn_on
       entity_id: scene.mattina_estate
 
-opensalone_winter:
-  alias: Apri serranda salone di mattina in inverno
+open_winter:
+  alias: Apri serrande di mattina in inverno
   sequence:
     - condition: template
       value_template: '{{ (now().month < 4 or now().month > 10) }}'
