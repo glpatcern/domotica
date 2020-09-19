@@ -12,11 +12,11 @@ ADD ./id_rsa /root/.ssh/id_rsa
 ADD ./known_hosts /root/.ssh/known_hosts
 
 # Copy startup script
-ADD ./startup.sh /usr/src/app
+ADD ./startup.sh /usr/src/homeassistant
 
 # Volumes and ports are specified in the regen_docker_hass.sh script
 
 # Override startup command
-WORKDIR /usr/src/app
+WORKDIR /usr/src/homeassistant
 CMD [ "./startup.sh" ]
 

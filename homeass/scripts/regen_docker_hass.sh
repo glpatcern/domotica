@@ -22,6 +22,7 @@ docker pull homeassistant/home-assistant | grep Status | grep -v 'up to date' &&
 docker rm $currcont
 echo === Starting a new container with the new image ===
 docker run -d -p 8123:8123/tcp -p 3200:3200/udp --name="homeassistant" --privileged \
+       -v /etc/localtime:/etc/localtime:ro \
        -v /share/Container/homeass-config:/config \
        -v /mnt/HDA_ROOT:/mnt \
        -v /share/CACHEDEV1_DATA:/data \
